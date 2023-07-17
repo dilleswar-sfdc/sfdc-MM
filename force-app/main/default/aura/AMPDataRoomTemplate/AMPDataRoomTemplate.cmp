@@ -38,7 +38,7 @@
     <aura:attribute name="isfirst" type="Boolean" default="true" access="global"/>
     <aura:attribute name="istab" type="Boolean" default="false"/>
     <aura:registerEvent name="cmpEvent" type="c:pageEvent"/>
-    
+    <!-- This component not in used-->
     <div class="playbook-container" style="margin-top:15px;">
         <lightning:layout>
             <lightning:layoutItem flexibility="auto" padding="around-small" size="2">
