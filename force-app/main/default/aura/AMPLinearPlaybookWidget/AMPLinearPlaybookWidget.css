@@ -1,0 +1,447 @@
+.THIS .active-pointer {
+    text-align: center;
+    position: absolute;
+    /*top: -19px;*/
+    top: -20px;
+    margin: 0;
+    padding: 0;
+    left: 20px;
+    z-index: 1;
+}
+.THIS .playbookstage.active {
+    position: relative;
+}
+.THIS .profile-bubble {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    line-height: 40px;
+}
+.THIS .profile-bubble > img {
+    max-width: 100%;
+    border-radius: 50%;
+    opacity: 1;
+    max-height: 100%;
+}
+.THIS .userstageinfo {
+    position: absolute;
+    width: 85px;
+    top: -4px;
+    left: 35px;
+}
+.THIS span.userstagecaretdown {
+    font-size: 30px;
+    line-height: 14px;
+    position: absolute;
+    top: 6px;
+    left: 61px;
+}
+.THIS h4.widgetmsg {
+    background-color: #eee;
+    display: inline-block;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #333;
+    box-shadow: 0 0 1px rgba(0,0,0,0.1);
+    position: absolute;
+    top: -36px;
+    width: 560px;
+    left: 30px;
+}
+.THIS .linear-responsive.slick-slider{
+    margin-bottom: 30px;
+    margin-top: 40px;
+}
+.THIS .slick-dots li{
+    margin: 0;
+}
+.THIS span.stagename {
+    max-height: 34px;
+    overflow: hidden;
+    line-height: 1.3;
+    white-space: nowrap;
+    width:100%;
+}
+
+
+/*Independant widget modal start*/
+
+.THIS .slds-modal__content iframe {
+    height: 70vh;
+    border: none;
+}
+.THIS .slds-modal__header{
+    text-align: left;
+}
+.THIS .modal-close{
+    position: absolute;
+    right: 0;
+    top: -34px;
+}
+.THIS .modal-independant .slds-modal__container
+{
+    width:95% !important;
+}
+.THIS .modal-independant .asset-type-icon .slds-icon{fill:white !important;}
+
+.THIS .modal-independant .asset-type-icon .slds-icon{fill:white !important;}
+.THIS .modal-independant .slds-modal__container{ width:95% !important;}
+        
+.THIS .vh-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+        .THIS .vh-center {
+        display: flex;
+        align-items: center;
+        line-height: 16px;
+        font-size: 14px;
+        padding: 8px 0 5px 0;
+        word-break: break-word;
+        text-align: left;
+        color: #f55421;
+        }
+        .THIS .vh-center .fa {
+        font-size: 26px;
+        margin: 0 5px;
+        }
+        .THIS .six-steps i {
+        color: #f55421;
+        }
+        .THIS .six-steps,.THIS .row0 {
+        box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+        margin-top: 45px;
+        margin-bottom: 20px;
+        }
+        .THIS .six-steps .header,.THIS .show-progress .progress,.THIS .show-progress .progress-bar {
+        background-color: #929497;
+        }
+        .THIS .six-steps .slds-size--2-of-12 {
+        padding-left: 0;
+        padding-right: 0;
+        float: left;
+        }
+        .THIS .six-steps ul {
+        list-style: none;
+        padding: 0;
+        }
+        .THIS .six-steps li {
+        padding-left: 1.3em;
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        display: block;
+        }
+        .THIS .six-steps section li:before0 {
+        content: "\f00c";
+        font-family: FontAwesome;
+        display: inline-block;
+        margin-left: -1.3em;
+        width: 1.3em;
+        color: #f55421;
+        visibility: hidden;
+        }
+      .THIS .six-steps section.completed li:before,.THIS .linear-playbook-widget .six-steps section li.done:before {
+        visibility: visible;
+        }
+        .THIS .six-steps li:hover {
+        cursor: pointer;
+        }
+        .THIS .six-steps section .content {
+        padding: 20px 10% 10px;
+        color: #888;
+        background-color: #f1f1f2;
+        min-height: 160px;
+        }
+        .THIS .vh-center {
+        color: #fff;
+        font-size: 13px;
+        padding-left: 12%;
+        padding-right: 12%;
+        line-height: 15px;
+		min-height: 50px;
+    	max-height: 50px;
+        width:100%;
+        }
+        .THIS .vh-center .number {
+        font-size: 26px;
+        font-weight: 600;
+        margin-right: 5px;
+        min-width: 30px;
+        text-align: right;
+        position: relative;
+        left: -2px;
+        }
+        .THIS .six-steps .content {
+        position: relative;
+        }
+        .THIS .six-steps section {
+        border-right: 1px solid #fff;
+        }
+        .THIS .six-steps section.completed .header {
+        background-color: #6d6e70;
+        }
+        .THIS .six-steps .complete-state {
+        display: none;
+        }
+        .THIS .six-steps section.completed .content .complete-state {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background-color: rgba(245, 84, 33, 0.42);
+        text-align: center;
+        font-size: 60px;
+        border-top: 1px solid #e67451;
+        }
+        .THIS .six-steps .content .complete-state .fa {
+        color: #fff;
+        }
+        .THIS .six-steps .active section .header {
+        background-color: #f55421;
+        }
+        .THIS .six-steps section.completed .active-pointer {
+        display: none;
+        }
+        .THIS .six-steps .active-pointer0 {
+        
+        position: absolute;
+        top: -45px;
+        left: 50%;
+        transform: translate(-50%);
+        }
+        .THIS .six-steps .active-pointer .fa {
+        font-size: 30px;
+        line-height: 14px;
+        position: relative;
+        top: 5px;
+        left: 3px;
+        }
+        .THIS .show-progress {
+        /*max-width: 50px;*/
+        position: relative;
+        }
+        .THIS .show-progress .progress {
+        /*max-width: 100px;*/
+        margin-bottom: 0;
+        border-radius: 0;
+        box-shadow: none;
+        background-color: #929497;
+        }
+        .THIS .show-progress .progress-bar {
+        position: relative;
+        background-color: #f3af9a;
+        box-shadow: none;
+        overflow: visible;
+        background-image: none;
+        }
+        .THIS .show-progress .progress-bar:after {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-top: 25px solid transparent;
+        border-bottom: 25px solid transparent;
+        border-left: 5px solid #f3af9a;
+        position: absolute;
+        top: 50%;
+        margin-top: -25px;
+        left: 100%;
+        z-index: 2;
+        }
+        .THIS .show-progress .progress-bar:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-left: 5px solid white;
+        position: absolute;
+        top: 50%;
+        margin-top: -10px;
+        left: 100%;
+        z-index: 1;
+        }
+        .THIS .show-progress .progress .progress-bar-caption {
+        text-align: center;
+        width: 100%;
+        color: #fff;
+        z-index: 5;
+        position: absolute;
+        }
+        .THIS .six-steps .show-progress .content {
+        text-align: center;
+        padding-left: 2px;
+        padding-right: 2px;
+        }
+        .THIS .linear-playbook-widget .show-progress .content span {
+        font-size: 9px;
+        display: inline-block;
+        margin-top: 5px;
+        text-transform: capitalize;
+        }
+        .THIS .six-steps .active > section {
+        width: 75%;
+        float: left;
+        }
+        .THIS .six-steps .show-progress {
+        float: left;
+        /*width: 23%;
+        margin: 0 1%;*/
+        width: 25%;
+        }
+      .THIS .six-steps .header,.THIS .linear-playbook-widget .show-progress .progress,.THIS .linear-playbook-widget .show-progress .progress-bar {
+        min-height: 50px;
+        }
+        .THIS .show-progress .progress .progress-bar-caption {
+        line-height: 0;
+        top: 13%;
+        }
+        
+        .THIS .show-progress.action-req .progress,.THIS .linear-playbook-widget .show-progress.action-req .progress-content .content,.THIS .linear-playbook-widget .show-progress.action-req .progress-content .content .fa {
+        background-color: #f55421;
+        color: #fff;
+        }
+        
+        
+        .THIS .slds-spinner:before{
+        background: rgb(28, 28, 27) !important;
+        }
+        .THIS .slds-spinner__dot-a:before{
+        background: rgb(28, 28, 27) !important;
+        }
+        .THIS .slds-spinner__dot-b:before{
+        background: rgb(28, 28, 27) !important;
+        }
+        .THIS .slds-spinner:after{
+        background: rgb(28, 28, 27) !important;
+        }
+        .THIS .slds-spinner__dot-a:after{
+        background: rgb(28, 28, 27) !important;
+        }
+        .THIS .slds-spinner__dot-b:after{
+        background: rgb(28, 28, 27) !important;
+        }
+        .THIS .spinpos{
+        position: absolute;
+        top: 30px;
+        left: 25px;
+        }
+        .THIS .divspinner{
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        }
+        .THIS .show-progress.action-req .progress {
+        background-color: #aaa;
+        }
+        
+        .THIS .stagedata .header,.THIS .linear-playbook-widget .summarycompletion,.THIS .linear-playbook-widget .show-progress .progress-bar,.THIS .linear-playbook-widget .playbookstage .header {background-color: var(--mainnavbgcolor) !important;}
+        .THIS .show-progress .progress-bar:after{border-left-color: var(--mainnavbgcolor) !important;}
+        .THIS .progresscount,.THIS .linear-playbook-widget .latecount,
+        .THIS .playbookstage .completioncount,.THIS .linear-playbook-widget .done,
+        .THIS .stagedata .fa-caret-down{color: var(--mainnavbgcolor) !important;}
+        .THIS .progress-content .fa-calendar,.THIS .six-steps section li:before,
+        .THIS .six-steps li:hover{
+        color: var(--mainnavbgcolor) !important;
+        }
+        .THIS .playbookstage .complete-state {
+        background-color: rgba(242, 132, 1, 0.12) !important;border-top-color: var(--mainnavbgcolor) !important;
+        }
+        .THIS .show-progress.action-req .progress-content .content,
+        .THIS .show-progress.action-req .progress-content .content .fa {
+        background-color: #f1f1f2 !important;color : #888;
+        }
+        .THIS .show-progress .progress-content .content,
+        .THIS .show-progress .progress-content .content .fa{
+        color: #888 !important;
+        }
+        .THIS .linear-responsive .slick-dots li button::before{
+        font-size: 12px !important;
+        line-height: 15px !important;
+        }
+        .THIS .six-steps section.completed .content .complete-state {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background-color: rgba(245, 84, 33, 0.42);
+        text-align: center;
+        font-size: 60px;
+        border-top: 1px solid #e67451;
+        }
+        .THIS span.stepdetails-txt {
+        margin-left: 4px;
+        }
+        
+        .THIS .slick-arrow {
+        background-color: var(--mainnavbgcolor) !important;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        }
+        
+        .THIS .stagedata .complete-state svg{fill:white !important;}
+        .THIS .slick-next{top: 92% !important;right:10px !important;z-index: 1;}
+        .THIS .slick-prev{top: 92% !important;left:10px !important;z-index: 1;}
+        .THIS .slick-dots{bottom:5px !important;}
+        .THIS .prev{
+        	border-right: 2px solid white;
+        	border-bottom: 2px solid white;
+        	display: inline-block;
+        	padding: 3px;
+        	transform: rotate(135deg);
+            cursor: pointer;
+            position: absolute;
+            top: 4px;
+        	left:5px;
+        }
+        .THIS .next{
+            border-right: 2px solid white;
+            border-bottom: 2px solid white;
+            display: inline-block;
+            padding: 3px;
+            transform: rotate(-45deg);
+            cursor: pointer;
+            position: absolute;
+            top:4px;
+        	right:5px;
+        }
+        
+        .THIS .slick-arrow::before{content:'' !important;}
+        .THIS .slick-list{box-shadow:3px 3px 10px 0px #e2e2e2;}
+        .THIS .slick-list:hover{box-shadow:4px 5px 10px 0px #e2e2e2;}
+        /*.linear-playbook-widget .slickslide{
+        background: {!v.mainnavbgcolor};
+        border-radius: 50%;
+        height: 15px;
+        width: 15px;
+        }*/
+        
+        .THIS .userstagecaretdown .slds-icon-text-default {fill: black !important;}
+        .THIS .slds-icon-text-default {fill: var(--mainnavfontcolor);}
+        .THIS .slds-icon_x-small{width: 10px;height: 10px;}
+        .THIS .slick-arrow .slds-icon_x-small{fill: #ffffff;}
+        .THIS .slick-dots li.slick-active button:before {color: var(--mainnavbgcolor) !important;}
+        .THIS .slick-dots li button::before {color: var(--mainnavbgcolor) !important;}
+         .THIS .checkicon .checkcolor .slds-icon-text-default{fill: var(--mainnavbgcolor);}
+         .THIS .nocolor .slds-icon-text-default {fill: rgb(112, 110, 107);}
+         .THIS .warningcolor .slds-icon-text-warning{fill: rgb(112, 110, 107);}
+    
+
+/*Independant widget modal end-->*/

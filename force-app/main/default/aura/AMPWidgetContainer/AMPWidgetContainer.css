@@ -1,0 +1,101 @@
+.THIS {
+    height:calc(100vh - 100px);
+}
+.THIS .hide {
+    display:none !important;
+}
+.THIS .notexpanded{
+    left: 0px !important;
+    /*position:relative;*/
+}
+.THIS .expanded{
+    position: fixed!important;
+    top: 0;
+    z-index: 10000;
+    left: 10px;
+    height: calc(100vh - 10px);
+    width: calc( 100% - 20px );
+    padding: 0;
+    /*margin-top: 5px;
+    margin-left: 5px;*/
+}
+.THIS .expanded .newwindow svg{
+    position:relative;
+    right: 8px;
+    color: #000;
+    top: 23px;
+    transform: scale(1.2);
+    opacity: 1;
+    fill:var(--mainnavbgcolor);
+    
+}
+.THIS .expanded iframe{
+    /* height: 100vh!important; */
+    height: calc( 100vh - 30px ) !important;
+    margin-top: 30px;
+}
+.THIS .expandedicon{
+    position:relative;
+    right: 25px;
+    color: #000;
+    top: 23px;
+    transform: scale(1.2);
+    opacity: 1;
+}
+
+.THIS .newwindow svg{
+    color:black;
+    margin-right:38px;
+    top:-3px;
+    position:relative;
+    cursor: pointer;
+    fill:var(--mainnavbgcolor);
+}
+.THIS .notexpandedicon{
+    color:black;
+    right:25px;
+    top:-3px;
+    position:relative;
+    cursor: pointer;
+}
+.THIS .pleasewaitmessage{
+    color:black;
+    font-size:30px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    width:100%;
+    text-align:center;
+}
+.THIS .messagespan{
+    text-align:left;
+}
+.THIS .expandedicon svg{
+    fill:var(--mainnavbgcolor);
+}
+.THIS .notexpandedicon svg{
+    fill:var(--mainnavbgcolor);
+}
+.THIS .custombackdropclass{
+    background-color: #0000e6;
+}
+.THIS.addoverflow{
+    overflow:hidden;
+}
+.THIS .messageStyle{
+	color:Red;
+    font-weight: bold;
+    font-size: 40px;
+    text-align: center;
+    padding: 155px;
+    background: #fbf9f9;
+    box-shadow: 0px 0px 12px rgb(0 0 0 / 40%);
+    margin: 30px auto;
+    border-radius: 10px;
+}
+/*.THIS .expanded.autoExpanded{
+    padding-top:15px;
+}*/

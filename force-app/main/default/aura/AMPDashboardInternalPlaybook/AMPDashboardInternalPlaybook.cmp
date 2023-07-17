@@ -1,0 +1,297 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" controller="AMPInternalPlaybookV1UserController" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <ltng:require scripts="{!join(',', $Resource.jQuery351, $Resource.slickv1)}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <aura:attribute name="userid" type="String" default="1763"/>
+    <aura:attribute name="install" type="string" default="https://dvl-sf-sso.amp.vg"/>
+    <aura:attribute name="theme" type="String"/>
+    <aura:attribute name="size" type="String"/>
+    <aura:attribute name="cirDeg" type="String" default="360"/>
+    <aura:attribute name="perText" type="String" default="50%"/>
+    <aura:attribute name="quicklink1" type="Object"/>
+    <aura:attribute name="pagination" type="Object"/>
+    <aura:attribute name="nodata" type="Boolean" default="false"/>
+    <aura:attribute name="dependantwidget" type="String" default="community"/>
+    <aura:attribute name="sliderlength" type="Integer" default="3" access="global"/>
+    <aura:attribute name="page" type="Integer" default="0"/>
+    <aura:attribute name="pages" type="Integer" default="0"/>
+    <aura:attribute name="pagesize" type="Integer" default="25"/>
+    <aura:attribute name="message" type="String"/>
+    <aura:attribute name="rowcount" type="String"/>
+    <aura:attribute name="filteredtext" type="String"/>
+    <aura:attribute name="filters" type="String"/>
+    <aura:attribute name="isfilter" type="Boolean" default="false"/>
+    <aura:attribute name="selectedfilter" type="String" default=""/>
+    <aura:attribute name="searchtext" type="String" default=""/>
+    <ltng:require styles="{!$Resource.slick}" />
+    <ltng:require styles="{!$Resource.slicktheme}" />
+    <ltng:require styles="{!$Resource.custom}" />
+    <aura:attribute name="mainnavbgcolor" type="String" default="#ccc"/>
+    <aura:attribute name="mainnavfontcolor" type="String" default="black"/>
+    <aura:attribute name="createuserviasso" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="isOpen" type="Boolean" default="false"/>
+    <aura:attribute name="tosContent" type="String" default="Please accept the Terms of Service to proceed"/>
+    <aura:attribute name="unauthorized" type="String"/>
+    <aura:attribute name="showwidget" type="String" default="none"/>
+    <aura:attribute name="playbookwidth" type="Integer" default="320" access="global"/>
+    <aura:attribute name="noData1" type="Boolean" default="false"/>
+    <aura:attribute name="tosredirecturl" type="String"/>
+    <aura:attribute name="iframesrc" type="String"/>
+    <aura:attribute name="errorMsg" type="String" default="Sorry! We could not find any data to show you."/>
+    <aura:handler name="authorizedEvent" event="c:modalEvent" action="{!c.showViewAsset}"/>
+	{!v.unauthorized}
+    
+    <div>
+        <aura:if isTrue="{!v.createuserviasso}">
+            <aura:if isTrue="{!v.isOpen}">
+                
+                <!--###### MODAL BOX Start######--> 
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open tosModal">
+                    <div class="slds-modal__container">
+                        <!-- ###### MODAL BOX HEADER Start ######-->
+                        <header class="slds-modal__header textcenter">
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Terms of Service</h2>
+                        </header>
+                        <!--###### MODAL BOX BODY Part Start######-->
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                           <!-- <p><b>{!v.tosContent}</b>
+                            </p>-->
+                            <iframe src="{!v.iframesrc}" width="100%" height="100%" style="{}"/>
+                        </div>
+                        <!--###### MODAL BOX FOOTER Part Start ######-->
+                        <footer class="slds-modal__footer">
+                          <!--<lightning:button variant="brand" 
+                                              label="I agree to the Terms of Service"
+                                              title="I agree to the Terms of Service"
+                                              onclick="{! c.redirectTosUrl }"/>-->
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open" style="background-color: #000000e6;"></div>
+                <!--###### MODAL BOX Part END Here ######-->
+                
+            </aura:if>
+        </aura:if>
+    </div>
+    <aura:if isTrue="{!v.noData1}">
+        {!v.errorMsg}
+        <aura:set attribute="else">
+            <div class="slds toastMessage">
+        <div class="slds-notify_container">
+            <div aura:id="successToast" class="slds-hide slds-notify slds-notify--toast slds-theme--success" role="alert">
+                <span class="slds-assistive-text">Success</span>
+                <button class="slds-button slds-notify__close slds-button--icon-inverse" onclick="{c.closeToast}"  title="Close">
+                    <lightning:icon iconName="utility:close" class="asset-type-icon" variant="close" size="small"></lightning:icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <div class="slds-notify__content slds-grid">
+                    <div class="slds-col slds-align-middle">
+                        <h2 class="slds-text-heading--small ">{!v.message}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="playbook"  style="{!'display:'+v.showwidget+'margin-top: 20px;'}">
+        <div class="playbook-container" style="margin-top:15px;">
+            <lightning:layout >
+                <lightning:layoutItem flexibility="auto" size="12">
+                    <div class="internalPlaybooksection">
+                        <div class="widget iplaybookv1" style="border: 0;">
+                            <div class="slds-box">
+                                <div class="slds-grid" style="position:relative;min-height:300px;">
+                                    <div class="demo-only divspinner" style="display:none;">
+                                        <div role="status" class="slds-spinner slds-spinner_small spinpos">
+                                            <div class="slds-spinner__dot-a"></div>
+                                            <div class="slds-spinner__dot-b"></div>
+                                        </div>
+                                        <div style="position: absolute;top: 10px;left: 50px;font-size: 25px;">Loading...</div>
+                                    </div>
+                                      <div  class="errorMsg" style='position: absolute;padding: 20px;border: 1px solid #80808066; border-radius: 3px;'>
+                                            </div>
+                                    <div class="iplaybookv1body" style="width:100% !important;">
+                                        <aura:if isTrue="{!v.nodata}">
+                                            <div style='padding: 20px;border: 1px solid #80808066; border-radius: 3px;'>
+                                                Sorry! We could not find any data to show you.
+                                            </div>
+                                            <aura:set attribute="else">
+                                                <div class="slds-grid slds-wrap ipbody" id="playbook-list" style="position:relative;">
+                                                    <ul style="display: block;margin: 0 auto;">
+                                                        <section class="slickslider slider responsive" style="width: 100%;max-width: 90vw;margin: 0 auto;float: none;">
+                                                            <aura:iteration items="{!v.quicklink1.item}" var="item" start="0">
+                                                                <li style="display:inline;" id="{!'list_'+item.count}">
+                                                                    <div id="{!item.sliderid}" class="playbookslider slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12"  data-aura-rendered-by="393:348;a">
+                                                                        <div class="slds-box template marketing-list">
+                                                                            <aura:if isTrue="{!item.noImage}">
+                                                                                <div class="thumb-wrap" id="{!item.id}" onclick="{!c.openenablement}" style="{overflow: hidden;    max-height: 250px;height: 250px;background-repeat: no-repeat;background-position: center center;background-size: cover;cursor:pointer;}">
+                                                                                    <lightning:icon iconName="standard:trailhead_alt" alternativeText="noImage" size="large" title="noImage" />
+                                                                                    <div class="thumb">
+                                                                                        <div style="display:none;" class="thumb-title">{!item.name}</div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <aura:set attribute="else">                   
+                                                                                    <div class="thumb-wrap" id="{!item.id}" onclick="{!c.openenablement}" style="{!'background-image: url('+item.imgUrl+');overflow: hidden;    max-height: 250px;height: 250px;background-repeat: no-repeat;background-position: center center;background-size: cover;cursor:pointer;'}">
+                                                                                        <div class="thumb">
+                                                                                            <div style="display:none;" class="thumb-title">{!item.name}</div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </aura:set>
+                                                                            </aura:if>                           
+                                                                            <aura:if isTrue="{!item.hasRatingAccess}">
+                                                                                <div class="slds-grid slds-wrap social-activity">
+                                                                                    <div class="slds-size--8-of-12" style="position:relative;">
+                                                                                        <div class="star-rating" id="{!item.id}" data-aura-rendered-by="335:348;a">
+                                                                                            <aura:iteration items="{!item.rate}" var="rate" start="0">
+                                                                                                <span id="{!rate.id}" class="{!rate.class}" onclick="{!c.ratecount}">
+                                                                                                    <lightning:icon iconName="utility:favorite" class="rating-yellow" variant="favorite"/>
+                                                                                                </span>
+                                                                                            </aura:iteration>
+                                                                                        </div>
+                                                                                        <div id="{!item.ratepopover}" class="ratepop slds-popover rateleft slds-nubbin_left" role="dialog" aria-describedby="dialog-body-id-14" aria-label="Dialog Title" style="display:none;">
+                                                                                            <header class="slds-popover__header">
+                                                                                                <p id="dialog-heading-id-32" style="text-align:center;font-size:13px;" class="slds-text-heading_small">
+                                                                                                    Your Rating:
+                                                                                                    <aura:iteration items="{!item.rate}" var="rate" start="0">
+                                                                                                        <span class="{!rate.class}">
+                                                                                                            <lightning:icon size="xx-small" iconName="utility:favorite" class="rating-yellow" variant="favorite"/>
+                                                                                                        </span>
+                                                                                                    </aura:iteration>
+                                                                                                </p>
+                                                                                            </header>
+                                                                                            <div class="slds-popover__body" id="dialog-body-id-14" >
+                                                                                                <div style="text-align:center;padding:4px">{!item.rating+' '} out  of 5 stars</div>
+                                                                                                <aura:iteration items="{!item.ratingdata.feedback}" var="rate" start="0">
+                                                                                                    <div class="slds-grid" style="padding:4px">
+                                                                                                        <span class="slds-col slds-size--1-of-4" style="color:#3276c2;">{!rate.name}</span>
+                                                                                                        <span class="slds-col slds-size--2-of-4">
+                                                                                                            <div style="height: 60%;background: #eee">
+                                                                                                                <div class="{!(rate.total != 0) ? 'rateprogress' : ''}" style="{!'width:'+rate.percentage+'%;border: 1px solid #e2e3e4; margin-top:5px;height: 100%;'}"></div>
+                                                                                                            </div>
+                                                                                                        </span>
+                                                                                                        <span class="slds-col slds-size--1-of-4" style="text-align:right;">{!rate.total}</span>
+                                                                                                    </div>
+                                                                                                </aura:iteration>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div id="{!item.id}" onclick="{!c.updatecomment}" class="slds-size--4-of-12 slds-text-align_right updatecomment" style="cursor:pointer;">
+                                                                                        <lightning:icon iconName="utility:comments" variant="comments"/>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </aura:if>
+                                                                            <div class="clearfix"></div>
+                                                                            <div class="slds-grid slds-wrap thumb-desc">
+                                                                                <div class="slds-size--1-of-1">
+                                                                                    <div class="thumb-desc-inner">
+                                                                                        <p title="{!item.name}" style="font-weight:bold;">{!item.name}</p>
+                                                                                        <p title="{!item.description}">{!item.description}</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                  <div class="slds-size--1-of-1" style="display:none;">
+                                                                                    <div class="thumb-desc-inner">
+                                                                                       Active Contacts : {!item.activecontacts}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="slds-size--1-of-1">
+                                                                                <aura:iteration items="{!item.result}" var="result" start="0">
+                                                                                    <div class="slds-size--9-of-12" style="display: inline-flex;padding:5px">
+                                                                                        <span style="padding-top: 15px;padding-left: 6px;font-size: 15px;" class="total-contacts">
+                                                                                            <b>{!result.totalContacts}</b>
+                                                                                        </span>
+                                                                                        <span class="pie-chart" style="padding-left:5px">
+                                                                                            <aura:if isTrue="{!result.totalContacts != 0}">
+                                                                                                <div class="{!result.circlass}" style="cursor: pointer;border: 5px solid #9d9fa1;height: 48px;width: 47px;">
+                                                                                                    <span>{!result.percent}%</span>
+                                                                                                    <div class="slice">
+                                                                                                        <div class="bar" style="{!'-webkit-transform: rotate('+result.cirDeg+'deg); -moz-transform: rotate('+result.cirDeg+'deg); -ms-transform: rotate('+result.cirDeg+'deg); -o-transform: rotate('+result.cirDeg+'deg); transform: rotate('+result.cirDeg+'deg) !important; -ms-transform: rotate('+result.cirDeg+'deg);'}"></div>
+                                                                                                        <div class="fill">
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <aura:set attribute="else">
+                                                                                                    <div class="{!result.circlass}" style="cursor: pointer;border: 3px solid gray;height: 45px;width: 45px;">
+                                                                                                        <span>{!result.percent}%</span>
+                                                                                                        <div class="slice">
+                                                                                                            <div class="bar" style="{!'-webkit-transform: rotate('+result.cirDeg+'deg); -moz-transform: rotate('+result.cirDeg+'deg); -ms-transform: rotate('+result.cirDeg+'deg); -o-transform: rotate('+result.cirDeg+'deg); transform: rotate('+result.cirDeg+'deg) !important; -ms-transform: rotate('+result.cirDeg+'deg);'}"></div>
+                                                                                                            <div class="fill">
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </aura:set>
+                                                                                            </aura:if>
+                                                                                        </span>
+                                                                                        <span class="pie-chart-title list-title" onclick="{!c.openenablement}" style="padding-top: 15px;padding-left: 5px;cursor: pointer;" title="{!'CompanyList-'+result.listName}" id="{!result.listID}">{!result.listName}
+                                                                                            <span style="display:none;" class="src">&nbsp;clean#setup/companysmartlists/{!result.listID}/preview</span>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </aura:iteration>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </aura:iteration>
+                                                        </section>
+                                                    </ul>
+                                                    
+                                                </div>
+                                            </aura:set>
+                                        </aura:if>
+                                    </div>
+                                    
+                                </div>
+                                <aura:if isTrue="false">
+                                <div class="paginate" style="float:right;">
+                                    <lightning:button disabled="{!v.page == 0}" variant="brand" label="&lt;" onclick="{! c.prev }" />            
+                                    <aura:iteration items="{!v.pagination}" var="paginate" start="0">
+                                        <lightning:button class="{!'page-'+paginate}" disabled="{!v.page == paginate-1}" aura:id="{!'page-'+paginate}" variant="brand" label="{!paginate}" onclick="{! c.paginate }" />
+                                    </aura:iteration>
+                                    <lightning:button disabled="{!(v.page == (v.pages-1))}" variant="brand" label="&gt;" onclick="{! c.next }" />                    
+                                </div>
+                                </aura:if>
+                            </div>
+                        </div>
+                        <div class="demo-only demo-modal modal-independant" style="display:none;">
+                            <section  role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-section slds-modal slds-fade-in-open slds-modal_large">
+                                <div class="slds-modal__container">
+                                    <header class="slds-modal__header" style="padding:0px !important;">
+                                        <button class="slds-button modal-close" onclick="{!c.modalclose}"><lightning:icon iconName="utility:close" class="asset-type-icon" variant="close" size="small"></lightning:icon></button>
+                                    </header>
+                                    <div class="slds-modal__content slds-p-around_medium" > 
+                                        <iframe id="iframe-modal" aura:id="iframe-modal-independant" src="" width="100%"></iframe>
+                                    </div>
+                                </div>
+                            </section>
+                            <div class="slds-backdrop slds-backdrop_open"></div>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </div>
+    </div>
+        
+    <div class="demo-only" id="commentmodal" style="height: 640px;display:none;">
+        <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <span id="uiqueitemid" style="display:none;"></span>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" style="padding:50px;">
+                    <div style="padding-bottom:10px;">
+                        <label style="float:left;" class="slds-form-element__label" for="textarea-id-01">Comment</label>
+                        <label style="float:right;" class="slds-form-element__label" for="textarea-id-01">0-1000 characters</label>
+                    </div>
+                    <textarea id="comment" class="slds-textarea" placeholder="Comment"></textarea>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" id="close" onclick="{!c.closeme}">Cancel</button>
+                    <button class="slds-button slds-button_brand" id="submit" onclick="{!c.submit}">Submit</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+        </aura:set>
+    </aura:if>
+    
+    
+    
+</aura:component>

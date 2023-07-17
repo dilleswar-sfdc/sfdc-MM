@@ -1,0 +1,17 @@
+.THIS .slds-form-element__label.slds-no-flex {
+    display:none;
+}
+.THIS .inactive{
+    display:none;
+}
+.THIS .blue{
+    color:#25B1EF !important;
+}
+.THIS .playicon {
+    position: absolute;
+    left: 63px;
+    top: 39px;
+    font-size: 24px;
+    color: red;
+}
+.THIS .playicon svg{fill:red !important;}

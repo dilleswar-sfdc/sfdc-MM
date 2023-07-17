@@ -1,0 +1,366 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" controller="AMPQuickLinkWidgetController" >
+    <ltng:require scripts="{!$Resource.jQuery351}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="src" type="String"/>
+    <aura:attribute name="title" type="String"/>
+    <aura:attribute name="mainnavbgcolor" type="String" default="#ccc"/>
+    <aura:attribute name="mainnavfontcolor" type="String" default="black"/>
+    <aura:attribute name="opportunityurl" type="String" default="black"/>
+    <aura:attribute name="install" type="string" default="https://dvl-sf-sso.amp.vg"/>
+    <aura:attribute name="userid" type="String" default="1763"/>
+    <aura:attribute name="showAssets" type="String"/>
+    <aura:attribute name="report" type="Object" />
+    <aura:attribute name="colorData" type="Object" />
+    <aura:attribute name="dependantwidget" type="String" default="community"/>
+    <aura:attribute name="isoverridesalesforce" type="Boolean" default="true"/>
+    <aura:attribute name="quicklink1" type="Object"/>
+    <aura:attribute name="noData" type="Boolean" default="false"/>
+    <aura:attribute name="errorMsg" type="String" default="Sorry! We could not find any data to show you."/>
+    
+    <aura:attribute name="language" type="string" default="English"/>
+    
+    <ltng:require styles="{!$Resource.slick}" />
+    <ltng:require styles="{!$Resource.slicktheme}" />
+    <ltng:require styles="{!$Resource.custom}" />
+	
+	<aura:if isTrue="{!v.noData}">
+        {!v.errorMsg}
+        <aura:set attribute="else">
+            <div class="actionbutton bggray">
+        <div class="quicklinkdesignbutton" style="background-color:#fff;position:relative;">
+            <div class="demo-only divspinner">
+                <div role="status" class="slds-spinner slds-spinner_small spinpos">
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+                <div style="position: absolute;top: 10px;left: 50px;font-size: 25px;">
+                    Loading...
+                </div>
+            </div>
+            <div class="quicklinkdesign1body" style="display:none;">
+            	<div class="slds-grid slds-grid--align-center0 slds-wrap" data-aura-rendered-by="679:477;a">
+                <div class="qgrid grid_helpmesell slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="107:477;a">
+                    <div class="bigbtn bigbtnclick" id="helpmesell" >
+						<span id="src" title="Help Me Sell" style="display:none;">{!v.install}&nbsp;clean#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1</span>
+                        <a class="btndetails" style="text-decoration:none;">
+                            <span class="btnheader" title="Click to view tools for selling ur products">Help Me Sell</span>
+                            <span class="btninfo">This will give the Help</span>
+                        </a>
+                        <div class="topaction">
+							<div class="notificationdiv" style="cursor: pointer;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="qgrid grid_marketingcampaign slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="131:477;a">
+                    <div class="bigbtn bigbtnclick" id="marketingcampaign" title="Click to get help for marketing campaign">
+                        <span id="src" title="Marketing Campaign" style="display:none;">{!v.install}&nbsp;clean#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1</span>
+                        <a class="btndetails" style="text-decoration:none;">
+                            <span class="btnheader">Marketing Campaign</span>
+                            <span class="btninfo">It deals with marketing strategy and deal information</span>
+                        </a>
+                        <div class="topaction">
+                            <div class="notificationdiv" style="cursor: pointer;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="qgrid grid_socialcampaign slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="150:477;a">
+                    <div class="bigbtn bigbtnclick" id="socialcampaign" title="Click to get help for social campaign">
+                        <span id="src" title="Social Campaign" style="display:none;">{!v.install}&nbsp;clean#manage/campaigns/socialdrip</span>
+                        <a class="btndetails" style="text-decoration:none;">
+                            <span class="btnheader">Social Campaign</span>
+                            <span class="btninfo">This will give the Help</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="qgrid grid_viewassets slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="174:477;a">
+                    <div class="bigbtn bigbtnclick" id="viewassets" title="Click to view assets">
+                        <!--<span id="src" title="View Assets" style="display:none;"></span>-->
+                        <div>
+                            <a class="btndetails" style="text-decoration:none;">
+                                <span class="btnheader">View Assets</span>
+                                <span class="btninfo">This will give the Help</span>
+                            </a>
+                        </div>
+                        <div class="slds-clearfix"></div>
+                        <div class="asset-search" style="display:block;position:relative;">
+                            <input type="text" id="viewsearch" placeholder="Search assets" style="border: 4px solid #e6e7e9;width:100%;padding:5px;color: black !important;"/>
+                            <button id="btnSearchIndex" style="position: absolute;right: 4px;top: 3px;border: none;background: #e6e7e9;">
+                                <lightning:icon iconName="utility:search" variant="search" size="small"/>
+                            </button>
+                        </div>
+                        <div class="topaction">
+                            <div class="notificationdiv" style="cursor: pointer;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="qgrid grid_manageprospects slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="198:477;a">
+                    <div class="bigbtn bigbtnclick" id="manageprospects" title="Click to manage prospects">
+                        <span id="src" title="Manage Prospects" style="display:none;">{!v.install}&nbsp;clean#connections/contacts</span>
+                        <a class="btndetails" style="text-decoration:none;">
+                            <span class="btnheader">Manage Prospects</span>
+                            <span class="btninfo"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="qgrid grid_reports slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="221:477;a">
+                    <div class="bigbtn" id="reports" title="Reports">
+                        <!--<span id="src" style="display:none;">https://dvl-master.amp.vg/#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1?clean</span>-->
+                        <div>
+                            <a class="btndetails" style="text-decoration:none;">
+                                <span class="btnheader">Reports</span>
+                                <span class="btninfo">Click on the below links for detail reports</span>
+                            </a>
+                        </div>
+                        <div class="slds-clearfix"></div>
+                        <div class="datalists" style="display:block;position:relative;padding: 8px;background: #e6e7e9;color:#416fb1 !important;">
+                            <ul class="lists" style="display:block;">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="qgrid grid_helpmemarket slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="245:477;a">
+                    <div class="bigbtn bigbtnclick" id="helpmemarket">
+                        <span id="src" title="Help Me Market" style="display:none;">{!v.install}&nbsp;clean#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1</span>
+                        <div>
+                            <a class="btndetails" style="text-decoration:none;">
+                                <span title="Click to view tools for marketing ur products" class="btnheader">Help Me Market</span>
+                                <span class="btninfo">Help Me Market</span>
+                            </a>
+                        </div>
+                        <div class="topaction">
+                            <div class="notificationdiv" style="cursor: pointer;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="qgrid grid_helpmebuildbrand slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="269:477;a">
+                    <div class="bigbtn bigbtnclick" id="helpmebuildbrand">
+                        <span id="src" title="Help Me Build Brand" style="display:none;">{!v.install}&nbsp;clean#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1</span>
+                        <a class="btndetails" style="text-decoration:none;">
+                            <span title="Click here to help me building brand" class="btnheader">Help Me Build Brand</span>
+                            <span class="btninfo">Help Me Build BrandHelp Me Build BrandHelp Me Build BrandHelp Me Build Brand</span>
+                        </a>
+                        <div class="topaction">
+                            <div class="notificationdiv" style="cursor: pointer;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="qgrid grid_trainingcertification slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="293:477;a">
+                    <div class="bigbtn bigbtnclick" id="trainingcertification">
+                        <span id="src" title="Training and certification" style="display:none;">{!v.install}&nbsp;clean#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1</span>
+                        <div>
+                            <a class="btndetails" style="text-decoration:none;">
+                                <span title="Click to get help for training nd certification" class="btnheader">Training and certification </span>
+                                <span class="btninfo">Training and certification </span>
+                            </a>
+                            <div class="topaction">
+                                <div class="notificationdiv" style="cursor: pointer;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="qgrid grid_productpromotion slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="317:477;a">
+                    <div class="bigbtn bigbtnclick" id="productpromotion">
+                        <span id="src" title="Product Promotions" style="display:none;">{!v.install}&nbsp;clean#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1</span>
+                        <div>
+                            <a class="btndetails" style="text-decoration:none;">
+                                <span title="Click to get help for product promotion" class="btnheader">Product Promotions</span>
+                                <span class="btninfo">Product Promotions</span>
+                            </a>
+                        </div>
+                        <div class="topaction">
+                            <div class="notificationdiv" style="cursor: pointer;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="qgrid grid_create slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="344:477;a">
+                    <div class="bigbtn" id="create">
+                        <!--<span id="src" style="display:none;">https://dvl-master.amp.vg/#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1?clean</span>-->
+                        <a class="btndetails" style="text-decoration:none;">
+                            <span class="btnheader">Create</span>
+                            <span class="btninfo">Create</span>
+                        </a>
+                        <div class="slds-clearfix"></div>
+                        <div class="datalists" style="display:block;position:relative;padding: 8px;background: #e6e7e9;">
+                            <ul style="display:block;">
+                                <li><a href="{!v.install+'&nbsp;clean#connections/contacts/create'}">Leads (0)</a></li>
+                                <li><a href="{!v.install+'&nbsp;clean#manage/opportunity-records'}">Opportunities o (o DZD)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="qgrid grid_registerleads slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="371:477;a">
+                    <div class="bigbtn" id="registerleads">
+                        <span id="src" style="display:none;">{!v.install}&nbsp;clean#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1</span>
+                        <div>
+                            <a class="btndetails" style="text-decoration:none;">
+                                <span title="Click to register deals" class="btnheader">Register Leads</span>
+                                <span class="btninfo">Register Leads</span>
+                            </a>
+                        </div>
+                        <div class="slds-clearfix"></div>
+                        <div class="datalists" style="display:block;position:relative;padding: 8px;background: #e6e7e9;">
+                            <ul style="display:block;">
+                                <li><a href="{!v.install+'&nbsp;clean#manage/leads/leadregistered'}">Registered (0)</a></li>
+                                <li><a href="{!v.install+'&nbsp;clean#manage/leads/leadregistered/approved'}">Approved (0)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="qgrid grid_mdffunds slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="401:477;a">
+                    <div class="bigbtn" id="mdffunds">
+                        <span id="src" title="MDF Funds" style="display:none;">{!v.install}&nbsp;clean#manage/mdf/funds</span>
+                        <div>
+                            <a class="btndetails" style="text-decoration:none;">
+                                <span title="Click to manage MDF funds" class="btnheader">MDF Funds</span>
+                                <span class="btninfo">MDF Funds</span>
+                            </a>
+                        </div>
+                        <div class="slds-clearfix"></div>
+                        <div class="datalists" style="display:block;position:relative;padding: 8px;background: #e6e7e9;">
+                            <ul style="display:block;">
+                                <li><a>Assigned (43,594,590 USD)</a></li>
+                                <li><a>Approved (73,288,5 USD)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="qgrid grid_gettrained slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="425:477;a">
+                    <div class="bigbtn bigbtnclick" id="gettrained">
+                        <span id="src" title="Get Trained" style="display:none;">{!v.install}&nbsp;clean#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1</span>
+                        <div>
+                            <a class="btndetails" style="text-decoration:none;">
+                                <span title="Click to get trained" class="btnheader">Get Trained</span>
+                                <span class="btninfo">Get Trained!!</span>
+                            </a>
+                        </div>
+                        <div class="topaction">
+                            <div class="notificationdiv" style="cursor: pointer;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="qgrid grid_sendemailcampaign slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="449:477;a">
+                    <div class="bigbtn bigbtnclick" id="sendemailcampaign">
+                        <span id="src" title="Send Email Campaign" style="display:none;">{!v.install}&nbsp;clean#communicate/email/action/compose</span>
+                        <a class="btndetails" style="text-decoration:none;">
+                            <span title="Click to send email campaign" class="btnheader">Send Email Campaign</span>
+                            <span class="btninfo">Send Email Campaign</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="qgrid grid_manageassets slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="473:477;a">
+                    <div class="bigbtn bigbtnclick" id="manageassets">
+                        <span id="src" title="Manage Assets" style="display:none;">{!v.install}&nbsp;clean#setup/templates/templates</span>
+                        <a class="btndetails" style="text-decoration:none;">
+                            <span title="Click to manage assets" class="btnheader">Manage Assets</span>
+                            <span class="btninfo">Manage Assets</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="qgrid grid_managewebstats slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="497:477;a">
+                    <div class="bigbtn bigbtnclick" id="managewebstats">
+                        <span id="src" title="Manage Web Stats" style="display:none;">{!v.install}&nbsp;clean#manage/externaltracking/sites</span>
+                        <a class="btndetails" style="text-decoration:none;">
+                            <span title="Click to manage web stats" class="btnheader">Manage Web Stats</span>
+                            <span class="btninfo">Manage Web Stats</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="qgrid grid_nurtureprospects slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="521:477;a">
+                    <div class="bigbtn bigbtnclick" id="nurtureprospects">
+                        <span id="src" title="Nurture Prospects" style="display:none;">{!v.install}&nbsp;clean#manage/campaigns/drip</span>
+                        <a class="btndetails" style="text-decoration:none;">
+                            <span title="Click to manage drip campaigns" class="btnheader">Nurture Prospects</span>
+                            <span class="btninfo">Nurture Prospects</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="qgrid grid_managesocial slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="540:477;a">
+                    <div class="bigbtn bigbtnclick" id="managesocial">
+                        <span id="src" title="Manage Social" style="display:none;">{!v.install}&nbsp;clean#manage/campaigns/socialdrip</span>
+                        <a class="btndetails" style="text-decoration:none;">
+                            <span title="Click to manage social drip campaigns" class="btnheader">Manage Social</span>
+                            <span class="btninfo">Manage Social</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="qgrid grid_createprintasset slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="560:477;a">
+                    <div class="bigbtn bigbtnclick" id="createprintasset">
+                        <span id="src" title="Create Print Asset" style="display:none;">{!v.install}&nbsp;clean#collateral/pdf</span>
+                        <a class="btndetails" style="text-decoration:none;">
+                            <span title="Click to create print asset" class="btnheader">Create Print Asset</span>
+                            <span class="btninfo">Create Print Asset</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="qgrid grid_communicatewithprospects slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="584:477;a">
+                    <div class="bigbtn bigbtnclick" id="communicatewithprospects">
+                        <span id="src" title="Communicate With Prospects" style="display:none;">{!v.install}&nbsp;clean#communicate/email/action/compose</span>
+                        <a class="btndetails" style="text-decoration:none;">
+                            <span title="Click to communicate with prospects" class="btnheader">Communicate With Prospects</span>
+                            <span class="btninfo">Communicate With Prospects</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="qgrid grid_managecontacts slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="608:477;a">
+                    <div class="bigbtn bigbtnclick" id="managecontacts">
+                        <span id="src" title="Manage Contacts" style="display:none;">{!v.install}&nbsp;clean#connections/contacts</span>
+                        <a class="btndetails" style="text-decoration:none;">
+                            <span title="Click to manage contacts" class="btnheader">Manage Contacts</span>
+                            <span class="btninfo">Manage Contacts</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="qgrid grid_createpresentation slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="628:477;a">
+                    <div class="bigbtn bigbtnclick" id="createpresentation">
+                        <span id="src" title="Create Presentation" style="display:none;">{!v.install}&nbsp;clean#collateral/presentation</span>
+                        <a class="btndetails" style="text-decoration:none;">
+                            <span title="Click to create presentation" class="btnheader">Create Presentation</span>
+                            <span class="btninfo">Create Presentation</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="qgrid grid_watchvideo slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="652:477;a">
+                    <div class="bigbtn bigbtnclick" id="watchvideo">
+                        <span id="src" title="Watch Video" style="display:none;">{!v.install}&nbsp;clean#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1</span>
+                        <a class="btndetails" style="text-decoration:none;">
+                            <span title="Click to watch videos" class="btnheader">Watch Video</span>
+                            <span class="btninfo">Watch Video</span>
+                        </a>
+                        <div class="topaction">
+                            <div class="notificationdiv" style="cursor: pointer;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="qgrid grid_importcontacts slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12" data-aura-rendered-by="676:477;a">
+                    <div class="bigbtn bigbtnclick" id="importcontacts">
+                        <span id="src" title="Import Contacts" style="display:none;">{!v.install}&nbsp;clean#connections/import</span>
+                        <a class="btndetails" style="text-decoration:none;">
+                            <span title="Click to import contacts" class="btnheader">Import Contacts</span>
+                            <span class="btninfo">Import Contacts</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="demo-only demo-modal modal-independant" style="display:none;">
+                <section  role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-section slds-modal slds-fade-in-open slds-modal_large">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <h2 id="modal-heading" class="slds-text-heading_medium slds-hyphenate" style="display:inline-block;"></h2>
+                            <button class="slds-button modal-close" onclick="{!c.modalclose}"><lightning:icon iconName="utility:close" class="asset-type-icon" variant="close" size="small"></lightning:icon></button>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" > 
+                            <iframe id="iframe-modal" aura:id="iframe-modal-independant" src="" width="100%"></iframe>
+                        </div>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </div>
+    </div>
+        </aura:set>
+    </aura:if>
+    
+   
+   
+</aura:component>

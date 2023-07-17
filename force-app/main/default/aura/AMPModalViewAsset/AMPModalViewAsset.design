@@ -1,0 +1,3 @@
+<design:component>
+	<design:attribute name="componentHeader" label="Component Header" description="here you can change the header for the widget" />
+</design:component>

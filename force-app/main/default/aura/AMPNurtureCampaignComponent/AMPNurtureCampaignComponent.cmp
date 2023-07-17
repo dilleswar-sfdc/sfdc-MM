@@ -1,0 +1,45 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" controller="AMPSObjectController" access="global" >
+    <ltng:require scripts="{!join(',',$Resource.jQuery351)}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <ltng:require styles="{!$Resource.quickaction}" />
+    <aura:attribute name="lead" type="Lead"/>
+    <aura:attribute name="spinner" type="boolean" default="false"/>
+    <aura:attribute name="communityasset" type="string"/>
+    <aura:attribute name="modalopen" type="boolean" default="false"/>
+    <!--<div class="sendampemail" style="height:700px;width:100%;display:none;">
+        <iframe id="iframe-modal-lead" src="" height="700" width="100%" style="height:700px;width:100%;"></iframe>
+    </div>-->
+    <div aura:id="syncwithamp" style="position:relative;height:180px;">
+        <div class="slds-clearfix"/>
+        <h2 class="Syncmessage" style="display:none;text-align: center;font-size:25px;padding-top:40px;">MM Settings is not available.</h2>
+        <a aura:id="redirect" class="mmReportLink" onclick="{!c.redirect}" style="text-align:center;padding-left: 31%;">
+            click here to redirect MM Settings tab.
+        </a>
+        <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    </div>
+    <aura:if isTrue="{!v.modalopen}">
+        <section aura:id="modalopen" role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open tosModal">
+            <div class="slds-modal__container">
+                <button style="position: absolute;top: 0;right: 16px;color: #fff;" onclick="{!c.modalclose}"><lightning:icon iconName="utility:close" class="asset-type-icon" variant="close" size="small"></lightning:icon></button>
+                
+                <!--###### MODAL BOX BODY Part Start######-->
+                <div style="width:100%;height:100%;" class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    
+                    {!v.communityasset}
+                </div>
+                <!--###### MODAL BOX FOOTER Part Start ######-->
+                <footer class="slds-modal__footer">
+                    
+                </footer>
+            </div>
+        </section>
+        <div aura:id="backdropopen" class="tosbackdrop slds-backdrop--open slds-backdrop " style="height: 100%;background-color: #000000e6;"></div>
+    </aura:if>
+</aura:component>

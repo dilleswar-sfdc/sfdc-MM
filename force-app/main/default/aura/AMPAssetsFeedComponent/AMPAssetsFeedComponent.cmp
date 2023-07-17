@@ -1,0 +1,104 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" controller="AMPSObjectController" >
+	<ltng:require scripts="{!join(',',$Resource.jQuery351)}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <aura:attribute name="userid" type="String" default="3467"/>
+    <aura:attribute name="install" type="string" default=""/>
+    <aura:attribute name="theme" type="String"/>
+    <aura:attribute name="size" type="String"/>
+    <aura:attribute name="test" type="String"/>
+    <aura:attribute name="lead" type="Lead"/>
+    <aura:attribute name="cirDeg" type="String" default="360"/>
+    <aura:attribute name="perText" type="String" default="50%"/>
+    <aura:attribute name="quicklink1" type="Object"/>
+    <aura:attribute name="playbookdata" type="Object"/>
+    <aura:attribute name="pagination" type="Object"/>
+    <aura:attribute name="nodata" type="Boolean" default="false"/>
+    <aura:attribute name="dependantwidget" type="String" default="community"/>
+    <aura:attribute name="sliderlength" type="Integer" default="3"/>
+    <aura:attribute name="page" type="Integer" default="0"/>
+    <aura:attribute name="currentpage" type="Integer" default="1"/>
+    <aura:attribute name="pages" type="Integer" default="0"/>
+    <aura:attribute name="pagesize" type="Integer" default="10"/>
+    <aura:attribute name="currentNav" type="String" default="direct"/>
+    <aura:attribute name="rowcount" type="String" default="0"/>
+    <aura:attribute name="filteredtext" type="String"/>
+    <aura:attribute name="filter" default="" type="String"/>
+    <aura:attribute name="isfirst" type="Boolean" default="true"/>
+    <aura:attribute name="istab" type="Boolean" default="false"/>
+    <aura:attribute name="isfilter" type="Boolean" default="false"/>
+    <aura:attribute name="isOpp" type="Boolean" default="false"/>
+    <aura:attribute name="hidepagination" type="Boolean" default="false"/>
+    <aura:attribute name="isEnablement" type="Boolean" default="false"/>
+    <aura:attribute name="selectedfilter" type="String" default=""/>
+    <aura:attribute name="searchtext" type="String" default=""/>
+    <aura:attribute name="source" type="String" default=""/>
+    <aura:attribute name="userdata" type="Object" default=""/>
+    <aura:attribute name="data" type="Object" default=""/>
+    <aura:attribute name="selTabId" type="String" default="printtemp" />
+    <ltng:require styles="{!$Resource.custom}" />
+    <aura:attribute name="mainnavbgcolor" type="String" default="#ccc"/>
+    <aura:attribute name="mainnavfontcolor" type="String" default="black"/>
+    <aura:attribute name="sortfield" type="String" default="createdon" access="global"/>
+    <aura:attribute name="sortorder" type="String" default="asc" access="global"/>
+    <aura:handler name="cmpEvent" event="c:pageEvent" action="{!c.handleComponentEvent}"/>
+    <aura:handler name="change" value="{!v.elems}" action="{!c.valueChanged}" />
+    
+    <div class="assetrecord">
+        <aura:if isTrue="{!v.isfilter}">
+            <div class="filteredtext">
+                <span style="padding-right:5px;">Applied pre-filters: <b>{!v.searchtext}</b></span>
+                <button title="Click on X to remove pre-filters and show all Assets" onclick="{! c.clear }" class="clear" style="border: none;background: white;">
+                    <lightning:icon class="cleariconcolor" iconName="utility:clear" size="x-small" variant="clear"/>
+                </button>
+            </div>
+        </aura:if>
+        <div class="asset-icon" style="display:inline-flex;padding-left: 15px;padding-top: 15px;">
+            <lightning:Icon class="playbookiconcolor" iconName="utility:file" variant="file"/>
+            <span>
+                <h2 style="font-size:2em !important; padding-left:5px;"> Assets</h2>
+            </span>
+        </div>
+        <lightning:tabset onselect="{!c.tabSelected}" variant="default" selectedTabId="{!v.selTabId}">
+            <lightning:tab label="Print" onactive="{! c.handleActive }" aura:id="printtemp" id="printtemp">
+                
+            </lightning:tab>
+            <lightning:tab label="Presentations" onactive="{! c.handleActive }" aura:id="ppttemp" id="ppttemp">
+                
+            </lightning:tab>
+            <lightning:tab label="Data Room" onactive="{! c.handleActive }" aura:id="dataroomtemp" id="dataroomtemp">
+                
+            </lightning:tab>
+            <lightning:tab label="Document" onactive="{! c.handleActive }" aura:id="documenttemp" id="documenttemp">
+                
+            </lightning:tab>
+            <lightning:tab label="Videos" onactive="{! c.handleActive }" aura:id="videotemp" id="videotemp">
+                
+            </lightning:tab>
+            <lightning:tab label="Ebooks" onactive="{! c.handleActive }" aura:id="ebooktemp" id="ebooktemp">
+                
+            </lightning:tab>
+            <aura:if isTrue="{!v.pages != 0}">
+                <div class="assetpaginate" style="float:right;">
+                    <lightning:button disabled="{!v.page == 0}" variant="brand" label="&lt;" onclick="{! c.prev }" />
+                    <lightning:button title="{!'Total of '+(v.rowcount)+' record in '+v.pages+' pages'}" class="{!'page-'+v.page}" disabled="{!and((v.page == 0) ,(v.pages == '0'))}" variant="brand" label="{!v.currentpage}" />
+                    <!--<aura:iteration items="{!v.pagination}" var="paginate" start="0">
+                        <lightning:button class="{!'page-'+paginate}" disabled="{!v.page == paginate-1}" aura:id="{!'page-'+paginate}" variant="brand" label="{!paginate}" onclick="{! c.paginate }" />
+                    </aura:iteration>-->
+                    <lightning:button disabled="{!(v.page == (v.pages-1)) || (v.pages == '0')}" variant="brand" label="&gt;" onclick="{! c.next }" />                    
+                </div>
+            </aura:if>
+            <div class="btn-group" style="{!v.isOpp ? 'float: right;color: #333;padding-left: 15px;margin-top: -20px;':'float: right;color: #333;padding-left: 15px;'}">
+                <lightning:select aura:id="select" name="source" onchange="{!c.handleSorting}">                    
+                    <option value="createdon" text="Created On"/>
+                    <option value="name" text="Name"/>
+                    <option value="updatedon" text="Updated On"/>
+                </lightning:select>
+            </div>
+            <div class="btn-group" style="{!v.isOpp ? 'float: right;color: #333;padding-left: 15px;margin-top: -20px;':'float: right;color: #333;padding-left: 15px;'}">
+                <lightning:select aura:id="select" name="source" onchange="{!c.handleOrder}">
+                    <option value="asc" text="Asc"/>
+                    <option value="desc" text="Desc"/>
+                </lightning:select>
+            </div>
+        </lightning:tabset>
+    </div>
+</aura:component>

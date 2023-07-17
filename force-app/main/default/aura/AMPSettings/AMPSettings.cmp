@@ -1,0 +1,69 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="AMPSettings">
+    <ltng:require scripts="{!$Resource.jQuery351}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <ltng:require styles="{!$Resource.custom}" />
+    <aura:attribute name="issso" type="boolean" default="false"/>
+    <aura:attribute name="baseurl" type="string"/>
+    <aura:attribute name="clientid" type="string"/>
+    <aura:attribute name="siteurl" type="string"/>
+    <aura:attribute name="token" type="string"/>
+    <aura:attribute name="lastssotime" type="Datetime"/> 
+    <aura:attribute name="lightningplussso" type="boolean" default="false"/>
+    <div>
+        <section>
+            <div>
+                <header>
+                    <h2>MM Settings</h2>
+                </header>
+                <fieldset class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <div class="slds-radio_button-group">
+                            <span class="slds-button slds-radio_button">
+                                <input name="radio" aura:id="lightning" type="radio" id="lightning" onclick="{!c.handleRadioClick}"/>
+                                <label class="slds-radio_button__label" for="lightning">
+                                    <span class="slds-radio_faux">Only Lightning</span>
+                                </label>
+                            </span>
+                            <span class="slds-button slds-radio_button">
+                                <input name="radio" aura:id="lightningplussso" type="radio" id="lightningplussso" onclick="{!c.handleRadioClick}"/>
+                                <label class="slds-radio_button__label" for="lightningplussso">
+                                    <span class="slds-radio_faux">Lightning + SSO</span>
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="NonSSODetails">
+                    <ui:message title="" severity="info">
+                    	You need to configure MM Reports tab inorder to get the lighting components working
+                        <a class="mmReportLink" onclick="{!c.redirect}" style="text-align:center;padding-left: 31%;">
+                            click here to redirect MM Reports tab.
+                        </a>
+                    </ui:message>
+                </div>
+                <div class="SSODetails">
+                    <div style="margin-bottom:15px;">
+                        <ui:message title="" severity="info">
+                            <div class="slds-float_left" style="line-height: 45px;">
+                            	This will use SSO to authenticate the user and the lightning components to work
+                            </div>
+                            <div class="slds-float_right">
+                            	<lightning:button onclick="{!c.authenticateSSO}">Authenticate</lightning:button>
+                            </div>
+                        </ui:message>
+                    </div>
+                    <lightning:input aura:id="fieldsiteurl" required="true" value="{!v.siteurl}" type="url" name="siteurl" label="Site URL(Install URL)" onblur="{! c.handleBlur }" />
+                    <lightning:input aura:id="fieldbaseurl" required="true" value="{!v.baseurl}" type="url" name="baseurl" label="Base URL(Single Sign-On URL)" onblur="{! c.handleBlur }" />
+                    <lightning:input aura:id="fieldclientid" required="true" value="{!v.clientid}" type="string" name="clientid" label="Client ID(Single Sign-On ClientID)" onblur="{! c.handleBlur }" />
+                    <lightning:input aura:id="fieldtoken" required="true" value="{!v.token}" type="string" name="token" label="Token(Developer Token)" onblur="{! c.handleBlur }" />
+                    <br></br>
+                    <p><b style="color:red;font-size:14px;">*</b><b> Go to Setting > Setup > Search-Remote Site Settings</b> in Quick Find and add <b>Install URL<span id="installurl"></span></b> as it is <b>Mandatory</b> for the api's to work.</p>
+                    <br></br>
+                    
+                </div>
+                <div style="text-align:right;background-color: #fff;padding: 0 14px 14px;border-radius: 0 0 6px 6px;">
+                    <lightning:button aura:id="submit" label="Save" onclick="{!c.savessodetails}"/>
+                </div>
+            </div>
+        </section>
+    </div>
+</aura:component>

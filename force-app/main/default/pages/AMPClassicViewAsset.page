@@ -1,0 +1,26 @@
+<apex:page title="AMP Application" showHeader="true" sidebar="false" controller="AMPHomePageController" action="{!getAMPHomeUrl}">
+    <apex:form id="theForm" >
+        <apex:actionFunction name="getAMPHomeUrl" id="getAMPHomeUrl" action="{!getAMPHomeUrl}" reRender="theForm" status="status">
+            <apex:param name="whatSection" assignTo="{!whatSection}" value="viewasset"/>
+        </apex:actionFunction>
+        <script language="JavaScript">      
+            window.onload = function() { getAMPHomeUrl();}
+        </script>
+        <div style="position: relative;">
+            <iframe src="{!homePageURL}" frameborder="0" scrolling="true" height="800" id="itarget" title="Content" width="100%" ></iframe>
+            <apex:outputpanel >
+                <apex:actionstatus id="status">
+                    <apex:facet name="start">
+                        <div class="waitingSearchDiv" id="00Bd0000003nrlY_loading" style="background-color: #fbfbfb;
+                                                                                          opacity:0.65;height: 100%; width: 100%;">
+                            <div class="waitingHolder" style="width: 100%; top: 20%;">
+                                <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                                <span class="waitingDescription">Please wait...</span>
+                            </div>
+                        </div>
+                    </apex:facet>
+                </apex:actionstatus>
+            </apex:outputpanel>
+        </div>
+    </apex:form> 
+</apex:page>

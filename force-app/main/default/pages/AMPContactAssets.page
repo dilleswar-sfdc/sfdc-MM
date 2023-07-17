@@ -1,0 +1,29 @@
+<apex:page standardController="Contact"  extensions="AMPGetContactPlaybooks" sidebar="false">
+<apex:outputPanel >
+<apex:form id="theForm" >
+ <apex:actionFunction name="loadAssetIframe" id="loadAssetIframe" action="{!getRelatedPlaybookAssets}" reRender="theForm" status="status" >
+   <apex:param name="whatSection" assignTo="{!whatSection}" value="asset"/>
+</apex:actionFunction>
+  <script language="JavaScript">      
+        window.onload = function() { loadAssetIframe();}
+    </script>
+ <div style="position: relative;">
+     <apex:pageMessages escape="false"></apex:pageMessages> 
+    <apex:iframe src="{!infoPageURL}"  frameborder="0" scrolling="false" height="720" id="itarget" title="Content" width="100%" ></apex:iframe>
+        <apex:outputpanel >
+            <apex:actionstatus id="status">
+                <apex:facet name="start">
+                    <div class="waitingSearchDiv" id="00Bd0000003nrlY_loading" style="background-color: #fbfbfb;
+                           opacity:0.65;height: 100%; width: 100%;">
+                            <div class="waitingHolder" style="width: 100%; top: 40%;">
+                            <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                            <span class="waitingDescription">Please wait...</span>
+                        </div>
+                    </div>
+                </apex:facet>
+            </apex:actionstatus>
+        </apex:outputpanel>
+        </div>
+    </apex:form> 
+</apex:outputpanel>
+</apex:page>

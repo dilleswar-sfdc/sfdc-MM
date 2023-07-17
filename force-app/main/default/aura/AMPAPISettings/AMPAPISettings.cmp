@@ -1,0 +1,508 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="AMPViewAssetSearchController">
+    <ltng:require scripts="{!$Resource.jQuery351}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <ltng:require styles="{!$Resource.custom}" />
+    <aura:attribute name="installurl" type="string"/>
+    <aura:attribute name="token" type="string"/>
+    
+    <aura:attribute name="opprecordtype" type="String" default=""/>
+    
+    <aura:attribute name="createusertitle" type="String" default=""/>
+    <aura:attribute name="createusermessage" type="String" default="THIS IS THE PARTNER PORTAL, CLICK THE BUTTON TO CREATE YOUR USER"/>
+    <aura:attribute name="createuserbuttontext" type="String" default="CLICK HERE TO BEGIN"/>
+    <aura:attribute name="createuserbordercolor" type="String" default="#ddd"/>
+    <aura:attribute name="createusertextcolor" type="String" default="#333"/>
+    <aura:attribute name="createuserbuttonbackgroundcolor" type="String" default="#ff0000"/>
+    <aura:attribute name="createuserbuttonbordercolor" type="String" default="#000"/>
+    <aura:attribute name="createuserbuttontextcolor" type="String" default="#fff"/>
+    <!--Declare Attributes-->
+    <aura:attribute name="SuperAdminList" type="List" default="[]" description="Sales Picklist Values"/>
+    <aura:attribute name="selectedSuperAdminList" type="List" default="[]" description="Selected Super Admin Picklist Values"/>
+    <aura:attribute name="allProfiles" type="List" default="[]"/>
+    
+    <aura:attribute name="RecordTypeList" type="List" default="[]" description="Record Type Picklist Values"/>
+    <aura:attribute name="selectedRecordTypeList" type="List" default="[]" description="Selected Record Type Picklist Values"/>
+    <aura:attribute name="allRecordType" type="List" default="[]"/>
+    
+    <aura:attribute name="allOppListView" type="List" default="[]"/>
+    <aura:attribute name="wonSelected" type="string" default="-1"/>
+    <aura:attribute name="pipeLineSelected" type="string" default="-1"/>
+    <aura:attribute name="allSelected" type="string" default="-1"/>
+    <aura:attribute name="mmAPIUser" type="Object"/>
+    <aura:attribute name="tosredirecturl" type="string"/>
+    <aura:attribute name="eltaes" type="string" default=""/>
+    <aura:attribute name="elths256" type="string" default=""/>
+    <aura:attribute name="isEdit" type="Boolean" default="false"/>
+    <aura:attribute name="fieldsName" type="List" default="[]"/>
+    <aura:attribute name="getValue" type="List" default="[]"/>
+    <aura:attribute name="getUserGroupValues" type="List" default="[]"/>
+    <aura:attribute name="selectedObjectName" type="String" default="" />
+    <aura:attribute name="selectedfieldName" type="String" />
+    <aura:attribute name="currentUserDetails" type="Object"  default="{'sobjectType':'AMPAPIDetailsV2__c', 'MindMatrix__InstallUrl__c':'','MindMatrix__Token__c':'','MindMatrix__UserToken__c':''}"/>
+    <aura:attribute name="valueGroupMapping" type="List" />
+    <aura:attribute name="valueCheckBox" type="boolean" default="false"/>
+    <aura:attribute name="selectedObjectValue" type="String" />
+    <aura:attribute name="selectedfieldvalue" type="String" />
+    <aura:attribute name="selectedUserGroup" type="String" />
+    <aura:attribute name="filetype" type="List" default="['.txt,.json']" />
+    <aura:attribute name="multiple" type="Boolean" default="false" />
+    <aura:attribute name="disabled" type="Boolean" default="true" />
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="jsonFileText" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="toggleSpinner" type="boolean" default="false"/>
+    <aura:attribute name="selectedCrmObjectValue" type="String" />
+    <aura:attribute name="selectedCrmfieldvalue" type="String" />
+    <aura:attribute name="fieldscrmName" type="List" default="[]"/>
+    <aura:attribute name="valueCrmCheckBox" type="boolean" default="false"/>
+    <aura:attribute name="toggleCrmSpinner" type="boolean" default="false"/>
+    <aura:attribute name="valueCrmGroupMapping" type="List" />
+    <aura:attribute name="getUserGroupCrmValues" type="List" default="[]"/>
+    <aura:attribute name="selectedCrmfieldName" type="String" />
+    <aura:attribute name="selectedCrmObjectName" type="String" default=''/>
+    <aura:attribute name="showConfirmDialog" type="boolean" default="false"/>
+    <aura:attribute name="showConfirmDialogForIcon" type="boolean" default=""/>
+    <aura:attribute name="deleteAll" type="list" />
+    <aura:attribute name="partnerid" type="string" />
+    <aura:attribute name="isSelectAll" type="boolean" default="false"/> 
+    <aura:attribute name="bDisableFirst" type="Integer"/>
+    <aura:attribute name="bDisableLast" type="Integer"/>
+    <aura:attribute name="totalRecords" type="Integer"/>
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <aura:attribute name="pageNumber" type="Integer" default="1"/>
+    <aura:attribute name="ApiUserList" type="List" default="[]"/>
+    <aura:attribute name="Start" type="Integer" default="0"/>
+    <aura:attribute name="end" type="Integer"/>
+    <aura:attribute name="counter" type="Integer" default="0"/>
+    <aura:attribute name="totalPages" type="string"/>
+    <aura:attribute name="paginationButton" type="boolean" default="false"/>
+    <aura:attribute name="deleteVisibility" type="boolean" default="false"/>
+    <aura:attribute name="unableCheckBox" type="Integer"/>
+    <div>
+        <section>
+            <div>
+                <lightning:tabset aura:id="settingstabs" selectedTabId="apisettings" >
+                    <lightning:tab label="API Settings" id="apisettings">
+                        <header>
+                            <h2>MM API Settings</h2>
+                        </header>
+                        <div class="APIDetails">
+                            <div style="margin-bottom:15px;">
+                                <ui:message title="" severity="info">
+                                    <div class="slds-float_left" style="line-height: 45px;">
+                                        This will be used for getting/creating user in AMP
+                                    </div>
+                                </ui:message>
+                            </div>
+                            <lightning:input aura:id="fieldinstallurl" required="true" value="{!v.installurl}" type="url" name="siteurl" label="Install URL" onblur="{! c.handleBlur }" pattern="^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$"/>
+                            <lightning:input aura:id="fieldtoken" required="true" value="{!v.token}" type="string" name="token" label="Token(Developer Token)" onblur="{! c.handleBlur }" />
+                            
+                            <br></br>
+                            <p><b style="color:red;font-size:14px;">*</b><b> Go to Setting > Setup > Search-Remote Site Settings</b> in Quick Find and add <b>Install URL<span id="installurl"></span></b> as it is <b>Mandatory</b> for the api's to work.</p>
+                            <br></br>
+                            
+                        </div>
+                        <div style="text-align:right;background-color: #fff;padding: 0 14px 14px;border-radius: 0 0 6px 6px;">
+                            <lightning:button aura:id="submit" label="Save" onclick="{!c.saveapidetails}"/>
+                        </div>
+                    </lightning:tab>
+                    <div >
+                        <lightning:tab label="User Groups Settings"  id="usergroupsettings">
+                            
+                            <div class="slds-tabs_default">
+                                <ul class="slds-tabs_default__nav" role="tablist">
+                                    <li><a aura:id="externaltab" class="slds-tabs_default__item slds-is-active" aria-controls="tab-default-1" tabindex="0" aria-selected="true" id="tab-default-1__item" onclick="{!c.externalClick}">Partner User
+                                        </a>
+                                    </li>
+                                    <li><a aura:id="internaltab" class="slds-tabs_default__item " ria-controls="tab-default-2" tabindex="-1" aria-selected="false" id="tab-default-2__item" onclick="{!c.internalClick}">Internal User
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div aura:id="externalContent" id="tab-default-1" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-default-1__item">
+                                    <section>
+                                        <div style="margin-bottom:15px;">
+                                            
+                                            <aura:if isTrue="{!v.selectedObjectValue == ''}">
+                                                <ui:message title="" severity="info">
+                                                    <div class="slds-float_left" style="line-height: 45px;">
+                                                        This settings will be used to assign a user group to users in MindMatrix based on the conditions.<br/> 
+                                                        If your criteria is :<br/>
+                                                        Object : Profile<br/>
+                                                        Field : Name 
+                                                        <br/>
+                                                        Condition (Value of Profile.Name = User Group Name in MindMatrix) :
+                                                        <br/>
+                                                        System Administrator = Admin User Group
+                                                        <br/>
+                                                        Cloned Partner Community User = Cloned User Group
+                                                    </div>
+                                                </ui:message>
+                                            </aura:if>
+                                            
+                                        </div>
+                                        <lightning:select aura:id="groupObject" name="Objects" label="Select an object" onchange="{! c.onChange }" required="true" value="{!v.selectedObjectValue}">
+                                            <option value="">choose one...</option>
+                                            <option value="Account">Account</option>
+                                            <option value="Contact">Contact</option>
+                                            <option value="User">User</option>
+                                            <option value="Profile">Profile</option>
+                                            <option value="UserRole">UserRole</option>
+                                        </lightning:select>
+                                        <lightning:select name="fieldName" label="Select a field" aura:id="groupObjectField" onchange="{! c.onChangeField }" required="true" value="{!v.selectedfieldName}" >
+                                            <aura:iteration items="{!v.fieldsName}" var="option">
+                                                <option text="{!option.label}" value="{!option.value}" />
+                                            </aura:iteration>
+                                        </lightning:select>
+                                        <lightning:input class="slds-checkbox" type="checkbox" aura:id="chkbox"  checked="{!v.valueCheckBox}" onchange="{! c.selectChange }"
+                                                         label="Please remove previous user group">
+                                        </lightning:input>
+                                        <aura:if isTrue="{!v.toggleSpinner}">
+                                            <div class="slds-spinner_container">
+                                                <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                                                    <span class="slds-assistive-text">Loading</span>
+                                                    <div class="slds-spinner__dot-a"></div>
+                                                    <div class="slds-spinner__dot-b"></div>
+                                                </div>
+                                            </div>
+                                        </aura:if> 
+                                        <div class='form-box'>
+                                            <label class="slds-form-element__label" for="unique-id-of-input">Please add conditions on the basis of which you want the user groups to be assigned to the users</label>
+                                            <aura:iteration items="{!v.valueGroupMapping}" var="map" indexVar="k">
+                                                <div class='forminput-box'> <lightning:input name="Sfprofilename" class='style' value="{!map.k}" /></div>
+                                                <div class='mathematic-sign'>=</div> 
+                                                <div class='forminput-box'>
+                                                    
+                                                    <lightning:select name="getValues" aura:id="usergroupval" label="Get Groups"  value="{!map.v}">
+                                                        <aura:iteration items="{!v.getUserGroupValues}"  var="option">
+                                                            <option text="{!option.name}" value="{!option.name}" />
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                    
+                                                    
+                                                </div>
+                                                <lightning:button aura:id="addmoregroupmapping" label="+" onclick="{!c.addMoreGroupMapping}"/>
+                                            </aura:iteration>
+                                        </div>
+                                    </section>
+                                </div>
+                                <div aura:id="internalContent" id="tab-default-2" class="slds-tabs_default__content slds-hide" role="tabpanel" aria-labelledby="tab-default-2__item">
+                                    <section>
+                                        <div style="margin-bottom:15px;">
+                                            
+                                            <aura:if isTrue="{!v.selectedCrmObjectValue == ''}">
+                                                <ui:message title="" severity="info">
+                                                    <div class="slds-float_left" style="line-height: 45px;">
+                                                        This settings will be used to assign a user group to users in MindMatrix based on the conditions.<br/> 
+                                                        If your criteria is :<br/>
+                                                        Object : Profile<br/>
+                                                        Field : Name 
+                                                        <br/>
+                                                        Condition (Value of Profile.Name = User Group Name in MindMatrix) :
+                                                        <br/>
+                                                        System Administrator = Admin User Group
+                                                        <br/>
+                                                        Cloned Partner Community User = Cloned User Group
+                                                    </div>
+                                                </ui:message>
+                                            </aura:if>
+                                            
+                                        </div>
+                                        <lightning:select aura:id="groupCrmObject" name="Objects" label="Select an object" onchange="{! c.onCrmChange }" required="true" value="{!v.selectedCrmObjectValue}">
+                                            <option value="">choose one...</option>
+                                            <option value="User">User</option>
+                                            <option value="Profile">Profile</option>
+                                            <option value="UserRole">UserRole</option>
+                                        </lightning:select>
+                                        <lightning:select name="fieldName" label="Select a field" aura:id="groupCrmObjectField" onchange="{! c.onCrmChangeField }" required="true" value="{!v.selectedCrmfieldName}" >
+                                            <aura:iteration items="{!v.fieldscrmName}" var="option">
+                                                <option text="{!option.label}" value="{!option.value}" />
+                                            </aura:iteration>
+                                        </lightning:select>
+                                        <lightning:input class="slds-checkbox" type="checkbox" aura:id="chkCrmbox"  checked="{!v.valueCrmCheckBox}" onchange="{! c.selectCrmChange }"
+                                                         label="Please remove previous user group">
+                                        </lightning:input>
+                                        <aura:if isTrue="{!v.toggleCrmSpinner}">
+                                            <div class="slds-spinner_container">
+                                                <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                                                    <span class="slds-assistive-text">Loading</span>
+                                                    <div class="slds-spinner__dot-a"></div>
+                                                    <div class="slds-spinner__dot-b"></div>
+                                                </div>
+                                            </div>
+                                        </aura:if> 
+                                        <div class='form-box'>
+                                            <label class="slds-form-element__label" for="unique-id-of-input">Please add conditions on the basis of which you want the user groups to be assigned to the users</label>
+                                            <aura:iteration items="{!v.valueCrmGroupMapping}" var="map" indexVar="k">
+                                                <div class='forminput-box'> <lightning:input name="Sfprofilename" class='style' value="{!map.k}" /></div>
+                                                <div class='mathematic-sign'>=</div> 
+                                                <div class='forminput-box'>
+                                                    
+                                                    <lightning:select name="getValues" aura:id="usergroupCrmval" label="Get Groups"  value="{!map.v}">
+                                                        <aura:iteration items="{!v.getUserGroupCrmValues}"  var="option">
+                                                            <option text="{!option.name}" value="{!option.name}" />
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                    
+                                                    
+                                                </div>
+                                                <lightning:button aura:id="addmoregroupCrmmapping" label="+" onclick="{!c.addMoreGroupCrmMapping}"/>
+                                            </aura:iteration>
+                                        </div>
+                                    </section>
+                                </div>
+                                
+                            </div>
+                            <div style="text-align:right;background-color: #fff;padding: 0 14px 14px;border-radius: 0 0 6px 6px;">
+                                <lightning:button aura:id="submit" label="Save" onclick="{!c.saveapidetails}"/>
+                            </div>
+                        </lightning:tab>
+                    </div>
+                    <lightning:tab label="JWT Settings" id="jwtSettings">
+                        <div class="APIDetails">
+                            <div style="margin-bottom:15px;">
+                                <ui:message title="" severity="info">
+                                    <div class="slds-float_left" style="line-height: 45px;">
+                                        This will be used to manage the JWT settings to interact with MM portal
+                                    </div>
+                                </ui:message>
+                            </div>
+                            <lightning:input aura:id="elt_aes" required="true" value="{!v.eltaes}" type="password" name="elt_aes" label="elt_aes"  />
+                            <lightning:input aura:id="elt_hs256" required="true" value="{!v.elths256}" type="password" name="elt_hs256" label="elt_hs256"  />
+                            
+                        </div>
+                        <div style="text-align:right;background-color: #fff;padding: 0 14px 14px;border-radius: 0 0 6px 6px;">
+                            <lightning:button aura:id="submit" label="Save" onclick="{!c.saveapidetails}"/>
+                        </div>
+                    </lightning:tab>
+                    <div class="slds-hide">
+                        <!--  <lightning:tab label="" id="tossettings" >
+                              <header>
+                            <h2>User Creation Pop-Up Settings</h2>
+                        </header>
+                        <div class="APIDetails">
+                            <div style="margin-bottom:15px;">
+                                <ui:message title="" severity="info">
+                                    <div class="slds-float_left" style="line-height: 45px;">
+                                        This will be used in the pop up shown to user while asking for creating user
+                                    </div>
+                                </ui:message>
+                            </div>
+                            <lightning:input aura:id="createusertitle" value="{!v.createusertitle}" type="text" name="createusertitle" label="Title"/>
+                            <lightning:input aura:id="createusermessage" value="{!v.createusermessage}" type="text" name="createusermessage" label="Message"/>
+                            <lightning:input aura:id="createuserbordercolor" value="{!v.createuserbordercolor}" type="text" name="createuserbordercolor" label="Border Color"/>
+                            <lightning:input aura:id="createusertextcolor" value="{!v.createusertextcolor}" type="text" name="createusertextcolor" label="Text Color"/>
+                            <lightning:input aura:id="createuserbuttontext" value="{!v.createuserbuttontext}" type="text" name="createuserbuttontext" label="Button Text"/>
+                            <lightning:input aura:id="createuserbuttonbackgroundcolor" value="{!v.createuserbuttonbackgroundcolor}" type="text" name="createuserbuttonbackgroundcolor" label="Button Background Color"/>
+                            <lightning:input aura:id="createuserbuttonbordercolor" value="{!v.createuserbuttonbordercolor}" type="text" name="createuserbuttonbordercolor" label="Button Border Color"/>
+                            <lightning:input aura:id="createuserbuttontextcolor" value="{!v.createuserbuttontextcolor}" type="text" name="createuserbuttontextcolor" label="Button Text Color"/>
+                            
+                        </div>                
+                            <lightning:input aura:id="toscheck" type="checkbox" label=" Do you want to mask the entire page if the MM ToS is not accepted" name="tosmaskcheck" checked="true" disabled="true"/>
+                            <lightning:input aura:id="tosredirect" name="redirectedUrl" label="Page where the user should be redirected when ToS is not accepted" value="{!v.tosredirecturl}"/>
+                            <div style="text-align:right;background-color: #fff;padding: 0 14px 14px;border-radius: 0 0 6px 6px;">
+                                <lightning:button aura:id="submit" label="Save" onclick="{!c.saveapidetails}"/>
+                            </div>
+</lightning:tab>
+                        
+                        <lightning:tab label="" id="extrasettings">
+                            <div class="APIDetails">
+                                
+                                <div style="position:relative;" class="recordtype slds-size_4-of-4">
+                                    <section>
+                                        <div class="slds-m-around_xx-large">
+                                            <lightning:dualListbox required="true" aura:id="selectRecordType"
+                                                                   name="Record Type"
+                                                                   label="Select Opportunity Record Type"
+                                                                   sourceLabel="Available Opportunity Record Type"
+                                                                   selectedLabel="Selected Opportunity Record Type"
+                                                                   options="{!v.RecordTypeList }"
+                                                                   value="{!v.selectedRecordTypeList}"
+                                                                   min="0"
+                                                                   max="5"
+                                                                   onchange="{!c.handleRecordTypeChange}"/>
+                                        </div>
+                                    </section>
+                                    <lightning:helptext content="Please select the opportunity record types you want as filter. Maximum 5" class="popover"/>
+                                </div>
+                                
+                                <div style="position:relative;" class="pipelineview slds-size_4-of-4">
+                                    <section>
+                                        <div class="slds-m-around_xx-large">
+                                            <lightning:select name="select1" value="{!v.pipeLineSelected}" aura:id="pipelinedlistview" label="Pipelined Opporunities" required="true">
+                                                <option value="-1">Choose one list view...</option>
+                                                <aura:iteration items="{!v.allOppListView}" var="item" start="0">
+                                                    <option value="{!item.value}">{!item.label}</option>
+                                                </aura:iteration>
+                                            </lightning:select>
+                                        </div>
+                                    </section>
+                                    <lightning:helptext content="Please select the view to be shown when you click pipelined opportunities" class="popover"/>
+                                </div>
+                                
+                                <div style="position:relative;" class="wonview slds-size_4-of-4">
+                                    <section>
+                                        <div class="slds-m-around_xx-large">
+                                            <lightning:select name="select1" value="{!v.wonSelected}" aura:id="wonlistview" label="Won opportunities" required="true">
+                                                <option value="-1">Choose one list view...</option>
+                                                <aura:iteration items="{!v.allOppListView}" var="item" start="0">
+                                                    <option value="{!item.value}">{!item.label}</option>
+                                                </aura:iteration>
+                                            </lightning:select>
+                                        </div>
+                                    </section>
+                                    <lightning:helptext content="Please select the view to be shown when you click won opportunities" class="popover"/>
+                                </div>
+                                
+                                <div style="position:relative;" class="allview slds-size_4-of-4">
+                                    <section>
+                                        <div class="slds-m-around_xx-large">
+                                            <lightning:select name="select1" value="{!v.allSelected}" aura:id="alllistview" label="All opportunities" required="true">
+                                                <option value="-1">Choose one list view...</option>
+                                                <aura:iteration items="{!v.allOppListView}" var="item" start="0">
+                                                    <option value="{!item.value}">{!item.label}</option>
+                                                </aura:iteration>
+                                            </lightning:select>
+                                        </div>
+                                    </section>
+                                    <lightning:helptext content="Please select the view to be shown when you click all opportunities" class="popover"/>
+                                </div>
+                                
+                            </div>
+                            <div style="text-align:right;background-color: #fff;padding: 0 14px 14px;border-radius: 0 0 6px 6px;">
+                                <lightning:button aura:id="submit" label="Save" onclick="{!c.saveapidetails}"/>
+                            </div>
+</lightning:tab>-->
+                    </div>
+                    <lightning:tab label="Manage Partners API Settings" id="updateapisettings">
+                        <div class="APIDetails">
+                            <div style="margin-bottom:15px;">
+                                <ui:message title="" severity="info">
+                                    <div class="slds-float_left" style="line-height: 45px;">
+                                        This will be used to manage the api token for the parnter users.
+                                    </div>
+                                </ui:message>
+                            </div>
+                            <table class="slds-table slds-table--bordered ">
+                                <thead>
+                                    <tr class="slds-text-title--caps">
+                                        <th>           
+                                            <label class="slds-checkbox">
+                                                <ui:inputCheckbox disabled="{!v.unableCheckBox}" value="{!v.isSelectAll}" change="{!c.handleSelectAllContact}" aura:id="selectAll"/>
+                                                <span class="slds-checkbox--faux" />
+                                                <span class="slds-form-element__label"></span>
+                                            </label>
+                                        </th>
+                                        <th>Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <aura:iteration items="{!v.mmAPIUser}" var="item">
+                                        <tr>
+                                            <aura:if isTrue="{!item != null}">
+                                                <th>
+                                                    <label class="slds-checkbox">
+                                                        <ui:inputCheckbox aura:id="checkContact" value="" text="{!item.Id}"/>
+                                                        <span class="slds-checkbox--faux" />
+                                                        <span class="slds-form-element__label"></span>
+                                                    </label>
+                                                </th>
+                                                <td>{!item.CreatedBy.Name}</td>
+                                                <td> <span id="{!item.CreatedBy.Id}" onclick="{!c.onEdit}"><lightning:buttonIcon  iconName="utility:edit"  title="Edit" size="x-small"/></span>|  <span id="{!item.CreatedBy.Id}" onclick="{!c.handleConfirmDialog}"><lightning:buttonIcon iconName="utility:delete"  title="Delete" size="x-small"/></span> </td>
+                                            </aura:if>
+                                        </tr>
+                                    </aura:iteration>
+                                    </tbody>
+                            </table>
+                            <aura:if isTrue="{!v.isEdit}">
+                                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                                    <div class="slds-modal__container">
+                                        <header class="slds-modal__header">
+                                            <lightning:buttonIcon iconName="utility:close"
+                                                                  onclick="{! c.closeModel }"
+                                                                  alternativeText="close"
+                                                                  variant="bare-inverse"
+                                                                  class="slds-modal__close"/>
+                                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Update API Settings</h2>
+                                        </header>
+                                        
+                                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                            <lightning:input  required="true" value="{!v.currentUserDetails.MindMatrix__InstallUrl__c}" type="url" name="siteurl" label="Install URL"  />
+                                            <lightning:input  required="true" value="{!v.currentUserDetails.MindMatrix__Token__c}" type="string" name="token" label="Token(OWD Token)"  />
+                                            <lightning:input  required="true" value="{!v.currentUserDetails.MindMatrix__UserToken__c}" type="string" name="usertoken" label="Token(User Token)"  />
+                                            <!--<lightning:input   value="{!v.currentUserDetails.tosredirecturl}" type="string" name="tosredirecturl" label="ToSRedirectUrl"  />-->
+                                        </div>
+                                        <footer class="slds-modal__footer">
+                                            <lightning:button variant="neutral" 
+                                                              label="Cancel"
+                                                              title="Cancel"
+                                                              onclick="{! c.closeModel }"/>
+                                            <lightning:button variant="brand" 
+                                                              label="Save"
+                                                              title="Save"
+                                                              onclick="{! c.OnSave }"/>
+                                        </footer>
+                                    </div>
+                                </section>
+                                <div class="slds-backdrop slds-backdrop_open"></div>
+                                
+                            </aura:if>
+                            <aura:if isTrue = "{!v.deleteVisibility}">
+                            <div id='DeleteAll' style="text-align:right;background-color: #fff;padding: 0 14px 14px;border-radius: 0 0 6px 6px;">
+                                <lightning:button label="Delete" title='Delete' onclick="{!c.handleConfirmDialog}"/>
+                            </div>
+                            </aura:if>
+                                <aura:if isTrue="{!v.showConfirmDialog}">
+                                    <!--Modal Box Start-->
+                                    <div role="dialog" class="slds-modal slds-fade-in-open ">
+                                        <div class="slds-modal__container">
+                                            <!--Modal Box Header Start-->
+                                            <header class="slds-modal__header">
+                                                <h1 class="slds-text-heading--medium">Delete Users</h1>
+                                            </header>
+                                            <!--Modal Box Header End-->
+                                            
+                                            <!--Modal Box Content Start-->
+                                            <div class="slds-modal__content slds-p-around--medium">
+                                                <center><b>Are you sure you want to delete these users?</b></center>
+                                            </div>
+                                            <!--Modal Box Content End-->
+                                           
+                                            <!--Modal Box Button Start-->
+                                            <footer class="slds-modal__footer">
+                                                <lightning:button name='No' label='No' onclick='{!c.handleConfirmDialogNo}'/>
+                                                <aura:if isTrue="{!v.showConfirmDialogForIcon}">
+                                                    <lightning:button variant="brand" name='Yes' label='Yes' onclick="{!c.OnDelete}"/>
+                                                    <aura:set  attribute="else">
+                                                        <lightning:button variant="brand" name='Yes' label='Yes' onclick="{!c.onDeleteAllRecords}"/>
+                                                    </aura:set>
+                                                </aura:if>
+                                            </footer>
+                                            <!--Modal Box Button End-->
+                                        </div>
+                                    </div>
+                                    <div class="slds-backdrop slds-backdrop--open"></div>            
+                                </aura:if>
+                            <aura:if isTrue = "{!v.paginationButton}">
+                            <div class="slds-align_absolute-center" style="height:5rem">
+                            	<lightning:button disabled="{!v.bDisableFirst}" iconName="utility:jump_to_left" label="First" class="slds-p-horizontal_x-small" onclick="{!c.firstPage}"/>
+                                <lightning:button disabled="{!v.bDisableFirst}" iconName="utility:chevronleft" label="Previous" onclick="{!c.previousPage}"/>
+                                &nbsp;
+                                <span class="slds-badge">Showing {!v.pageNumber} &nbsp;of&nbsp; {!v.totalPages} &nbsp;&nbsp;Pages</span>
+                                &nbsp;
+                                <lightning:button disabled="{!v.bDisableLast}" iconName="utility:chevronright" label="Next" onclick="{!c.nextPage}" class="slds-p-horizontal_x-small" iconPosition="right"/>
+                                <lightning:button disabled="{!v.bDisableLast}" iconName="utility:jump_to_right" label="Last" onclick="{!c.lastPage}" iconPosition="right"/>
+                           	</div>
+                            <div class="slds-clearfix">
+                                <div class="slds-float_right">
+                                    <span class="slds-badge"> Total Records: {!v.totalRecords}</span>
+                                </div>
+                            </div>
+                            </aura:if>
+                        </div>
+                    </lightning:tab>
+                </lightning:tabset>
+                
+            </div>
+        </section>
+    </div>
+</aura:component>

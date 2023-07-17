@@ -1,0 +1,64 @@
+.THIS {
+}
+
+.THIS .btn-group .slds-form-element__label{
+    display:none;
+}
+
+.THIS .ssodetails .slds-modal__container{
+    width:50% !important;
+}
+.THIS .fields-table >tbody>tr>td {
+    padding: 5px;
+    border: 1px solid #dddbda;
+}
+.THIS .fields-table{border: 1px solid #dddbda;}
+
+.THIS .fields-table >tbody>tr>td:hover{
+    background: #f3f2f2;
+}
+.THIS .leadfeed-container{display:none;}
+
+
+.THIS .divMessageBox {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.6);
+    z-index: 100000;
+}
+.THIS .MessageBoxContainer {
+    top: 35%;
+    color: #fff;
+    position: absolute;
+    width: 100%;
+    background-color: #232323;
+    background-color: rgba(0,0,0,.8);
+    padding: 20px;
+	z-index: 10000;
+}
+.THIS .MessageBoxMiddle {
+    position: relative;
+    left: 20%;
+    width: 60%;
+}
+.THIS .MessageBoxMiddle .MsgTitle {
+    letter-spacing: -1px;
+    font-size: 24px;
+    font-weight: 300;
+}
+.THIS .MessageBoxButtonSection {
+    width: 100%;
+    height: 30px;
+}
+.THIS .MessageBoxButtonSection button {
+    float: right;
+    margin-right: 7px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 14px;
+    font-weight: 700;
+    color:black;
+}

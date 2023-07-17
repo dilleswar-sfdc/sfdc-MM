@@ -1,0 +1,5 @@
+<design:component label="Create User Via SSO">
+	<design:attribute name="createusertitle" label="Title" description="This is the title of the pop for user creation" />
+    <design:attribute name="createusermessage" label="Title" description="This is the message of the pop for user creation" />
+    <design:attribute name="createuserbuttontext" label="Title" description="This is the button text of the pop for user creation" />
+</design:component>

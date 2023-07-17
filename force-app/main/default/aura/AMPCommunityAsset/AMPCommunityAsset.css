@@ -1,0 +1,56 @@
+.THIS {
+    height:calc(100vh - 100px);
+}
+.THIS .hide {
+    display:none !important;
+}
+.THIS .notexpanded{
+    left: 0px !important;
+}
+.THIS .expanded{
+    position: fixed!important;
+    top: 0;
+    z-index: 10000;
+    left: 10px;
+    height: calc(100vh - 10px);
+    width: calc( 100% - 20px );
+    padding: 0;
+    /*margin-top: 5px;
+    margin-left: 5px;*/
+}
+.THIS .expandedicon{
+    position:relative;
+    right: 8px;
+    color: #000;
+    top: 20px;
+    transform: scale(1.2);
+    opacity: 1;
+}
+
+.THIS .notexpandedicon{
+    color:black;
+    right:-14px;
+    position:relative;
+}
+.THIS .pleasewaitmessage{
+    color:black;
+    font-size:30px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    width:100%;
+    text-align:center;
+}
+.THIS .messagespan{
+    text-align:left;
+}
+.THIS .expandicon svg{
+    fill:var(--mainnavbgcolor);
+}
+
+.THIS .custombackdropclass{
+    background-color: #0000e6;
+}

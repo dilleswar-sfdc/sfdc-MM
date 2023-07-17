@@ -1,0 +1,234 @@
+.THIS .quicklinkbutton{
+    padding: 40px 0px 20px;
+    background: #d1d2d4;
+}
+.THIS .datalists ul li{
+    display: inline-block;
+    margin-right: 1px;
+    margin-left: 2px;
+}
+.THIS .datalists ul li:last-child a{ 
+    border-right: none; 
+}
+.THIS .datalists ul li a{
+    color: #416fb1 !important;
+    font-size: 14px;
+    border-right: solid 1px #416fb1;
+    padding-right: 10px;
+    text-decoration:none;
+}
+.THIS .topaction {
+    position: absolute;
+    right: -10px;
+    top: -12px;
+}
+.THIS .bigbtn .notificationdiv {
+    font-size: 16px;
+    color: #ffffff;
+    background: #ee3e35;
+    height: 34px;
+    min-width: 34px;
+    text-align: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    font-weight: bold;
+    line-height: 34px;
+    display: inline-block;
+    padding: 0 2px;
+    vertical-align: top;
+    margin-left: 5px;
+    -webkit-box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+}
+
+
+/* quicklink css */
+.THIS .bigbtn {
+    background: #3276b1;
+    padding: 18px;
+    color: #fff;
+    position: relative;
+    margin-bottom: 20px;
+    min-height: 160px;
+    border-radius:0;
+    -webkit-border-radius:0;
+}
+
+.THIS .bigbtn .notificationdiv {
+    font-size: 16px;
+    color: #ffffff;
+    background: #ee3e35;
+    height: 34px;
+    min-width: 34px;
+    text-align: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    font-weight: bold;
+    line-height: 34px;
+    display: inline-block;
+    padding: 0 2px;
+    vertical-align: top;
+    margin-left: 5px;
+    -webkit-box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+}
+
+.THIS .bigbtn i.btnbigicon {
+    float: left;
+    padding-right: 5px;
+    padding-left: 0 !important;
+}
+
+.THIS .bigbtn a.btndetails {
+    float: left;
+    color: #fff;
+}
+
+.THIS .bigbtn a:hover, .THIS .bigbtn a:focus {
+    text-decoration: none;
+}
+
+.THIS .bigbtn a span {
+    display: block;
+    /*padding: 2px 0px 3px 0px;
+    vertical-align: top;
+    font-size: 30px;
+    line-height: 28px;*/
+}
+
+.THIS .bigbtn a span.btninfo {
+    /*color: #fce38d;*/
+    padding-bottom: 0;
+    white-space: normal;
+    font-size: 14px;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 60px;
+}
+
+.THIS .bigbtn {
+    font-weight: 600;
+    background: #3f51b5;
+    color: #4e6973;
+    padding: 10px 30px 10px;
+    position: relative;
+    transition: 0.1s;
+    cursor: pointer;
+    margin-bottom: 20px;
+    /*margin-top: 20px;*/
+    min-height: 250px;
+    -webkit-transition: 0.3s background-color ease;
+    -moz-transition: 0.3s background-color ease;
+    transition: 0.3s background-color ease;
+}
+
+.THIS .bigbtn:hover a {
+    color: #fff;
+}
+
+.THIS .bigbtn .strip {
+    background: rgba(204, 204, 204, 0.39);
+    padding: 7px 10px;
+}
+
+.THIS .bigbtn .btndetails span:first-child {
+    font-size: 30px !important;
+    /*font-size: 2vw;*/
+    margin-top: 20px;
+    margin-bottom: 4px;
+    font-weight: 900;
+    /*color: #333;*/
+}
+
+.THIS .bigbtn .btndetails h2:first-child {
+    font-size: 30px;
+    font-size: 2vw;
+    margin-top: 30px;
+    margin-bottom: 4px; 
+}
+
+.THIS .detail-card .asset-search .form-control {
+    height: 32px;
+    margin-top: 0;
+}
+
+.THIS .bigbtn i.btnbigicon {
+    float: left;
+    padding-right: 5px;
+    padding-left: 0 !important;
+    display: none;
+}
+
+.THIS a.btndetails {
+    width: 100%;
+    padding-left: 0px;
+}
+
+.THIS .bigbtn .btninfo {
+    font-size: 15px;
+}
+
+.THIS .bigbtn a {
+    text-decoration: none;
+    color: #4e6973;
+}
+
+.THIS .searchbtn {
+    position: relative;
+}
+
+.THIS .searchbtn .btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.THIS .bigbtn:hover li a {
+    color: #416fb1 !important;
+}
+
+.THIS #quicklinkbutton {
+    padding: 40px 0px 20px;
+    background: #d1d2d4;
+}
+@media only screen and (max-width : 768px) {
+    .THIS .bigbtn .btndetails span:first-child {
+        font-size: 24px;
+    }
+}
+
+
+/*Independant widget modal start*/
+
+.THIS .slds-modal__content iframe {
+    height: 70vh;
+    border: none;
+}
+.THIS .slds-modal__header{
+    text-align: left;
+}
+.THIS .slds-modal__header.textcenter{
+    text-align: center;
+}
+.THIS .modal-close{
+    position: absolute;
+    right: 0;
+    top: -34px;
+}
+
+.THIS .modal-independant .asset-type-icon .slds-icon{fill:white !important;}
+.THIS.modal-independant .slds-modal__container{ width:95% !important;}
+.THIS .tosModal .slds-modal__container {
+    max-width: 100%;
+    width: 100%;
+    height: 100vh;
+    padding: 10px;
+}
+.THIS .tosModal .slds-modal__container iframe {
+    height: calc(100vh - 125px);}
+
+
+/*Independant widget modal end-->*/

@@ -1,0 +1,11 @@
+<design:component>
+	<design:attribute name="showContactfeed" label="Show ContactFeed" description="Check this to show Contact Feed." />
+    <design:attribute name="showPlaybookfeed" label="Show Playbook" description="Check this to show Playbook."/>
+    <design:attribute name="playbookSource" label="Source of the playbook iFrame" description="Please enter the AMP page you want to see." />
+    <design:attribute name="playbookHeight" label="Height of the playbook Widget" description="Please enter the height for the MM Playbook Widget" />
+    <design:attribute name="showAssetfeed" label="Show Asset" description="Check this to show Asset."/>
+    <design:attribute name="subsource" label="Source of the asset iFrame" description="Please enter the AMP page you want to see." />
+    <design:attribute name="assetHeight" label="Height of the Asset Widget" description="Please enter the height for the MM Asset Widget" />
+    <design:attribute name="playbookComponentHeader" label="Don't use this" description="Don't use this" />
+    <design:attribute name="assetComponentHeader" label="Don't use this" description="Don't use this" />
+</design:component>

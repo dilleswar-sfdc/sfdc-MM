@@ -1,0 +1,340 @@
+<apex:page controller="AMPLoginController" showheader="true" sidebar="true" name="AMP" action="{!CheckIfUserExists}" tabstyle="AMP__tab">
+    <apex:includeLightning /> 
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   
+        <apex:form >
+            <apex:outputPanel rendered="{! $User.UIThemeDisplayed == 'Theme3' }">
+                <apex:sectionHeader title="AMP Authentication" /> 
+                    <div style="position: relative;">
+                    <apex:pageBlock id="pageBlock"  mode="edit">
+                        <apex:pageBlockSection columns="1">
+                            <apex:pageMessages escape="false"></apex:pageMessages> 
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel for="txtUserName" value="User name"></apex:outputLabel>
+                                <apex:panelGroup >
+                                    <div class="requiredInput"><div class="requiredBlock"></div>
+                                       <apex:inputtext html-placeholder="<USER NAME>" style="{!requiredStyle}" id="txtUserName" value="{!amp_UserName}"></apex:inputtext>
+                                    </div>
+                                </apex:panelGroup>
+                            </apex:pageBlockSectionItem>
+                         <apex:pageBlockSectionItem >
+                            <apex:outputLabel for="txtPassword" value="Password"></apex:outputLabel>
+                                <apex:panelGroup >
+                                    <div class="requiredInput"><div class="requiredBlock"></div>
+                                        <apex:inputsecret html-placeholder="<PASSWORD>" style="{!requiredStyle}" id="txtPassword" value="{!amp_Password}"></apex:inputsecret>
+                                    </div>
+                                </apex:panelGroup>
+                        </apex:pageBlockSectionItem>
+                         <apex:pageBlockSectionItem helpText="Enter valid install url format. i.e. https://{install}.amp.vg/ ">
+                                <apex:outputLabel for="txtInstall" value="Install"></apex:outputLabel>
+                                <apex:panelGroup >
+                                    <div class="requiredInput"><div class="requiredBlock"></div>
+                                        <apex:inputtext html-placeholder="<INSTALL URL>" style="{!requiredStyle}" id="txtInstall" value="{!amp_Install}"></apex:inputtext>
+                                    </div>
+                                </apex:panelGroup>
+                                <!--<apex:panelGroup >
+                                    <div class="requiredInput"><div class="requiredBlock"></div>
+                                      <apex:selectList value="{!ampOauthUrl}" multiselect="false" size="1" required="true" >
+                                            <apex:selectOptions value="{!values}" />
+                                        </apex:selectList>
+                                    </div>
+                                </apex:panelGroup>-->
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel for="txtPassword"></apex:outputLabel>
+                                <apex:panelGroup >
+                                    <apex:commandbutton action="{!login}" value="Login" rerender="pageBlock" status="status"></apex:commandbutton>
+                                </apex:panelGroup>
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+                        <apex:outputpanel >
+                        <apex:actionstatus id="status">
+                            <apex:facet name="start">
+                                <div class="waitingSearchDiv" id="00Bd0000003nrlY_loading" style="background-color: #fbfbfb;
+                                       opacity:0.65;height: 100%; width: 100%;">
+                                        <div class="waitingHolder" style="width: 100%; top: 50%;">
+                                        <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                                        <span class="waitingDescription">Please wait...</span>
+                                    </div>
+                                </div>
+                            </apex:facet>
+                        </apex:actionstatus>
+                    </apex:outputpanel>
+                </apex:pageBlock> 
+                </div>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{! $User.UIThemeDisplayed == 'Theme4d' }">
+                <apex:actionFunction name="CallApexMethod" action="{!login}" rerender="resultVars" />
+                <div class="modal">
+                    <div class="modal-header slds-modal__header">
+                        <h2 class="title slds-text-heading--medium">AMP Authentication</h2>
+                    </div>
+                    <div class="detaildiv">
+                        <div class="pageLevelErrors" style="position: relative;top: -50px;" tabindex="-1">
+                            <div class="desktop forcePageError" aria-live="assertive" data-aura-class="forcePageError">
+                                <div class="genericNotification">
+                                    <span class="genericError uiOutputText"  data-aura-class="uiOutputText">Review the errors on this page.</span>
+                                </div>
+                                <ul class="errorsList">
+                                    <li id="lierrors"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="userName" class="inputdiv">
+                            <div class="full forcePageBlockItem forcePageBlockItemEdit" role="listitem" style="" aria-label="Username - Username">
+                                <div class="uiInput uiInput--default uiInput--input" data-aura-class="uiInput uiInput--default uiInput--input">
+                                    <label class="label inputLabel uiLabel-left form-element__label uiLabel" data-aura-class="uiLabel">
+                                        <span class="required">*</span>
+                                        <span class="">Username:</span>
+                                    </label>
+                                    <input class="input" type="text" value="{!amp_UserName}" aria-describedby="" placeholder=""/>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="userPassword" class="inputdiv">
+                            <div class="full forcePageBlockItem forcePageBlockItemEdit" role="listitem" style="" aria-label="Password - Password">
+                                <div class="uiInput uiInput--default uiInput--input" data-aura-class="uiInput uiInput--default uiInput--input">
+                                    <label class="label inputLabel uiLabel-left form-element__label uiLabel" data-aura-class="uiLabel">
+                                        <span class="required ">*</span>
+                                        <span class="">Password   :  </span>
+                                    </label>
+                                    <input class="input" type="password" value="{!amp_Password}" aria-describedby="" placeholder=""/>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="userInstall" class="inputdiv">
+                            <div class="full forcePageBlockItem forcePageBlockItemEdit" role="listitem" style="" aria-label="Install - Install">
+                                <div class="uiInput uiInput--default uiInput--input" data-aura-class="uiInput uiInput--default uiInput--input">
+                                    <label style="margin-left: 20px;" class="label inputLabel uiLabel-left form-element__label uiLabel" data-aura-class="uiLabel">
+                                        <span class="required ">*</span>
+                                        <span class="">Install     :    </span>
+                                    </label>
+                                    <input class="input" type="text" value="{!amp_Install}" aria-describedby="" placeholder=""/>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="loginBtn" class="inputdiv">
+                            <button onclick="login(); return false ;" style="margin-left: 70px;" class="slds-button uiButton" aria-live="off" type="button" data-aura-class="uiButton">
+                                <span class=" label bBody truncate" dir="ltr">Login</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <apex:inputHidden value="{!amp_UserName}" id="hdnUserName"/>
+                <apex:inputHidden value="{!amp_Password}" id="hdnUserPassword"/>
+                <apex:inputHidden value="{!amp_Install}" id="hdnUserInstall"/>
+				<apex:outputPanel id="resultVars">
+                  <script>
+                    var actionResult = "{!JSENCODE(amp_liError)}";
+                    if(actionResult != '')
+                        {
+                            $(".errorsList li").text(actionResult);
+                			$(".pageLevelErrors").show();
+                        }
+                    actionResult = '';
+                  </script>
+                </apex:outputPanel>
+                <script src="{!$Resource.jQuery351}"></script>
+                <script>
+        $(document).ready(function () {
+            $(".pageLevelErrors").hide();
+        });
+               
+        function login() {
+            $(".pageLevelErrors").hide();
+            $(".errorsList li").text('');
+            var userName = document.getElementById("userName").getElementsByTagName('input')[0].value;
+            var userPassword = document.getElementById("userPassword").getElementsByTagName('input')[0].value;
+            var userInstall = document.getElementById("userInstall").getElementsByTagName('input')[0].value;
+            if (userName == '' || userPassword == '') {
+                var text = "These required fields must be completed:";
+                var userError = false;
+                if (userName == '') {
+                    text += " Username";
+                    userError = true;
+                }
+                if (userPassword == '' && userError)
+                    text += ", Password";
+                else if (userPassword == '' && !userError)
+                    text += " Password";
+
+                $(".errorsList li").text(text);
+                $(".pageLevelErrors").show();
+                return;
+            }
+            //Validating the install url
+            //var pattern = /^(http|https)?:\/\/[a-zA-Z0-9-\.]+\.[a-z]{2,4}\/$/;
+            if (userInstall == '') {
+                var text = "These required fields must be completed:";
+                $(".errorsList li").text(text);
+                $(".pageLevelErrors").show();
+                return;
+            }
+            if(userInstall != ''){
+                if(!userInstall.endsWith('/'))
+                    userInstall=userInstall+'/';
+                else
+                    userInstall=userInstall;
+            }
+            
+            $('[id$="hdnUserName"]').val(userName);
+            $('[id$="hdnUserPassword"]').val(userPassword);
+            $('[id$="hdnUserInstall"]').val(userInstall);
+            CallApexMethod();
+        }
+    </script>
+                <style>
+        .modal {
+            width: 40%;
+            margin-left: 30%;
+        }
+
+        .slds-modal__header {
+            position: relative;
+            border-top-right-radius: .25rem;
+            border-top-left-radius: .25rem;
+            border-bottom: 2px solid rgb(216, 221, 230);
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .slds-text-heading--medium {
+            font-weight: 300;
+            font-size: 1.25rem;
+            line-height: 1.25;
+        }
+
+        .select-style {
+            padding: 0;
+            margin: 0;
+            border: 1px solid #ccc;
+            width: 165px;
+            border-radius: 3px;
+            overflow: hidden;
+            background-color: #fff;
+        }
+
+            .select-style select {
+                height: 25px;
+                padding: 5px 8px;
+                width: 130%;
+                border: none;
+                box-shadow: none;
+                background-color: transparent;
+                background-image: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+            }
+
+                .select-style select:focus {
+                    outline: none;
+                }
+
+        .detaildiv {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .required {
+            color: rgb(194, 57, 52);
+            font-weight: 700;
+        }
+
+        .inputdiv {
+            padding: 5px;
+        }
+
+        .slds-button {
+            width: 115px;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            text-align: center;
+            vertical-align: middle;
+            background-color: rgb(0, 112, 210) !important;
+            border: 1px solid rgb(0, 112, 210) !important;
+            color: rgb(255, 255, 255) !important;
+            position: relative;
+            display: inline-block;
+            padding: 0;
+            background: transparent;
+            background-clip: border-box;
+            border: 1px solid transparent;
+            border-radius: .25rem;
+            font-size: .75rem;
+            line-height: 1.875rem;
+            text-decoration: none;
+            color: rgb(0, 112, 210);
+            -webkit-appearance: none;
+            white-space: normal;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-transition: color .05s linear,background-color .05s linear;
+            transition: color .05s linear,background-color .05s linear;
+        }
+
+        .uiButton {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        a, button {
+            cursor: pointer;
+        }
+
+        button, html input[type=button], input[type=reset], input[type=submit] {
+            -webkit-appearance: button;
+            cursor: pointer;
+        }
+
+        button, select {
+            text-transform: none;
+        }
+
+        button {
+            overflow: visible;
+        }
+
+        button, input, optgroup, select, textarea {
+            color: inherit;
+            font: inherit;
+            margin: 0;
+        }
+
+        .forceStyle .truncate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .forcePageError.desktop .genericNotification {
+            font-weight: 300;
+            border-radius: .25rem;
+            font-size: 1rem;
+        }
+
+        .forcePageError .genericNotification {
+            background: rgba(194, 57, 52, 0.95);
+            padding: 1rem;
+            color: rgb(255, 255, 255);
+            line-height: 1.25;
+        }
+
+        .forcePageError.desktop .errorsList {
+            font-size: .8125rem;
+        }
+
+
+        .forcePageError .errorsList {
+            list-style: none;
+            color: rgb(194, 57, 52);
+            line-height: 1.5;
+            margin: 0;
+            padding: .5rem 1rem .25rem 1rem;
+        }
+    </style>
+            </apex:outputPanel>
+        </apex:form>
+    </html>
+</apex:page>

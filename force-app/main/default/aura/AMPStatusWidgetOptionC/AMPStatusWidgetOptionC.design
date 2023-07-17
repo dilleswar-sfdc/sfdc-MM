@@ -1,0 +1,4 @@
+<design:component label="Stats Widget">
+	<design:attribute name="showlast5email" label="Show last 5 email campaign" description="Do you want to show last 5 email campaign?" />
+    <design:attribute name="createuserviasso" label="Create User VIA SSO" description="Do you want this widget to create user via sso" />
+</design:component>

@@ -1,0 +1,14 @@
+<aura:event type="COMPONENT" description="Event template" >
+    <aura:attribute name="tabNameData" type="String"/>
+    <aura:attribute name="modalFolderEnum" type="Object"/>
+    <aura:attribute name="modlaisMedia" type="Integer"/>
+    <aura:attribute name="modalSearchtxt" type="String"/>
+    <aura:attribute name="modalPage" type="Integer"/>
+    <aura:attribute name="modalCurrentPage" type="Integer"/>
+    <aura:attribute name="filterflag" type="Boolean"/>
+    <aura:attribute name="filterId" type="Object"/>
+    <aura:attribute name="conditionval" type="Boolean"/>
+    <aura:attribute name="flag" type="Boolean"/>
+    <aura:attribute name="flagcountVal" type="Boolean"/>
+   
+</aura:event>

@@ -1,0 +1,387 @@
+.THIS .quicklinkdesignbutton2 .design2 {
+    position: relative;
+    /*margin: 10px auto;*/
+    margin: 15px;
+    width: 200px;
+}
+.THIS .quicklinkdesign2body {
+    padding: 0 8px;
+}
+.THIS .quicklinkdesign2body > .slds-grid > .qgrid {
+    width: 230px;
+    float: left;
+    padding: 0;
+}
+.THIS .quicklinkdesignbutton2 .clearfix{
+    zoom: 1;
+}
+.THIS .quicklinkdesignbutton2 .template {
+    width: 100%;
+    max-width: 200px;
+    height: 170px;
+    display: block;
+    float: none;
+    margin: 0 auto;
+    border: none;
+    -webkit-box-shadow: 0px 2px 15px 2px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 2px 15px 2px rgba(0,0,0,0.2);
+    box-shadow: 0px 2px 15px 2px rgba(0,0,0,0.2);
+    -webkit-transition: .3s;
+    -o-transition: .3s;
+    transition: .3s;
+}
+.THIS .quicklinkdesignbutton2 .temp-top {
+    padding: 14px 5px 6px;
+    position: relative;
+}
+.THIS .quicklinkdesignbutton2 .temp-ico {
+    text-align: center;
+}
+.THIS .quicklinkdesignbutton2 i.btnbigicon.fa.fa-usd {
+    font-size: 50px;
+}
+.THIS .quicklinkdesignbutton2 .temp-caption {
+    text-align: center;
+    padding: 5px;
+}
+.THIS .quicklinkdesignbutton2 h5.btnheader {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    margin: 0 0 2px 0;
+    font-weight: bold;
+    line-height: 1.4;
+    /*font-family: Raleway, "Open Sans",Arial,Helvetica,sans-serif;*/
+    font-size: 17px;
+    text-transform: capitalize;
+}
+.THIS .quicklinkdesignbutton2 p.btninfo {
+    font-size: 11px;
+    height: 32px;
+    font-weight: 600;
+    overflow: hidden;
+    font-family: Raleway, "Open Sans",Arial,Helvetica,sans-serif;
+}
+.THIS .quicklinkdesignbutton2 a {
+    text-decoration: none;
+}
+.THIS .quicklinkdesignbutton2 .fbIcon{
+    width: 65px;
+    height: 65px;
+    display: block;
+    margin: 0 auto;
+    font-size: 68px;
+    font-weight: 800;
+    line-height: 83px;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+.THIS .newicon {
+    height: 60px;
+    position: relative;
+    width: 55px;
+    display: block;
+    margin: 0 auto;
+    border-top-right-radius: 15px;
+    font-size: 38px;
+    line-height: 65px;
+    border-radius: 5px;
+    font-weight: 600;
+}
+.THIS .newicon:before {
+    content:'';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+.THIS .quicklinkdesignbutton2 .design2 .datalisting ul li a {
+    color: var(--desc_link_font_color) !important;
+    font-size: 11px;
+    border-right: solid 1px var(--desc_link_font_color) !important;
+    padding: 0 4px;
+    text-decoration: none;
+    float: left;
+}
+
+.THIS .quicklinkdesignbutton2 .design2:hover .datalisting ul li a {
+    color:  var(--hover_desc_link_font_color) !important;
+    border-right: solid 1px  var(--hover_desc_link_font_color) !important;
+}
+.THIS .quicklinkdesignbutton2 .design2 .datalisting ul li:last-child a{border-right: none}
+.THIS .quicklinkdesignbutton2 .design2 .datalisting {
+    padding: 0;
+    background-color: transparent;
+    margin-top: 0;
+}
+.THIS .quicklinkdesignbutton2 .design2 .datalisting ul li {
+    display: inline-block;
+}
+.THIS .quicklinkdesignbutton2 .design2 .datalisting ul {
+    margin: 0;
+    padding: 0;
+}
+
+
+/*Independant widget modal start*/
+
+.THIS .slds-modal__content iframe {
+    height: 70vh;
+    border: none;
+}
+.THIS .slds-modal__header{
+    text-align: left;
+}
+.THIS .modal-close{
+    position: absolute;
+    right: 0;
+    top: -34px;
+}
+.THIS .modal-independant .slds-modal__container
+{
+    width:95% !important;
+}
+.THIS .modal-independant .asset-type-icon .slds-icon{fill:white !important;}
+
+.THIS .quicklinkdesignbutton2 .modal-independant .asset-type-icon .slds-icon{fill:white !important;}
+        .THIS .quicklinkdesignbutton2 .modal-independant .slds-modal__container{ width:95% !important;}
+        .THIS .quicklinkdesignbutton2 .template{
+        	background-color: var(--mainnavfontcolor) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .template:hover{
+        	background-color: var(--mainnavbgcolor) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .template:hover .temp-caption{
+        	color: var(--mainnavfontcolor) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .template:hover .fbIcon{
+            background: var(--hover_icon_color) !important;
+            color: var(--mainnavbgcolor) !important;
+         }
+         .THIS .quicklinkdesignbutton2 .template:hover .iconcolor .slds-icon-text-default {
+            fill: var(--hover_icon_color) !important;
+            border-bottom: var(--hover_icon_color);
+            border-left: var(--hover_icon_color);
+        }
+        .THIS .quicklinkdesignbutton2 .template:hover .slds-icon-text-default {
+        	fill:  var(--hover_icon_color) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .template:hover .newicon {
+        	border: 5px solid var(--hover_icon_color) !important;
+            color:  var(--hover_icon_color) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .template:hover .newicon:before {
+            border-top: 17px solid  var(--hover_icon_color) !important;
+            border-left: 17px solid  var(--hover_icon_color) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .template:hover .slds-icon-custom-custom41{
+        	background-color: var(--hover_icon_color) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .template:hover .slds-icon-custom-custom57{
+        	background-color: var(--hover_icon_color) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .template:hover .customIcon .slds-icon{
+        	fill:  var(--hover_icon_color) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .slds-icon-text-default {
+        	fill: var(--icon_color) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .temp-caption{
+        	color:var(--mainnavbgcolor) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .tilticon.slds-icon_container{
+        	transform: rotate(90deg) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .slds-icon_large,.THIS .slds-icon--large {
+            width: 65px;
+            height: 65px;
+        }
+        .THIS .quicklinkdesignbutton2 .fbIcon{
+            background: var(--icon_color) !important;
+         }
+         .THIS .quicklinkdesignbutton2 .template:hover .fbIcon{
+            background:  var(--hover_icon_color) !important;
+         }
+         .THIS .quicklinkdesignbutton2 .newicon {
+        	border: 5px solid var(--icon_color) !important;
+            color: var(--icon_color) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .template:hover .newicon {
+            border-top: 17px solid  var(--hover_icon_color) !important;
+            border-left: 17px solid  var(--hover_icon_color) !important;
+        }
+
+        .THIS .quicklinkdesignbutton2 .iconcolor .slds-icon-text-default {
+            fill: var(--icon_color) !important;
+            padding-left: 1px;
+            border-bottom: 5px solid var(--icon_color);
+            border-left: 5px solid var(--icon_color);
+        }
+        .THIS .quicklinkdesignbutton2 .slds-button--icon-border{
+            border:none !important;
+            color:var(--icon_color);
+        }
+        .THIS .quicklinkdesignbutton2 .slds-select_container:after {
+            border-top: none; 
+            bottom: 0px;
+        }
+        .THIS .quicklinkdesignbutton2 .slds-select_container:before {
+            transform:rotate(180deg);
+            margin-top:10px;
+            border-bottom: 5px solid var(--mainnavfontcolor);
+        }
+        .THIS .quicklinkdesignbutton2 .slds-icon-custom-custom41,.THIS .slds-icon-custom-custom57{
+        	background-color:var(--mainnavbgcolor) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .customIcon .slds-icon{
+        	fill: var(--icon_color) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .template .temp-caption .datalisting .lists ul li a{
+        	color:#333 !important;
+        	border-right: solid 1px #aaa !important;
+        }
+        .THIS .quicklinkdesignbutton2 .template:hover .temp-caption .datalisting .lists ul li a{
+            color: #333 !important;
+            border-right: solid 1px #aaa !important;
+        }
+        
+        /*.THIS .smallbtnclick .btndetails .template .temp-top .temp-ico:hover .fbIcon{ 
+             color:#ffffff !important
+    	 }  */
+        
+
+        .THIS .quicklinkdesignbutton2 .slds-spinner:before{
+        	background: rgb(28, 28, 27) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .slds-spinner__dot-a:before{
+        background: rgb(28, 28, 27) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .slds-spinner__dot-b:before{
+        background: rgb(28, 28, 27) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .slds-spinner:after{
+        	background: rgb(28, 28, 27) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .slds-spinner__dot-a:after{
+        	background: rgb(28, 28, 27) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .slds-spinner__dot-b:after{
+        	background: rgb(28, 28, 27) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .spinpos{
+        	position: absolute;
+            top: 30px;
+            left: 25px;
+        }
+        .THIS .quicklinkdesignbutton2 .divspinner{
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }             
+      	.THIS .quicklinkdesignbutton2{
+            background: var(--widget_bg_color) !important;                                                                                                                                                                                                                                                                                                                                        
+        }
+        .THIS .quicklinkdesignbutton2:hover{
+            background: var(--widget_bg_color) !important;
+        	background-position-y: var(--widget_bg_image_pos_y) !important;
+            background-position-x: var(--widget_bg_image_pos_x) !important;
+            background-repeat: var(--widget_bg_image_repeat) !important;
+            background-size: var(--widget_bg_image_size) !important;
+            background-image: url(var(--widget_bg_image)) !important;
+        }
+        .THIS .quicklinkdesignbutton2{
+            background-position-y: var(--widget_bg_image_pos_y) !important;
+            background-position-x: var(--widget_bg_image_pos_x) !important;
+            background-repeat: var(--widget_bg_image_repeat) !important;
+            background-size: var(--widget_bg_image_size) !important;
+            background-image: url(var(--widget_bg_image)) !important;
+        }  
+        .THIS .quicklinkdesignbutton2 .template{
+            color: var(--mainnavfontcolor) !important;
+        	background: var(--bg_color) !important;
+        	border-radius: var(--border_radius) px !important;
+        	border-style: var(--border_style) !important;
+        	border-width: var(--border_width) px !important;
+        }  
+        .THIS .quicklinkdesignbutton2 .template.boxshadowapplied{
+            box-shadow: var(--boxShadowCustom) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .btnheader{
+        	color:var(--title_font_color) !important;
+        	line-height: var(--title_line_height) !important;
+            text-transform: var(--title_text_transform) !important;
+            text-align: var(--title_text_align) !important;
+            font-style: var(--title_font_style) !important;
+            font-weight: var(--title_font_weight) !important;
+            font-size: var(--title_font_size) px !important;
+        }
+        .THIS .template:hover .btnheader{
+        	color:var(--hover_title_font_color) !important;
+        }
+        .THIS .template .btninfo{
+        	color:var(--desc_font_color) !important;
+        	line-height: var(--desc_line_height) !important;
+            text-transform: var(--desc_text_transform) !important;
+            text-align: var(--desc_text_align) !important;
+            font-style: var(--desc_font_style) !important;
+            font-weight: var(--desc_font_weight) !important;
+            font-size: var(--desc_font_size) px !important;
+        }
+        .THIS .template:hover .btninfo{
+        	color:var(--hover_desc_font_color) !important;
+        } 
+        .THIS .quicklinkdesignbutton2 .template:hover {
+            background: var(--hover_bg_color) !important;
+            color: var(--mainnavbgcolor) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .template .datalists{
+        	background-color:var(--desc_link_bg_color) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .template .datalists a{
+        	color:var(--desc_link_font_color) !important;
+        	line-height: var(--desc_link_line_height) !important;
+            text-transform: var(--desc_link_text_transform) !important;
+            text-align: var(--desc_link_text_align) !important;
+            font-style: var(--desc_link_font_style) !important;
+            font-weight: var(--desc_link_font_weight) !important;
+            font-size: var(--desc_link_font_size) px !important;
+        }
+        .THIS .quicklinkdesignbutton2 .template:hover .datalists a:hover{
+        	color:var(--hover_desc_link_font_color) !important;
+        }
+         .THIS .quicklinkdesignbutton2 .slds-spinner:before{
+        	background: #000 !important;
+        }
+        .THIS .quicklinkdesignbutton2 .slds-spinner__dot-a:before{
+        background: #000 !important;
+        }
+        .THIS .quicklinkdesignbutton2 .slds-spinner__dot-b:before{
+        background: #000 !important;
+        }
+        .THIS .quicklinkdesignbutton2 .slds-spinner:after{
+        	background: #000 !important;
+        }
+        .THIS .quicklinkdesignbutton2 .slds-spinner__dot-a:after{
+        	background: rgb(28, 28, 27) !important;
+        }
+        .THIS .quicklinkdesignbutton2 .slds-spinner__dot-b:after{
+        	background: #000 !important;
+        }
+        .THIS .quicklinkdesignbutton2 .spinpos{
+        	position: absolute;
+            top: 30px;
+            left: 25px;
+        }
+        .THIS .quicklinkdesignbutton2 .divspinner{
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+/*Independant widget modal end-->*/

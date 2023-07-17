@@ -1,0 +1,8 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" controller="AMPViewAssetController" >
+    <ltng:require scripts="{!$Resource.jQuery351}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <aura:attribute name="iframesrc" type="String" default=""/>
+    <aura:attribute name="unauthorized" type="String"/>
+    {!v.unauthorized}
+    
+    <iframe id="dummyiframeforamp" style="display:none;" src="{!v.iframesrc}"></iframe>
+</aura:component>

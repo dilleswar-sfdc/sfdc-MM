@@ -1,0 +1,49 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="AMPViewAssetSearchController" >
+    <ltng:require scripts="{!$Resource.jQuery351}" afterScriptsLoaded="{!c.doInit}"/>
+    <!--<div class="error-page clearfix" style="margin: 40px auto;padding: 20px;text-align: center;">
+		<h2 style="font-size: 100px;font-weight: 800;">401</h2>
+		<h3 style="font-size: 30px;margin-bottom: 10px;margin-top: 0;">Un-authorized</h3>
+		<div class="clearfix text-center">
+			<p style="margin-bottom: 20px;font-size: 16px;">You are not authorized to view this page</p>
+		</div>
+	</div>-->
+    
+    <aura:attribute name="token" type="string"/>
+    <aura:attribute name="installurl" type="String"/>
+    <aura:attribute name="userdetails" type="User"/>
+    <aura:attribute name="allapidetails" type="AMPAPIDetailsV2__c"/>
+    
+    <aura:attribute name="createusertitle" type="String" default="" access="global"/>
+    <aura:attribute name="createusermessage" type="String" default="THIS IS THE PARTNER PORTAL, CLICK THE BUTTON TO CREATE YOUR USER" access="global"/>
+    <aura:attribute name="createuserbuttontext" type="String" default="CLICK HERE TO BEGIN" access="global"/>
+    
+    <aura:attribute name="createuserbordercolor" type="String" default="#ddd" access="global"/>
+    <aura:attribute name="createusertextcolor" type="String" default="#333" access="global"/>
+    <aura:attribute name="createuserbuttonbackgroundcolor" type="String" default="#ff0000" access="global"/>
+    <aura:attribute name="createuserbuttonbordercolor" type="String" default="#000" access="global"/>
+    <aura:attribute name="createuserbuttontextcolor" type="String" default="#fff" access="global"/>
+    <aura:attribute name="displaypopup" type="String" default="block"/>
+    <aura:attribute name="displaybutton" type="String" default="block"/>
+    <aura:attribute name="showspinner" type="String" default="none"/>
+    <aura:registerEvent name="authorizedEvent" type="c:modalEvent" />
+    
+    <div class="CreateUserViaSSODiv"  style="{!'display:'+v.displaypopup}" >
+        <div class="SSOMessageBoxContainer animated fadeIn fast" id="Msg2-1">
+            <button class="slds-button modal-close" onclick="{!c.modalclose}"><lightning:icon iconName="utility:close" class="asset-type-icon" variant="close" size="small"></lightning:icon></button>
+            <div class="SSOMessageBoxMiddle">
+                <div class="SSOMsgTitle">{!v.createusertitle}</div>
+                <div class="SSOMsgBody">
+                    <p class="pText" style="font-size: 15px;">
+                        {!v.createusermessage}
+                    </p>
+                </div>
+                <div class="SSOMessageBoxButtonSection" style="{!'display:'+v.displaybutton}">
+                    <button onclick="{!c.CreateUser}" class="bot2-Msg1-2 btn btn-default btn-sm botTempo">
+                        <lightning:spinner style="{!'display:'+v.showspinner}" alternativeText="Loading" size="small" />
+                        {!v.createuserbuttontext}</button>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+</aura:component>

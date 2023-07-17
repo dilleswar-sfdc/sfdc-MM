@@ -1,0 +1,4 @@
+<design:component>
+	<design:attribute name="sliderlength" label="Slider Length" description="Please enter the number of slides to show at a time." />
+    <design:attribute name="createuserviasso" label="Create User VIA SSO" description="Do you want this widget to create user via sso" />
+</design:component>

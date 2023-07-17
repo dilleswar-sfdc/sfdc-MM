@@ -1,0 +1,52 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes,lightningcommunity:allowInRelaxedCSP" 
+                access="global" controller="AMPWidgetController" >
+	<ltng:require scripts="{!join(',', $Resource.jQuery351, $Resource.PostMessage)}" afterScriptsLoaded="{!c.doInit}"/>
+     <ltng:require styles="{!$Resource.custom}" />
+    <aura:attribute name="height" type="string" default="800px"/>
+    <aura:attribute name="classtohide" type="string" default="hide"/>
+    <aura:attribute name="iframesrc" type="string" default=""/>
+    <aura:attribute name="modaliframesrc" type="string" default=""/>
+    <aura:attribute name="subsource" type="string" default="" access="global"/>
+    <aura:attribute name="iframeheight" type="string" default="" access="global"/>
+    <aura:attribute name="maindivclass" type="string" default="notexpanded"/>
+    <aura:attribute name="backdropvisibility" type="string" default="hide"/>
+    <aura:attribute name="messagevisibility" type="string" default="show"/>
+    <aura:attribute name="messagetext" type="string" default="Please wait..."/>
+    <aura:attribute name="iconclass" type="string" default="notexpandedicon"/>
+    <aura:attribute name="AlreadyAuthenticated" type="Boolean" default="false"/>
+    <aura:attribute name="CustomFunction" type="string" default=""/>
+    <aura:attribute name="MMCustomModal" type="String" />
+    <aura:attribute name="EnablePMtoExpand" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="addCleanUrl" type="Boolean" default="true" access="global"/>
+    <aura:attribute name="enablePostMessage" type="Boolean" default="true" />
+    <aura:attribute name="defaultAutoExpand" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="openTabInNewWindow" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="messagePrint" type="string" />
+    <aura:attribute name="mainnavbgcolor" type="string" default="#fff"/>
+    <aura:attribute name="newiconclass" type="string" default="newwindow"/>
+    <aura:attribute name="hideIcon" type="Boolean" default="true"/>
+    <!--<aura:attribute name="classtohideIcon" type="string" default="show"/>-->
+    
+    <div aura:id="mainDiv">
+        <div class="{!v.maindivclass}" >
+            <div class="{!'pleasewaitmessage ' + v.messagevisibility}">
+            	<span class="messagespan">{!v.messagetext}</span>
+            </div>
+            <aura:if isTrue="{!v.openTabInNewWindow}">
+                <div class="messageStyle">{!v.messagePrint}</div>
+                <aura:set attribute="else">
+                    <lightning:icon onclick="{!c.toggleexpansion}" size="xx-small" class="{!'slds-float_right ' + v.iconclass+' '+v.classtohideIcon}" iconName="utility:expand" alternativeText="Expand" title="Expand" />
+                     <aura:if isTrue="{!v.hideIcon}">
+                    	<lightning:icon onclick="{!c.Redirectnew_window}" size="xx-small" class="{!'slds-float_right ' + v.newiconclass+' '+v.classtohideIcon}" iconName="utility:new_window" alternativeText="Open in new tab" title="new tab" />
+                     </aura:if>   
+                    <iframe src="{!v.iframesrc}" width="100%" style="{!'border:none; height:'+v.height+';'}" class="{!v.classtohide}" id="viewassetpage"/>
+                </aura:set>
+            </aura:if>
+        </div>
+        <div class="{!'slds-backdrop slds-backdrop_open ' + v.backdropvisibility}" style="background-color: #000000e6;"></div>
+    </div>
+   
+    
+    	{!v.MMCustomModal}
+    
+</aura:component>

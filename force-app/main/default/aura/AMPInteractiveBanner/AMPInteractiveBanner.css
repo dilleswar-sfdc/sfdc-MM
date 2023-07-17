@@ -1,0 +1,47 @@
+.THIS .divspinner, .THIS .divspinner .slds-spinner{
+    z-index : 1 !important;
+}
+.THIS .spinpos{
+        position: absolute;
+        top: 30px;
+        left: 25px;
+        }
+        .THIS .divspinner{
+        height: 100%;
+        width: 100%;
+        position: relative;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        
+        }
+        .THIS .divspinner .loading{
+        position: absolute;
+        top: 10px;
+        left: 50px;
+        font-size: 25px;
+        color:#000 !important;
+        border:none !important;
+        
+        }
+.THIS .spinpos:after,
+.THIS .spinpos:before,
+.THIS .slds-spinner__dot-a:before,
+.THIS .slds-spinner__dot-a:after,
+.THIS .slds-spinner__dot-b:before,
+.THIS .slds-spinner__dot-b:after{
+    background:#000;
+}
+
+.THIS .tosModal .slds-modal__container {
+    max-width: 100%;
+    width: 100%;
+    height: 100vh;
+    padding: 10px;
+}
+.THIS .tosModal .slds-modal__container iframe {
+    height: calc(100vh - 125px);
+	border: none;}
+/*.THIS .tosbackdrop{
+    background-color: #000006;
+}*/

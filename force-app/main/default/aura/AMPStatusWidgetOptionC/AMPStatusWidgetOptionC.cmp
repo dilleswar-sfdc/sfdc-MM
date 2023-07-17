@@ -1,0 +1,506 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" controller="AMPStatusWidgetOptionCController" >
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <ltng:require scripts="{!$Resource.jQuery351}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <aura:attribute name="circularprogressbar" type="String" default="world"/>
+    <aura:attribute name="cirDeg" type="String" default="180"/>
+    <aura:attribute name="perText" type="String" default="70%"/>
+    <aura:attribute name="emailcampaignname" type="String"/>
+    <aura:attribute name="activitytype" type="String"/>
+    <aura:attribute name="index" type="String"/>
+    <aura:attribute name="format" type="String"/>
+    <aura:attribute name="stage" type="String"/>
+    <aura:attribute name="optotalstage" type="String"/>
+    <aura:attribute name="src" type="String"/>
+    <aura:attribute name="title" type="String"/>
+    <aura:attribute name="install" type="string" default="https://mm.amp.vg"/>
+    <aura:attribute name="userid" type="String" default=""/>
+    <aura:attribute name="mainnavbgcolor" type="string" default="#ccc"/>
+    <aura:attribute name="mainnavfontcolor" type="string" default="red"/>
+    <aura:attribute name="subnavbgcolor" type="string"/>
+    <aura:attribute name="AnnualTargetProgressReport" type="String"/>
+	<aura:attribute name="last5emailcampaign" type="String"/>    
+    <aura:attribute name="stat2" type="Object"/>
+    <aura:attribute name="colorData" type="Object"/>
+    <aura:attribute name="dependantwidget" type="String" default="community"/>
+    <aura:attribute name="isoverridesalesforce" type="Boolean" default="true"/>
+    <ltng:require styles="{!$Resource.slick}" />
+    <ltng:require styles="{!$Resource.slicktheme}" />
+    <ltng:require styles="{!$Resource.custom}" />
+    <aura:attribute name="statuswidgetdata" type="Object"/>
+    <aura:attribute name="unauthorized" type="String"/>
+    <aura:attribute name="engagementcolor" type="String" default="#C0C1C5"/>
+    <aura:attribute name="engagementmessageinner" type="String" default="No Message"/>
+    <aura:attribute name="showlast5email" type="Boolean" default="true" access="global"/>
+    <aura:attribute name="createuserviasso" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="isOpen" type="Boolean" default="false"/>
+    <aura:attribute name="tosContent" type="String" default="Please accept the Terms of Service to proceed"/>
+    <aura:attribute name="showwidget" type="String" default="none"/>
+    <aura:attribute name="installwithsession" type="string" default="https://mm.amp.vg"/>
+    <aura:attribute name="noData" type="Boolean" default="false"/>
+    <aura:attribute name="tosredirecturl" type="String"/>
+    <aura:attribute name="iframesrc" type="String"/>
+    <aura:attribute name="errorMsg" type="String" default="Sorry! We could not find any data to show you."/>
+     <aura:handler name="authorizedEvent" event="c:modalEvent" action="{!c.showViewAsset}"/>
+	{!v.unauthorized}
+    <div>
+        <aura:if isTrue="{!v.createuserviasso}">
+            <aura:if isTrue="{!v.isOpen}">
+                
+                <!--###### MODAL BOX Start######--> 
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open tosModal">
+                    <div class="slds-modal__container">
+                        <!-- ###### MODAL BOX HEADER Start ######-->
+                        <header class="slds-modal__header textcenter">
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Terms of Service</h2>
+                        </header>
+                        <!--###### MODAL BOX BODY Part Start######-->
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                           <!-- <p><b>{!v.tosContent}</b>
+                            </p>-->
+                            <iframe src="{!v.iframesrc}" width="100%" height="100%" style="{}"/>
+                        </div>
+                        <!--###### MODAL BOX FOOTER Part Start ######-->
+                        <footer class="slds-modal__footer">
+                        <!--  <lightning:button variant="brand" 
+                                              label="I agree to the Terms of Service"
+                                              title="I agree to the Terms of Service"
+                                              onclick="{! c.redirectTosUrl }"/>-->
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open" style="background-color: #000000e6;"></div>
+                <!--###### MODAL BOX Part END Here ######-->
+                
+            </aura:if>
+        </aura:if>
+    </div>
+    <aura:if isTrue="{!v.noData}">
+        {!v.errorMsg}
+        <aura:set attribute="else">
+            <div class="mainStatusWidgetDiv" style="{!'display:'+v.showwidget+';'}">
+    <div class="statuswidget_option_c option-c">
+        <div class="statuswidgetbody" style="background-color:#fff;margin-top: 40px;position:relative;height:220px;">
+            <div class="demo-only divspinner">
+                <div role="status" class="slds-spinner slds-spinner_small spinpos">
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+                <div class="loading">
+                    Loading...
+                </div>
+            </div>
+            <div class="slds-grid slds-grid--align-center slds-wrap statusdatacount" style="display:none;">
+                <aura:iteration items="{!v.stat2}" var="item" start="0">
+                    <aura:if isTrue="{!(item.name == '') || (item.name == null) || (item.name == 'null')}">
+						<aura:set attribute="else">
+                            <div class="mainstatswidgetdiv qgrid slds-p-around--small slds-col slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12">
+                                <div class="widgettype" style="display:none;">{!item.name}</div>
+                                <div class="{!(item.name == 'mdfavailable') ? 'removecursor statuswidgets widgethover '+item.name : 'statuswidgets widgethover '+item.name }">
+                                    <div class="stat-circle">
+                                        <div class="stat-text" >
+                                            <aura:if isTrue="{!(item.name == 'opportunitieswon') || (item.name == 'totalopportunities') || (item.name == 'opportunitypipeline')}">
+                                                <div class="stat-count count-big">
+                                                    <a class="count">
+                                                        <aura:if isTrue="{!(item.data.row_count == undefined) || (item.data.row_count == null)}">
+                                                            <span>0</span>
+                                                             <div class="stats-currency">(<span> {!item.data.currencytext} </span>0 )</div>
+                                                           <aura:set attribute="else">
+                                                                <span>{!item.data.row_count}</span>
+                                                                <div class="{! (item.data.amount.length > 12) ? 'stats-bigcurrency' : 'stats-currency'}">({!item.data.amount})</div>
+                                                            </aura:set>
+                                                        </aura:if>                                                  
+                                                    </a>
+                                                </div>
+                                                <aura:set attribute="else">
+                                                    <div class="stat-count">
+                                                        <aura:if isTrue="{!item.name == 'hothighleads'}">
+                                                            <aura:if isTrue="{!(item.data.totalLeadsCount == undefined) || (item.data.totalLeadsCount == null)}">
+                                                                <a class="count">0</a>
+                                                                <aura:set attribute="else">
+                                                                    <a class="count">{!item.data.totalLeadsCount}</a>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                            <aura:set attribute="else">
+                                                                <aura:if isTrue="{!(item.name == 'engagementlevel')}">
+                                                                    <lightning:icon iconName="utility:connected_apps" class="engagementicon" size="small" variant="connected_apps"/>
+                                                                    <aura:if isTrue="{!(item.data.row_count == undefined) || (item.data.row_count == null)}">
+                                                                        <a class="count">0</a>
+                                                                        <aura:set attribute="else">
+                                                                            <a class="count">{!item.data.row_count}</a>
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                    <aura:set attribute="else">
+                                                                    	<aura:if isTrue="{!item.name == 'mdfavailable'}">
+                                                                        <aura:if isTrue="{!(item.data.amount == undefined) || (item.data.amount == null)}">
+                                                                            <a class="count">{!' '+item.data.currencytext} 0</a>
+                                                                            <aura:set attribute="else">
+                                                                                <a class="count">{!item.data.amount}</a>
+                                                                            </aura:set>
+                                                                        </aura:if>
+                                                                        <aura:set attribute="else">
+                                                                            <aura:if isTrue="{!item.name == 'approveddeals'}">
+                                                                                <aura:if isTrue="{!(item.data.approvedLeads == undefined) || (item.data.approvedLeads == null)}">
+                                                                                    <a class="count">0</a>
+                                                                                    <aura:set attribute="else">
+                                                                                        <a class="count">{!item.data.approvedLeads}</a>
+                                                                                    </aura:set>
+                                                                                </aura:if>
+                                                                                <aura:set attribute="else">
+                                                                                    <aura:if isTrue="{!item.name == 'lastemailcampaigngraph'}">
+                                                                                        <aura:if isTrue="{!(item.data.openRate == undefined) || (item.data.openRate == null)}">
+                                                                                            <a class="count">0%</a>
+                                                                                            <aura:set attribute="else">
+                                                                                                <a class="count">{!item.data.openRate}%</a>
+                                                                                            </aura:set>
+                                                                                        </aura:if>
+                                                                                        <aura:set attribute="else">
+                                                                                            <aura:if isTrue="{!item.name == 'commissionearned'}">                            
+                                                                                                <aura:if isTrue="{!(item.data.amount == undefined) || (item.data.amount == null)}">
+                                                                                                    <a class="count"> {!' '+item.data.currencytext} 0</a>                   
+                                                                                                    <aura:set attribute="else">
+                                                                                                      <a class="count">{!item.data.amount}</a>  
+                                                                                                    </aura:set>
+                                                                                                </aura:if>
+                                                                                               <aura:set attribute="else">
+                                                                                                   <aura:if isTrue="{!item.name == 'awaitingcontracts'}">
+                                                                                                       <aura:if isTrue="{!(item.data.amount == undefined) || (item.data.amount == null)}">
+                                                                                                           <a class="count"> {!' '+item.data.currencytext} 0</a>
+                                                                                                           <aura:set attribute="else">
+                                                                                                               <a class="count">{!item.data.amount}</a>  
+                                                                                                           </aura:set>
+                                                                                                       </aura:if> 
+                                                                                                       <aura:set attribute="else">
+                                                                                                          <aura:if isTrue="{!item.name == 'approvedcontracts'}">
+                                                                                                              <aura:if isTrue="{!(item.data.amount == undefined) || (item.data.amount == null)}">
+                                                                                                                  <a class="count"> {!' '+item.data.currencytext} 0</a>
+                                                                                                                  <aura:set attribute="else">
+                                                                                                                      <a class="count">{!item.data.amount}</a>  
+                                                                                                                  </aura:set>
+                                                                                                              </aura:if>
+                                                                                                              <aura:set attribute="else">
+                                                                                                                  <aura:if isTrue="{!item.name == 'totaldeals'}">
+                                                                                                                  		<a class="count">{!item.data.totalLeads}</a>
+                                                                                                                      <aura:set attribute="else">
+                                                                                                                          <aura:if isTrue="{!item.name == 'activedripcampaigns'}">
+                                                                                                                          	<a class="count">{!item.data.StatusCount}</a>
+                                                                                                                              <aura:set attribute="else">
+                                                                                                                              	<aura:if isTrue="{!item.name == 'totalmdffundplan'}">
+                                                                                                                                    <a class="count">{!item.data.StatusCount}</a>
+                                                                                                                                    <aura:set attribute="else">
+                                                                                                                                    	<aura:if isTrue="{!item.name == 'activeleads'}">
+                                                                                                                                        	<a class="count">{!item.data.StatusCount}</a>
+                                                                                                                                            <aura:set attribute="else">
+                                                                                                                                            	<aura:if isTrue="{!item.name == 'hotleads'}">
+                                                                                                                                                	<a class="count">{!item.data.StatusCount}</a>
+                                                                                                                                                    <aura:set attribute="else">
+                                                                                                                                                        <aura:if isTrue="{!item.name == 'highleads'}">
+                                                                                                                                                        	<a class="count">{!item.data.StatusCount}</a>
+                                                                                                                                                            <aura:set attribute="else">
+                                                                                                                                                            	<aura:if isTrue="{!item.name == 'mediumleads'}">
+                                                                                                                                                                	<a class="count">{!item.data.StatusCount}</a>
+                                                                                                                                                                    <aura:set attribute="else">
+                                                                                                                                                                    	<aura:if isTrue="{!item.name == 'lowleads'}">
+                                                                                                                                                                        	<a class="count">{!item.data.StatusCount}</a>
+                                                                                                                                                                            <aura:set attribute="else">
+                                                                                                                                                                            	<aura:if isTrue="{!item.name == 'uniquecontactsopenmaillast30day'}">
+                                                                                                                                                                                	<a class="count">{!item.data.StatusCount}</a>
+                                                                                                                                                                                    <aura:set attribute="else">
+                                                                                                                                                                                    	<aura:if isTrue="{!item.name == 'uniquecontactsopenmaillast90day'}">
+                                                                                                                                                                                        	<a class="count">{!item.data.StatusCount}</a>
+                                                                                                                                                                                            <aura:set attribute="else">
+                                                                                                                                                                                            	<aura:if isTrue="{!item.name == 'uniquecontactsclickedmaillast30day'}">
+                                                                                                                                                                                                <a class="count">{!item.data.StatusCount}</a>
+                                                                                                                                                                                                    <aura:set attribute="else">
+                                                                                                                                                                                                    	<aura:if istrue="{!item.name == 'uniquecontactsclickedmaillast90day'}">
+                                                                                                                                                                                                        	<a class="count">{!item.data.StatusCount}</a>
+                                                                                                                                                                                                            <aura:set attribute="else">
+                                                                                                                                                                                                                <aura:if isTrue="{!(item.data.row_count == undefined) || (item.data.row_count == null)}">
+                                                                                                                                                                                                                    <a class="count">0</a>
+                                                                                                                                                                                                                    <aura:set attribute="else">
+                                                                                                                                                                                                                        <a class="count">{!item.data.row_count}</a>
+                                                                                                                                                                                                                    </aura:set>
+                                                                                                                                                                                                                </aura:if>
+                                                                                                                                                                                                            </aura:set>
+                                                                                                                                                                                                        </aura:if>
+                                                                                                                                                                                                    </aura:set>
+                                                                                                                                                                                                </aura:if>
+                                                                                                                                                                                            </aura:set>
+                                                                                                                                                                                        </aura:if>
+                                                                                                                                                                                    </aura:set>
+                                                                                                                                                                                </aura:if>
+                                                                                                                                                                            </aura:set>
+                                                                                                                                                                        </aura:if>
+                                                                                                                                                                    </aura:set>
+                                                                                                                                                                </aura:if>
+                                                                                                                                                            </aura:set>
+                                                                                                                                                        </aura:if>
+                                                                                                                                                    </aura:set>
+                                                                                                                                                </aura:if>
+                                                                                                                                            </aura:set>
+                                                                                                                                        </aura:if>
+                                                                                                                                    </aura:set>
+                                                                                                                                  </aura:if>
+                                                                                                                              </aura:set>
+                                                                                                                          </aura:if>
+                                                                                                                      </aura:set>
+                                                                                                                  </aura:if>
+                                                                                                              </aura:set>
+                                                                                                           </aura:if>
+                                                                                                       </aura:set>
+                                                                                                   </aura:if>
+                                                                                                </aura:set> 
+                                                                                            </aura:if>
+                                                                                        </aura:set>
+                                                                                    </aura:if>
+                                                                                </aura:set>
+                                                                            </aura:if>
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                    </aura:set>
+                                                                </aura:if>
+                                                            </aura:set>
+                                                        </aura:if>
+                                                    </div>
+                                                </aura:set>
+                                            </aura:if>
+                                            <h5 class="stat-label">{!item.title}</h5>
+                                        </div>
+                                        <aura:if isTrue="{!(item.name == 'mdfavailable')}">
+                                            <div class="stat-chart" onclick="{!c.displayinmodal}" style="cursor:default !important;" title="{!item.title}">
+                                                <span style="display:none" class="src">{!v.installwithsession}{!item.widgetsrc}</span>
+                                            </div>
+                                            <aura:set attribute="else">
+                                                <aura:if isTrue="{!(item.name == 'opportunitieswon') || (item.name == 'totalopportunities') || (item.name == 'opportunitypipeline')}">
+                                                    <div class="stat-chart" onclick="{!c.showEnablement}" title="{!item.title}">
+                                                        <span style="display:none" class="src">{!item.widgetsrc}</span>
+                                                    </div>                                                
+                                                    <aura:set attribute="else">
+                                                        <aura:if isTrue="{!(item.name == 'lastemailcampaigngraph')}">
+                                                            <aura:if isTrue="{!item.data.emailcampaignID != '0'}">
+                                                                <div class="stat-chart" onclick="{!c.displayinmodal}" title="{!item.title}">
+                                                                    <span id="{!item.data.emailcampaignID}" style="display:none;">{"id":"{!item.data.emailcampaignID}","senton":"{!item.data.emailcampaignSendOn}", "name":"{!item.data.emailcampaignname}"}</span>
+                                                                </div>
+                                                                <aura:set attribute="else">
+                                                                    <div class="stat-chart" style="cursor:default !important;" title="{!item.title}">
+                                                                        <span id="{!item.data.emailcampaignID}" style="display:none;"></span>
+                                                                    </div>    
+                                                                </aura:set>
+                                                            </aura:if>
+                                                            <aura:set attribute="else">
+                                                                <aura:if isTrue="{!(item.name == 'engagementlevel')}">
+                                                                    <div class="stat-chart" onclick="{!c.displayengagementmodal}" title="{!item.title}">
+                                                                        <span style="display:none" class="src">{!item.widgetsrc}</span>
+                                                                    </div>
+                                                                    <aura:set attribute="else">
+                                                                       <aura:if isTrue="{!(item.name == 'commissionearned')}">
+                                                                           <div class="stat-chart" onclick="{!c.displayinmodal}" style="cursor:default !important;" title="{!item.title}">
+                                                                               <span style="display:none" class="src">{!v.installwithsession}{!item.widgetsrc}</span>
+                                                                           </div>
+                                                                           <aura:set attribute="else">
+                                                                               <aura:if isTrue="{!(item.name == 'awaitingcontracts')}">
+                                                                                   <div class="stat-chart" onclick="{!c.displayinmodal}" style="cursor:default !important;" title="{!item.title}">
+                                                                                       <span style="display:none" class="src">{!v.installwithsession}{!item.widgetsrc}</span>
+                                                                                   </div> 
+                                                                                   <aura:set attribute="else">
+                                                                                       <aura:if isTrue="{!(item.name == 'approvedcontracts')}">
+                                                                                           <div class="stat-chart" onclick="{!c.displayinmodal}" style="cursor:default !important;" title="{!item.title}">
+                                                                                               <span style="display:none" class="src">{!v.installwithsession}{!item.widgetsrc}</span>
+                                                                                           </div>
+                                                                                           <aura:set attribute="else">
+                                                                                           		<aura:if isTrue="{!(item.name == 'totaldeals')}">
+                                                                                                    <div class="stat-chart" onclick="{!c.displayinmodal}" style="cursor:default !important;" title="{!item.title}">
+                                                                                                        <span style="display:none" class="src">{!v.installwithsession}{!item.widgetsrc}</span>
+                                                                                                    </div>
+                                                                                                    <aura:set attribute="else">
+                                                                                                        <aura:if isTrue ="{!(item.name == 'activedripcampaigns')}">
+                                                                                                            <div class="stat-chart" onclick="{!c.displayinmodal}" style="cursor:default !important;" title="{!item.title}">
+                                                                                                                <span style="display:none" class="src">{!v.installwithsession}{!item.widgetsrc}</span>
+                                                                                                            </div>
+                                                                                                            <aura:set attribute="else">
+                                                                                                            	<aura:if isTrue="{!(item.name == 'totalmdffundplan')}">
+                                                                                                                    <div class="stat-chart" onclick="{!c.displayinmodal}" style="cursor:default !important;" title="{!item.title}">
+                                                                                                                        <span style="display:none" class="src">{!v.installwithsession}{!item.widgetsrc}</span>
+                                                                                                                    </div>
+                                                                                                                    <aura:set attribute="else">
+                                                                                                                    	<aura:if isTrue="{!(item.name == 'activeleads')}">
+                                                                                                                            <div class="stat-chart" onclick="{!c.displayinmodal}" style="cursor:default !important;" title="{!item.title}">
+                                                                                                                                <span style="display:none" class="src">{!v.installwithsession}{!item.widgetsrc}</span>
+                                                                                                                            </div>
+                                                                                                                            <aura:set attribute="else">
+                                                                                                                            	<aura:if isTrue="{!(item.name == 'hotleads')}">
+                                                                                                                                    <div class="stat-chart" onclick="{!c.displayinmodal}" style="cursor:default !important;" title="{!item.title}">
+                                                                                                                                        <span style="display:none" class="src">{!v.installwithsession}{!item.widgetsrc}</span>
+                                                                                                                                    </div>
+                                                                                                                                    <aura:set attribute="else">
+                                                                                                                                    	<aura:if isTrue="{!(item.name == 'highleads')}">
+                                                                                                                                            <div class="stat-chart" onclick="{!c.displayinmodal}" style="cursor:default !important;" title="{!item.title}">
+                                                                                                                                                <span style="display:none" class="src">{!v.installwithsession}{!item.widgetsrc}</span>
+                                                                                                                                            </div>
+                                                                                                                                            <aura:set attribute="else">
+                                                                                                                                            	<aura:if isTrue="{!(item.name == 'mediumleads')}">
+                                                                                                                                                    <div class="stat-chart" onclick="{!c.displayinmodal}" style="cursor:default !important;" title="{!item.title}">
+                                                                                                                                                        <span style="display:none" class="src">{!v.installwithsession}{!item.widgetsrc}</span>
+                                                                                                                                                    </div>
+                                                                                                                                                    <aura:set attribute="else">
+                                                                                                                                                    	<aura:if isTrue="{!(item.name == 'lowleads')}">
+                                                                                                                                                            <div class="stat-chart" onclick="{!c.displayinmodal}" style="cursor:default !important;" title="{!item.title}">
+                                                                                                                                                                <span style="display:none" class="src">{!v.installwithsession}{!item.widgetsrc}</span>
+                                                                                                                                                            </div>
+                                                                                                                                                            <aura:set attribute="else">
+                                                                                                                                                            	<aura:if isTrue="{!(item.name == 'uniquecontactsopenmaillast30day')}">
+                                                                                                                                                                    <div class="stat-chart" onclick="{!c.displayinmodal}" style="cursor:default !important;" title="{!item.title}">
+                                                                                                                                                                        <span style="display:none" class="src">{!v.installwithsession}{!item.widgetsrc}</span>
+                                                                                                                                                                    </div>
+                                                                                                                                                                    <aura:set attribute="else">
+                                                                                                                                                                    	<aura:if isTrue="{!(item.name == 'uniquecontactsopenmaillast90day')}">
+                                                                                                                                                                            <div class="stat-chart" onclick="{!c.displayinmodal}" style="cursor:default !important;" title="{!item.title}">
+                                                                                                                                                                                <span style="display:none" class="src">{!v.installwithsession}{!item.widgetsrc}</span>
+                                                                                                                                                                            </div>
+                                                                                                                                                                            <aura:set attribute="else">
+                                                                                                                                                                            	<aura:if isTrue="{!(item.name == 'uniquecontactsclickedmaillast30day')}">
+                                                                                                                                                                                    <div class="stat-chart" onclick="{!c.displayinmodal}" style="cursor:default !important;" title="{!item.title}">
+                                                                                                                                                                                        <span style="display:none" class="src">{!v.installwithsession}{!item.widgetsrc}</span>
+                                                                                                                                                                                    </div>
+                                                                                                                                                                                    <aura:set attribute="else">
+                                                                                                                                                                                        <aura:if isTrue="{!(item.name == 'uniquecontactsclickedmaillast90day')}">
+                                                                                                                                                                                            <div class="stat-chart" onclick="{!c.displayinmodal}" style="cursor:default !important;" title="{!item.title}">
+                                                                                                                                                                                                <span style="display:none" class="src">{!v.installwithsession}{!item.widgetsrc}</span>
+                                                                                                                                                                                            </div> 
+                                                                                                                                                                                            <aura:set attribute="else">
+                                                                                                                                                                                                <div class="stat-chart" onclick="{!c.displayinmodal}" title="{!item.title}">
+                                                                                                                                                                                                    <span style="display:none" class="src">{!v.installwithsession}{!item.widgetsrc}</span>
+                                                                                                                                                                                                </div>
+                                                                                                                                                                                            </aura:set>
+                                                                                                                                                                                        </aura:if>
+                                                                                                                                                                                    </aura:set>
+                                                                                                                                                                                </aura:if>
+                                                                                                                                                                            </aura:set>
+                                                                                                                                                                        </aura:if>
+                                                                                                                                                                    </aura:set>
+                                                                                                                                                                </aura:if>
+                                                                                                                                                            </aura:set>
+                                                                                                                                                        </aura:if>
+                                                                                                                                                    </aura:set>
+                                                                                                                                                </aura:if>
+                                                                                                                                            </aura:set>
+                                                                                                                                        </aura:if>
+                                                                                                                                    </aura:set>
+                                                                                                                                </aura:if>
+                                                                                                                            </aura:set>
+                                                                                                                        </aura:if>
+                                                                                                                    </aura:set>
+                                                                                                                </aura:if>
+                                                                                                            </aura:set>
+                                                                                                        </aura:if>
+                                                                                                    </aura:set>
+                                                                                               </aura:if>
+                                                                                           </aura:set>
+                                                                                       </aura:if>
+                                                                                   </aura:set>
+                                                                               </aura:if>
+                                                                           </aura:set>
+                                                                        </aura:if>
+                                                                    </aura:set>
+                                                                </aura:if>
+                                                            </aura:set>
+                                                        </aura:if>
+                                                    </aura:set>
+                                                </aura:if>
+                                            </aura:set>
+                                        </aura:if>
+                                    </div>
+                                </div>
+                            </div>
+                        </aura:set>
+                    </aura:if>
+                </aura:iteration>
+            </div>
+            <aura:if isTrue="{!v.showlast5email}">
+                <div class="reports-toggle-btn" title="Click to see less" onclick="{!c.openaccordion}">
+                    <div class="toggle-btn">
+                        <lightning:icon iconName="utility:metrics" class="iconcolor" size="medium" variant="metrics"/>
+                    </div>
+                    <div class="invert-btn togglecolor">
+                        <lightning:icon iconName="utility:metrics" class="revert-iconcolor" size="medium" variant="metrics"/>
+                    </div>
+                </div>
+            </aura:if>
+        </div>
+        <div class="demo-only demo-modal modal-independant" style="display:none;">
+            <section  role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-section slds-modal slds-fade-in-open slds-modal_large">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 id="modal-heading" class="modal-engagement-header slds-text-heading_medium slds-hyphenate" style="display:inline-block;"></h2>
+                        <button class="slds-button modal-close" onclick="{!c.modalclose}"><lightning:icon iconName="utility:close" class="asset-type-icon" variant="close" size="small"></lightning:icon></button>
+                        <div id="amp-select" style="display:none;float:right;">
+                            <div class="slds-form-element__control">
+                                <div class="slds-select_container">
+                                    <select id="selectvalues" class="slds-select" onchange="{!c.handleSelect}">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" > 
+                        <iframe id="iframe-modal" aura:id="iframe-modal" src="" width="100%"></iframe>
+                    </div>
+                    <div id="modal-footer-send" style="display:none;">
+                        <footer class="slds-modal__footer">
+                            <button class="slds-button slds-button_brand" Value="Send" onclick="{!c.sendEmail}" label="Send">Send</button>
+                        </footer>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+        
+        <div class="demo-only demo-modal modal-engagement" style="display:none;">
+            <section  role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-section slds-modal slds-fade-in-open slds-modal_large">
+                <div class="slds-modal__container" style="width: 40%;">
+                    <header class="slds-modal__header">
+                        <h2 id="modal-heading" class="modal-engagement-header slds-text-heading_medium slds-hyphenate" style="display:inline-block;"></h2>
+                        <button class="slds-button modal-close" onclick="{!c.modalclose}"><lightning:icon iconName="utility:close" class="asset-type-icon" variant="close" size="small"></lightning:icon></button>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" > 
+                        <aura:html tag="div">
+                        	<div class="engagementmessage alert alert-info">
+                            	{!v.engagementmessageinner}
+                            </div>
+                        </aura:html>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+        
+        
+    </div>
+    
+    <div class="stats_option_c-accordian openaccordion option-c" style="background:#f3f3f4;position:relative;height:300px;">
+        <div class="demo-only divspinner">
+            <div role="status" class="slds-spinner slds-spinner_small spinpos">
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+            <div style="position: absolute;top: 10px;left: 50px;font-size: 25px;">
+                Loading...
+            </div>
+        </div>
+        <div class="stats_option_c-accordian-container">
+            <!--<lightning:layout >
+                <lightning:layoutItem flexibility="auto" size="12" class="grid-padding">
+                    {!v.AnnualTargetProgressReport}
+                </lightning:layoutItem>
+            </lightning:layout>-->
+            <lightning:layout >
+                <lightning:layoutItem flexibility="auto" size="12" class="grid-padding">
+                    {!v.last5emailcampaign}
+                </lightning:layoutItem>
+            </lightning:layout>
+        </div>
+    </div>
+    </div>
+        </aura:set>
+    </aura:if>
+  
+</aura:component>

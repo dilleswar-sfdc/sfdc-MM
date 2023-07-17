@@ -1,0 +1,81 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" controller="AMPInteractiveBannerController" >
+    <ltng:require scripts="{!$Resource.jQuery351}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="install"  type="String" default="https://dvl-sf-sso.amp.vg"/>
+    <aura:attribute name="userid"  type="String" default="1763"/>
+    <aura:attribute name="createuserviasso" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="dependantwidget"  type="String" default="community"/>
+    <aura:attribute name="widgetdata"  type="Object"/>
+    <ltng:require styles="{!$Resource.slick}" />
+    <ltng:require styles="{!$Resource.slicktheme}" />
+    <ltng:require styles="{!$Resource.custom}" />
+    <aura:attribute name="unauthorized" type="String"/>
+    <aura:attribute name="enablementiframe" type="String"/>
+    <aura:attribute name="headertext" type="String"/>
+    <aura:attribute name="fontcolor" type="String"/>
+    <aura:attribute name="isSpinner" type="Boolean" default="true"/>
+    <aura:attribute name="nodata" type="Boolean" default="false"/>
+    <aura:attribute name="tosContent" type="String" default="Please accept the Terms of Service to proceed"/>
+    <aura:attribute name="isOpen" type="Boolean" default="false"/>
+    <aura:attribute name="tosredirecturl" type="String"/>
+    <aura:attribute name="errorMsg" type="String" default="Sorry! We could not find any data to show you."/>
+    <aura:attribute name="iframesrc" type="String"/>
+     <aura:handler name="authorizedEvent" event="c:modalEvent" action="{!c.showViewAsset}"/>
+	{!v.unauthorized}
+    <div>
+       <aura:if isTrue="{!v.createuserviasso}">
+           <aura:if isTrue="{!v.isOpen}">
+               
+               <!--###### MODAL BOX Start######--> 
+               <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open tosModal">
+                   <div class="slds-modal__container">
+                       <!-- ###### MODAL BOX HEADER Start ######-->
+                       <header class="slds-modal__header">
+                           <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Terms of Service</h2>
+                       </header>
+                       <!--###### MODAL BOX BODY Part Start######-->
+                       <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                         <!--  <p><b>{!v.tosContent}</b>
+                           </p>-->
+                           <iframe src="{!v.iframesrc}" width="100%" height="100%" style="{}"/>
+                       </div>
+                       <!--###### MODAL BOX FOOTER Part Start ######-->
+                       <footer class="slds-modal__footer">
+                        <!--<lightning:button variant="brand" 
+                                             label="I agree to the Terms of Service"
+                                             title="I agree to the Terms of Service"
+                                             onclick="{! c.redirectTosUrl }"/>-->
+                       </footer>
+                   </div>
+               </section>
+               <div class="tosbackdrop slds-backdrop slds-backdrop_open" style="background-color: #000000e6;"></div>
+               <!--###### MODAL BOX Part END Here ######-->
+               
+           </aura:if>
+        </aura:if>
+        <aura:if isTrue="{!v.isSpinner}">
+            
+            <div class="demo-only divspinner">
+                <div role="status" class="slds-spinner slds-spinner_small spinpos">
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+                <div class="loading">
+                    Loading...
+                </div>
+            </div>
+           
+        </aura:if>
+       <aura:if isTrue="{!v.nodata}">
+           <div>
+               {!v.errorMsg}
+           </div>
+           <aura:set attribute="else">
+               <div class="interactive" style="display:none;min-height:300px;background-size:cover;">
+                   <h1 style="{!'margin: 0px;padding: 20px 40px!important;font-weight: 600;font-size: 40px;color:' + v.fontcolor}">{!v.headertext}</h1>
+               </div>
+               <iframe class="enablementiframe" scrolling="no" src="{!v.enablementiframe}" style="border: 0px;width:100%; display:none;"></iframe>
+           </aura:set>
+       </aura:if>
+    </div>
+</aura:component>

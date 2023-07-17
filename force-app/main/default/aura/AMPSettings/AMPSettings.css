@@ -1,0 +1,28 @@
+.THIS {
+}
+.THIS .SSODetails, .THIS .NonSSODetails {
+    background-color: #fff;
+    padding: 20px 14px 14px;
+    border-radius: 0;
+    margin-top: -1px;
+}
+
+.THIS .SSODetails > .slds-form-element {
+    margin-bottom: 14px;
+}
+
+.THIS {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f5f5f5;
+    padding: 20px 20px;
+    border-radius: 6px;
+}
+
+.THIS .slds-button_neutral {
+    margin-top: 10px;
+}
+.THIS h2{
+        font-size: 20px;
+    margin-bottom: 14px;
+}

@@ -1,0 +1,15 @@
+<aura:event type="COMPONENT" description="Event template" >
+    <aura:attribute  name="tabNameData" type="String"/>
+    <aura:attribute  name="searchtextModal" type="String"/>
+    <aura:attribute name="currenttabfolderENum" type="Object"/>
+    <aura:attribute name="currentFolder" type="Object"/>
+    <aura:attribute name="isMedia" type="Integer"/>
+    <aura:attribute name="selectOption" type="String"/>
+    <aura:attribute name="cmpPages" type="String"/>
+    <aura:attribute name="flag" type="Boolean"/>
+    <aura:attribute name="filterId" type="Integer"/>
+     <aura:attribute name="conditionval" type="Boolean"/>
+    <aura:attribute name="flagcountVal" type="Boolean"/>
+    <aura:attribute name="filterflag" type="Boolean"/>
+    <aura:attribute name="check" type="Integer"/>
+</aura:event>

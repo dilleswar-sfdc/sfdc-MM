@@ -1,0 +1,48 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" controller="AMPSObjectController" access="global" >
+    <ltng:require scripts="{!join(',',$Resource.jQuery351)}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <ltng:require styles="{!$Resource.quickaction}" />
+    <aura:attribute name="contact" type="Contact"/>
+    <aura:attribute name="playbookurl" type="String"/>
+    <aura:attribute name="printurl" type="String"/>
+    <aura:attribute name="ebookurl" type="String"/>
+    <aura:attribute name="weburl" type="String"/>
+    
+    <div class="createampsale" style="margin: 0 auto;width: 55%;display:none;">
+        <div class="dripcampaign">
+            <div class="amptype" id="playbook">
+                <div class="amptypetext">Playbooks</div>
+                <div class="amptypeimg">
+                    <lightning:icon iconName="utility:record_create" class="imgcolor" variant="record_create"/>
+                </div>
+            </div>
+            <div class="amptype" id="print">
+                <div class="amptypetext">Print Materials</div>
+                <div class="amptypeimg">
+                    <lightning:icon iconName="utility:knowledge_base" class="imgcolor" variant="knowledge_base"/>
+                </div>
+            </div>
+            <div class="amptype" id="ebook">
+                <div class="amptypetext">Online ebooks</div>
+                <div class="amptypeimg">
+                    <lightning:icon iconName="utility:notebook" class="imgcolor" variant="notebook"/>
+                </div>
+            </div>
+            <div class="amptype" id="web">
+                <div class="amptypetext">Web Pages</div>
+                <div class="amptypeimg">
+                    <lightning:icon iconName="utility:world" class="imgcolor" variant="world"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dripcampaignurl" style="display:none;">
+        <iframe id="iframe-modal-contact" src="" height="700" width="100%" style="height:700px;width:100%;"></iframe>
+    </div>
+    <div aura:id="syncwithamp" style="position:relative;height:180px;">
+        <div class="slds-clearfix"/>
+        <h2 class="Syncmessage" style="display:none;text-align: center;font-size:25px;padding-top:40px;">MM Settings is not available.</h2>
+        <a class="mmReportLink" onclick="{!c.redirect}" style="text-align:center;padding-left: 31%;">
+            click here to redirect MM Settings tab.
+        </a>
+    </div>
+</aura:component>

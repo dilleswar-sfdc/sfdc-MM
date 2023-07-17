@@ -1,0 +1,68 @@
+.THIS {
+}
+.THIS .hide
+{
+    display:none !important;
+}
+.THIS .show
+{
+    display:block !important;
+}
+.THIS .mmdashboard{
+    overflow:hidden;
+}
+.THIS .amptype {
+    width: 135px;
+    height: 165px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #80808b;
+    position: relative;
+    background: linear-gradient(to bottom, #f0eeeb 0%, white 100%);
+    box-shadow: 1px 1px 3px #8080b8;
+}
+.THIS .dripcampaign{
+    display: inline-flex;
+    width: 100%;
+    margin: 0 auto;
+}
+.THIS .amptype:hover {
+    background: linear-gradient(to bottom, #f49827 0%, #ff97663d 100%);
+    box-shadow: 3px 3px 5px #8080b8;
+}
+.THIS .amptypetext {
+    width: 105px;
+    height: 80px;
+    background: white;
+    margin: 0 auto;
+    line-height: 15px;
+    padding: 5px;
+    padding-top: 30px;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+.THIS .amptypeimg{
+    width: 45px;
+    height: 45px;
+    background: #b3c9e6;
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+.THIS .imgcolor .slds-icon-text-default{
+    fill: #1f9ac5;
+}
+.THIS .imgcolor{
+    padding: 6px;
+}
+.THIS .closequickaction .slds-icon-text-default{
+    fill: white;
+}
+.THIS .closequickaction{
+    float:right;
+}

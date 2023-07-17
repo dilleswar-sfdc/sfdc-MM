@@ -1,0 +1,27 @@
+<aura:component implements="flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:hasRecordId" controller="AMPSObjectController" access="global" >
+    <ltng:require scripts="{!join(',',$Resource.jQuery351,$Resource.dataTablesJS)}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <aura:attribute name="IsSpinner" type="Boolean" default="true"/>
+    <aura:attribute name="lead" type="Lead"/>
+    <aura:attribute name="baseurl" type="string"/>
+    <aura:attribute name="clientid" type="string"/>
+    <aura:attribute name="siteurl" type="string"/>
+    <aura:attribute name="token" type="string"/>
+    <div aura:id="syncwithamp" style="position:relative;height:180px;">
+        <div class="spinner">
+            <aura:if isTrue="{!v.IsSpinner}">
+                <lightning:spinner variant="brand" style="position:absolute;" size="large" />
+            </aura:if>
+        </div>
+        <div class="slds-clearfix"/>
+        <h2 class="Syncmessage" style="display:none;text-align: center;font-size:25px;padding-top:40px;">Lead is successfully synced with AMP</h2>
+        <a class="mmReportLink" onclick="{!c.redirect}" style="display:none;text-align:center;padding-left: 31%;">
+            click here to redirect MM Settings tab.
+        </a>
+    </div>
+    <div aura:id="close" style="display:none;">
+        <lightning:button class="slds-float_right" onclick="{!c.submit}">Ok</lightning:button>
+    </div>
+    <div aura:id="submitbtn" style="display:none;">
+        <lightning:button class="slds-float_right" onclick="{!c.clickok}">Ok</lightning:button>
+    </div>
+</aura:component>

@@ -1,0 +1,756 @@
+<aura:component implements="force:appHostable" controller="AMPSObjectController">
+    <ltng:require scripts="{!join(',',$Resource.jQuery351)}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <aura:attribute name="contactData" type="Object"/>
+    <aura:attribute name="optionTabData" type="Object"/>
+    <aura:attribute name="optionTab" type="Object"/>
+    <aura:attribute name="tabData" type="Object"/>
+    <aura:attribute name="tabSelect" type="Boolean"/>
+    <aura:attribute name="dateEdit" type="Boolean"/>
+    <aura:attribute name="selectedValue" type="Object"/>
+    <aura:attribute name="accInfoClick" type="Boolean" default="false"/>
+    <aura:attribute name="callActivityclick" type="Boolean" default="false"/>
+    <aura:attribute name="leadActivityclick" type="Boolean" default="false"/>
+    <aura:attribute name="tooltipWonOpp" type="Boolean"/>
+    <aura:attribute name="tooltipTotalOpp" type="Boolean"/>
+    <aura:attribute name="tooltipcomOpp" type="Boolean"/>
+    <aura:attribute name="tooltipcompCont" type="Boolean"/>
+    <aura:attribute name="buttoncolor" type="String" />
+    <aura:attribute name="localDate" type="Date"/>
+    <aura:attribute name="callActivity" type="Object"/>
+    <aura:attribute name="leadActivity" type="Object"/>
+    <aura:attribute name="selectedButton" type="String"/>
+    <aura:attribute name="selectedButton1" type="String"/>
+    <aura:attribute name="contactid" type="Integer"/>
+    <aura:attribute name="templateId" type="Integer"/>
+    <aura:attribute name="companyId" type="Integer"/>
+    <aura:attribute name="notes" type="String"/>
+    <aura:attribute name="accountData" type="Object"/>
+    <aura:attribute name="stepTabData" type="Object"/>
+    <aura:attribute name="autoplay" type="Boolean" default="false"/>
+    <aura:attribute name="nodata" type="Boolean" default="false"/>
+    <aura:attribute name="optionTabLength" type="Integer"/>
+    <aura:attribute name="stepIdNO" type="Integer" default="1"/>
+    <aura:attribute name="stepName" type="String"/>
+    <aura:attribute name="playbookName" type="String"/>
+    <aura:attribute name="playbookTempId" type="Integer"/>
+    <aura:attribute name="todoDueDate" type="Date"/>
+    <aura:attribute name="todoDueOnDate" type="Datetime"/>
+    <aura:attribute name="movingStep" type="String"/>
+    <aura:attribute name="dueonDate" type="String"/>
+    <aura:attribute name="time" type="DateTime"/>
+    <aura:attribute name="date" type="Date"/>
+    <aura:attribute name="spinner" type="Boolean" default="false"/>
+    <aura:attribute name="dTimeZone" type="DateTime"/>
+    <aura:attribute name="printCampaign" type="Object"/>
+    <aura:attribute name="actionItem" type="Object"/>
+    <aura:attribute name="nurturing" type="Object"/>
+    <aura:attribute name="asset" type="Object"/>
+    <aura:attribute name="contract" type="Object"/>
+    <aura:attribute name="email" type="Object"/>
+    <aura:attribute name="install" type="String"/>
+    <aura:attribute name="contactXml" type="Object"/>
+     <aura:attribute name="isEnablement" type="Boolean" default="false"/>
+    <div class="c-container">
+        <lightning:layout multipleRows="true">
+            <lightning:layoutItem  size="12">
+                
+                <div class="page-section page-header">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_11-of-12">
+                            <span><h1 style="font-size: 22px;">{!v.playbookName}</h1></span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-12">
+                            <span><div class="floatright"><lightning:button variant="brand" label="view more" onclick="{!c.viewMore}"></lightning:button></div></span>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </lightning:layoutItem>
+            <lightning:layoutItem  size="12">
+                <div >
+                    <table>
+                        <thead>
+                            <th>Name</th>
+                            <th>Company</th>
+                            <th>Phone</th>
+                            <th>Last Activity</th>
+                            <th>Due Date</th>
+                            <th>Score</th>
+                            <th>Contact In Step</th>
+                        </thead>
+                        <tbody class="page-section page-header">
+                            <tr>
+                                <td>{!v.contactData.fullname}</td>
+                                <td>{!v.contactData.contactcompany}</td>
+                                <td>{!v.contactData.mobilenumber}</td>
+                                <td>{!v.contactData.updatedon}</td>
+                                <td>{!v.todoDueDate}</td>
+                                <td>{!v.contactData.score}</td>
+                                <td>{!v.stepName}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="around-small" size="12">
+                <lightning:layout>
+                    <lightning:layoutItem padding="around-small" size="3">
+                        <div >
+                            <div class="slds-media">
+                                <div class="slds-media__figure slds-icon_large">
+                                    <lightning:icon iconName="action:user" size="large" alternativeText="user" title="user" />
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2 style="float:right">{!v.contactData.score}</h2>
+                                    <h1 style="padding-left:15px">{!v.contactData.fullname}</h1>
+                                    <h2 style="padding-left:15px">{!v.contactData.email}</h2>
+                                	
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="slds-grid slds-grid_align-start">
+                                <div class="slds-col">
+                                    <a href="{!'https://www.google.com/search?q='+v.contactData.fullname}" target="_blank" style="font-size: 23px;" title="search contact on google">G</a>
+                                </div>
+                                <div class="slds-col">
+                                    <a href="https://www.linkedin.com/" target="_blank" style="font-size: 23px;">In</a>
+                                </div>
+                                <div class="slds-col">
+                                    <a href="https://www.mailinator.com/" target="_blank"><lightning:icon iconName="action:web_link" size="x-small" /></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="slds-grid slds-grid_vertical-align-start ">
+                                <div class="slds-col">
+                                  	<span><lightning:button label="Call Activity" variant="Neutral" onclick="{!c.callActivity}" aura:id="callActivity"></lightning:button></span>
+                                </div>
+                                <div class="slds-col">
+                                    <span><lightning:button label="Account Info" variant="Neutral" onclick="{!c.accountInfo}" aura:id="accActivity"></lightning:button></span>
+                                </div>
+                                <div class="slds-col">
+                                    <span><lightning:button label="Lead Activity" variant="Neutral" onclick="{!c.leadActivity}" aura:id="leadActivity"></lightning:button></span>
+                                </div>
+                            </div>
+                        </div>
+                        &nbsp;&nbsp;
+                        <div>
+                            <div id="class">
+                                <aura:if isTrue="{!v.callActivityclick}">
+                                    <aura:if isTrue="{!v.nodata}">
+                                        <div>
+                                         Sorry!we don't have any data to show you.
+                                        </div>
+                                     <aura:set attribute="else">
+                                    	<table class="play">
+                                        <thead></thead>
+                                        <tbody>
+                                            <aura:iteration items="{!v.callActivity}" var="item" indexvar="index">
+                                                <tr id="{!index}">
+                                                    <td>
+                                                        <lightning:icon iconName="utility:clock" alternativeText="Utility clock" title="clock" size="x-small"/>
+                                                    </td>
+                                                    <td>
+                                                       {!item.activityon}
+                                                    </td>
+                                                    <td >
+                                                        
+                                                        <div >  
+                                                            <lightning:buttonIcon iconName="{!item.icon}" alternativeText="Utility play" title="play"  aura:id="button" value="{!item.id}" onclick="{!c.play}" >
+                                                                
+                                                            </lightning:buttonIcon>
+                                                            <audio  onended="{!c.onPlaybackEnded}" id="{!item.id}" data-index="{!item.index}"  src="{!item.recordingurl}"
+        >
+                                                                </audio>
+                                                        </div>
+                                                    </td>
+                                                    <td >
+                                                        <div id="{!item.index}">
+                                                        <lightning:buttonIcon iconName="utility:download" alternativeText="Utility download" title="download" value="{!item.index}" size="x-small" onclick="{!c.download}"	aura:id="download">
+                                                        </lightning:buttonIcon>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        {!item.duration}
+                                                    </td>
+                                                </tr>
+                                            </aura:iteration>     
+                                        </tbody>
+                                        
+                                    </table>
+                                   </aura:set>
+                                   </aura:if> 
+                                </aura:if>
+                            </div>
+                            <div>
+                                <aura:if isTrue="{!v.leadActivityclick}">
+                                    <b> Number of Recent Activity</b>
+                                    <table>
+                                        <thead></thead>
+                                        <tbody>
+                                            <aura:iteration items="{!v.leadActivity}" var="item">
+                                                <tr>
+                                                    <td>
+                                                        <lightning:icon iconName="{!'utility:'+item.icon}" alternativeText="Utility clock" title="clock" size="x-small"/>
+                                                    </td>
+                                                    <td>
+                                                        {!item.feedmsg}
+                                                    </td>
+                                                    <td>
+                                                        {!item.date}
+                                                    </td>
+                                                </tr>
+                                            </aura:iteration>
+                                        </tbody>
+                                    </table>
+                                </aura:if>
+                            </div>
+                            <div>
+                                <aura:if isTrue="{!v.accInfoClick}">
+                                    <div class="slds-media">
+                                        <div class="slds-media__figure">
+                                            <lightning:icon iconName="custom:custom16" title="custom11" />
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <div class="slds-grid slds-grid_vertical">
+                                                <div class="slds-col">
+                                                    <span>{!v.contactData.contactcompany}</span>
+                                                </div>
+                                                <div class="slds-col" style="position:relative">
+                                                    <span>(Opportunity  <a  onmouseover="{!c.onmousehovercomOpp}" onmouseout="{!c.onmouseoutcomOpp}">{!v.accountData.totprojects}</a>|Contact <a onmouseover="{!c.onmousehovercomcont}" onmouseout="{!c.onmouseoutcomcont}">{!v.accountData.numberofcontacts}</a>)</span>
+                                                    <aura:if isTrue="{!v.tooltipcomOpp}">
+                                                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="help" style="position:absolute;top:-43px;left:66px">
+                                                            <div class="slds-popover__body">Number of Opportunity from Company {!v.contactData.contactcompany}</div>
+                                                        </div>
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!v.tooltipcompCont}">
+                                                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="help" style="position:absolute;top:-43px;left:143px">
+                                                            <div class="slds-popover__body">Number of Contact from Company {!v.contactData.contactcompany}</div>
+                                                        </div>
+                                                    </aura:if>
+                                                </div>
+                                                <div class="slds-col" style="position:relative">
+                                                    <span>(EUR)  <b onmouseover="{!c.onmousehoverWonOpp}" onmouseout="{!c.onmouseoutWonOpp}">{!v.accountData.closeoppamount}</b>|(EUR) <b onmouseover="{!c.onmousehovertotalOpp}" onmouseout="{!c.onmouseouttotalOpp}">{!v.accountData.totoppamount}</b></span>
+                                                    <aura:if isTrue="{!v.tooltipWonOpp}">
+                                                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="help" style="position:absolute;top:-43px;left:35px">
+                                                            <div class="slds-popover__body">Won Opportunity Amount</div>
+                                                        </div>
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!v.tooltipTotalOpp}">
+                                                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="help" style="position:absolute;top:-43px;left:119px">
+                                                            <div class="slds-popover__body">total Opportunity Amount</div>
+                                                        </div>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aura:if>
+                            </div>
+                            
+                        </div>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem padding="around-small" size="3">
+                        <div class="page-section page-main">
+                            <div class="slds-grid slds-grid_vertical">
+                                <div class="slds-col">
+                                    <span>
+                                        <div>
+                                            <div> current setup</div>
+                                            <div>
+                                               
+                                                <lightning:select name="dropdown" label="" aura:id="select"  onchange="{!c.onChangeTab}" value="{!v.selectedValue}">
+                                                    <aura:iteration items="{!v.optionTab}" var="option" >
+                                                        <option text="{!option.stepname}" value="{!option.stepid}" selected="{!option.selected}"></option>
+                                                    </aura:iteration>
+                                                </lightning:select></div>
+                                            
+                                            <div>
+                                               
+                                                <div onclick="{!c.slideLeft}" class="slds-hide" aura:id ="slide-left">
+                                                     <lightning:icon iconName="utility:chevronleft" alternativeText="Left" variant="chevronleft" title="Moving to Previous step"
+            size="xx-small" />
+                                                </div>
+                                                <span>{!v.stepIdNO}</span> of <span>{!v.optionTabLength}</span>
+                                            <div onclick="{!c.slideRight}" aura:id ="slide-right" >
+                                                    <lightning:icon iconName="utility:chevronright" alternativeText="Right" variant="chevronright" title="Moving to Next step"
+            size="xx-small" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <lightning:input name="input1" label="Notes" value="{!v.contactData.comments}" onchange="{!c.notes}" aura:id="notes"/>
+                        </div>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem padding="around-small" size="6">
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_10-of-12">
+                        <ul>
+                            <li aura:id="Emails" class="hideTabs assembleTabs" ><lightning:button variant="Neutral" label="Emails" title="Emails" onclick="{! c.emailTab }" aura:id="emailButton"/></li>
+                            <li aura:id="Assets" class="hideTabs assembleTabs" ><lightning:button variant="Neutral" label="Assets" title="Assets" onclick="{! c.assetTab }" aura:id="assetButton"/></li>
+                            <li aura:id="Nurturing" class="hideTabs assembleTabs" ><lightning:button variant="Neutral" label="Nurturing" title="Nurturing" onclick="{! c.nurturingTab }" aura:id="nurturingButton"/></li>
+                            <li aura:id="ActionItems" class="hideTabs assembleTabs" ><lightning:button variant="Neutral" label="ActionItems" title="ActionItems" onclick="{! c.actionTab }" aura:id="actionButton"/></li>
+                            <li aura:id="Contract" class="hideTabs assembleTabs" ><lightning:button variant="Neutral" label="Contract" title="Contract" onclick="{! c.contractTab }" aura:id="contractButton"/></li>
+                            <li aura:id="printcampaign" class="hideTabs assembleTabs" ><lightning:button variant="Neutral" label="PrintCampaign" title="PrintCampaign" onclick="{!c.printCampTab }" aura:id="printButton"/></li>
+                        </ul>
+                            </div>
+                            <div class="slds-col slds-grid slds-size_10-of-12">
+                                <div class="slds-col slds-size_8-of-12">
+                                    
+                                    <aura:iteration items="{!v.tabData}" var="item" >
+                                        
+                                        <aura:if isTrue="{!item.subtype == 'image'}">
+                                            
+                                            <div class="slds-box" data-action="{!item.id}"  id="{!item.id}" >
+                                                <div >
+                                                    <a id="{!item.id}"  onclick="{!c.quickSend}">    <lightning:buttonIcon iconName="utility:send" variant="bare"  alternativeText="Quick send to contact" title="Quick send to contact" /></a>
+                                                </div>
+                                                <div >
+                                                   <a id="{!item.id}"  onclick="{!c.selectAsset}"> <lightning:buttonIcon iconName="utility:package_org" variant="bare"  alternativeText="select this asset" title="select this asset" /></a>
+                                                </div>
+                                                    <div>
+                                                        <div class="slds-hide" >
+                                                            <lightning:icon iconName="utility:check" alternativeText="check" title="After send it will check" variant="success"  />
+                                                        </div>
+                                                        <div>
+                                                            <img class="" src="{!item.fileurl}"/>
+                                                        </div>
+                                                	</div>
+                                                
+                                                
+                                                <div>
+                                                    <div class=""> <strong >{!item.name}</strong></div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </aura:if>
+                                       <aura:if isTrue="{!(item.subtype == 'text'|| item.subtype == 'ppt' || item.subtype == 'XLS' || item.subtype == 'csv' ||
+                    item.subtype == 'STEP'||  item.subtype == 'PPTX' || item.subtype == 'pdf'  ||
+                    item.subtype == 'DOC' || item.subtype == 'DOCX' || item.subtype == 'XLSX' 
+                    || item.subtype == 'CSS'  || item.subtype == 'XML'  || item.subtype == 'ZIP' || 
+                    item.subtype == 'ZIPX'  || item.subtype == 'RAR'  || item.subtype == '7Z' || item.subtype == 'S7Z'
+                    || item.subtype == 'CFS'  || item.subtype == 'ICS'  || item.subtype == 'VCS'  || item.subtype == 'DWG'
+                    || item.subtype == 'STP' ||item.subtype == 'document' || item.subtype == 'word' ||  item.subtype == 'excel')}">
+                                            
+                                            <div class="slds-box" data-action="{!item.id}">
+                                                <div>
+                                                  <a data-action="{!item.id}"  onclick="{!c.quicksend}">  <lightning:buttonIcon iconName="utility:send" variant="bare" onclick="{!c.quicksendtocontact }" alternativeText="Quick send to contact" title="Quick send to contact" /></a>
+                                                </div>
+                             						
+                                                    <div data-action="{!item.id}">
+                                                        <aura:if isTrue="{!item.subtype=='pdf'}">
+                                                            <div>                                           
+                                                                <lightning:icon iconName="doctype:pdf"  />
+                                                            </div>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!item.subtype=='word'}">
+                                                            <div >
+                                                                <lightning:icon iconName="doctype:word"  />
+                                                            </div>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!item.subtype=='ppt'}">
+                                                            <div >
+                                                                <lightning:icon iconName="doctype:ppt" />
+                                                            </div>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!item.subtype=='excel'}">
+                                                            <div >
+                                                                <lightning:icon iconName="doctype:excel"  />
+                                                            </div>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!item.subtype=='csv'}">
+                                                            <div >
+                                                                <lightning:icon iconName="doctype:csv"  />
+                                                            </div>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!item.subtype=='txt'}">
+                                                            <div >
+                                                                <lightning:icon iconName="doctype:text"  />
+                                                            </div>
+                                                        </aura:if>
+                                                         <aura:if isTrue="{!item.subtype=='document'}">
+                                                            <div >
+                                                                <lightning:icon iconName="doctype:unknown"  />
+                                                            </div>
+                                                        </aura:if>
+                                                    </div>  
+                                                    
+                                                   
+                                                <div>
+                                                    <div class=""> <strong >{!item.name}</strong></div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </aura:if>
+                                        <aura:if isTrue="{!item.subtype == 'video'}">
+                                            
+                                            <div class="slds-box" data-action="{!item.id}">
+                                                <div>
+                                                    <a data-action="{!item.id}" onclick="{!c.quicksend}">  <lightning:buttonIcon iconName="utility:send" variant="bare" onclick="{!c.quicksendtocontact }" alternativeText="Quick send to contact" title="Quick send to contact" /></a>
+                                                </div>
+                                                
+                                                <aura:if isTrue="{!item.thumbnailurl != 'undefined'}">
+                                                    <div>
+                                                        <img class="" src="{!item.thumbnailurl}"/>
+                                                    </div>
+                                                <aura:set attribute="else">
+                                                    <div onclick="{!c.externalvideo}">
+                                                        <lightning:icon iconName="doctype:video" size="large" />
+                                                    </div>
+                                                    
+                                                    </aura:set> 
+                                                </aura:if>
+                                                                
+                                                
+                                                <div>
+                                                    <div class=""> <strong >{!item.name}</strong></div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </aura:if>
+                                        <aura:if isTrue="{!item.subtype == 'tool'}">
+                                            
+                                            <div class="slds-box" data-action="{!item.id}">
+                                                
+                                                <div>
+                                                     <lightning:icon iconName="custom:custom67" title="external link" />
+                                                </div>
+                                                <div>
+                                                    <div class=""> <strong >{!item.name}</strong></div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </aura:if>
+                                        <aura:if isTrue="{!item.subtype == 'website' || item.subtype == 'other'}">
+                                            
+                                            <div class="slds-box" data-action="{!item.id}">
+                                                
+                                                <div>
+                                                     <lightning:icon iconName="utility:world" title="external website" siz="large" />
+                                                </div>
+                                                <div>
+                                                    <div class=""> <strong >{!item.name}</strong></div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </aura:if>
+                                        
+                                        <aura:if isTrue="{!item.type == 'actionitem'}">
+                                            
+                                            <div class="slds-box" data-action="{!item.id}">
+                                                <div>
+                                                 <a>   <lightning:buttonIcon iconName="utility:preview" variant="bare" onclick="{!c.viewtheactionitemnote}" alternativeText="view the action item note" title="view the action item note" /></a>
+                                                </div>
+                                                <div>
+                                                 <aura:if isTrue="{!item.subtype == 'actionitem-note'}">
+                                                     <lightning:icon iconName="action:new_note" alternativeText="New note" title="actionitem-note" />
+                                                </aura:if>
+                                                  <aura:if isTrue="{!item.subtype == 'actionitem-postcard'}">
+                                                       <lightning:icon iconName="custom:custom62" title="actionitem-postcard" />
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!item.subtype == 'actionitem-companybrochure'}">
+                                                       <lightning:icon iconName="standard:pricebook" alternativeText="brochure" title="actionitem-companybrochure" />
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!item.subtype == 'actionitem-general'}">
+                                                       <lightning:icon iconName="standard:picklist_type" alternativeText="general" title="actionitem-general" />
+                                                    </aura:if>
+                                               </div>
+                                                <div>
+                                                    <div class=""> <strong >{!item.name}</strong></div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </aura:if>
+                                        <aura:if isTrue="{!(item.type == 'printcampaign' || item.templatetype == 16)}">
+                                            
+                                            <div class="slds-box" data-action="{!item.id}">
+                                                <div>
+                                                <div>
+                                                 <a data-action="{!item.id}" onclick="{!c.print}">   <lightning:buttonIcon iconName="utility:print" variant="bare" onclick="{!c.sendthisprinttovendor}" alternativeText="send this print to vendor" title="send this print to vendor" /></a>
+                                                </div>
+                                                <div>
+                                                 <a data-action="{!item.id}" onclick="{!c.download}">   <lightning:buttonIcon iconName="utility:download" variant="bare" onclick="{!c.downloadthisasset}" alternativeText="download this asset" title="download this asset" /></a>
+                                                </div>
+                                                <div>
+                                                 <a data-action="{!item.id}" onclick="{!c.selectAsset}">   <lightning:buttonIcon iconName="utility:package_org" variant="bare" onclick="{!c.selectthisasset}" alternativeText="select this asset" title="select this asset" /></a>
+                                                </div>
+                                              </div>
+                                                                                           
+                                                <div>
+                                                    <img class="" src="{!item.thumburl}"/>
+                                                </div>
+                                                <div>
+                                                    <div class=""> <strong >{!item.name}</strong></div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </aura:if>
+                                        <aura:if isTrue="{!item.templatetype == 32}">
+                                            
+                                            <div class="slds-box" data-action="{!item.id}">
+                                                 <div>
+                                                  <a data-action="{!item.id}" onclick="{!c.quicksend}">  <lightning:buttonIcon iconName="utility:send" variant="bare" onclick="{!c.quicksendtocontact }" alternativeText="Quick send to contact" title="Quick send to contact" /></a>
+                                                </div>
+                                                <div>
+                                                    <img class="" src="{!item.thumburl}"/>
+                                                </div>
+                                                <div>
+                                                    <div class=""> <strong >{!item.name}</strong></div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </aura:if>
+                                        <aura:if isTrue="{!item.templatetype == 128}">
+                                            
+                                            <div class="slds-box" data-action="{!item.id}" >
+                                                <div>
+                                                  <a data-action="{!item.id}" onclick="{!c.quicksend}">  <lightning:buttonIcon iconName="utility:send" variant="bare" onclick="{!c.quicksendtocontact }" alternativeText="Quick send to contact" title="Quick send to contact" /></a>
+                                                </div>
+                                                <div>
+                                                    <img class="" src="{!item.thumburl}"/>
+                                                </div>
+                                                <div>
+                                                    <div class=""> <strong >{!item.name}</strong></div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </aura:if>
+                                         <aura:if isTrue="{!item.templatetype == 256}">
+                                            
+                                            <div class="slds-box" data-action="{!item.id}">
+                                                
+                                                <div>
+                                                    <img class="" src="{!item.thumburl}"/>
+                                                </div>
+                                                <div>
+                                                    <div class=""> <strong >{!item.name}</strong></div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </aura:if>
+                                        <aura:if isTrue="{!item.templatetype == 8192}">
+                                            
+                                            <div class="slds-box" data-action="{!item.id}">
+                                                
+                                                <div>
+                                                    <img class="" src="{!item.thumburl}"/>
+                                                </div>
+                                                <div>
+                                                    <div class=""> <strong >{!item.name}</strong></div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </aura:if>
+                                        <aura:if isTrue="{!item.templatetype == 16384}">
+                                            
+                                            <div class="slds-box" data-action="{!item.id}">
+                                                <div>
+                                                    <div>               
+                                                  <a data-action="{!item.id}" onclick="{!c.quicksend}">  <lightning:buttonIcon iconName="utility:send" variant="bare" onclick="{!c.quicksendtocontact}" alternativeText="send this print to vendor" title="send this print to vendor" /></a>
+                                                     </div>
+                                                    <div>
+                                                  <a data-action="{!item.id}" onclick="{!c.download}">  <lightning:buttonIcon iconName="utility:download" variant="bare" onclick="{!c.downloadthisasset}" alternativeText="download this asset" title="download this asset" /></a>
+                                                </div>
+                                                <div>
+                                                 <a data-action="{!item.id}" onclick="{!c.selectAsset}">   <lightning:buttonIcon iconName="utility:package_org" variant="bare" onclick="{!c.selectthisasset}" alternativeText="select this asset" title="select this asset" /></a>
+                                                </div>
+                                                </div>
+                                                
+                                                <div>
+                                                    <img class="" src="{!item.thumburl}"/>
+                                                </div>
+                                                <div>
+                                                    <div class=""> <strong >{!item.name}</strong></div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </aura:if>
+                                        <aura:if isTrue="{!item.templatetype == 36864}">
+                                            
+                                            <div class="slds-box" data-action="{!item.id}">
+                                                 <div>               
+                                                    <lightning:buttonIcon iconName="utility:send" variant="bare" onclick="{!c.quicksendtocontact}" alternativeText="send this print to vendor" title="send this print to vendor" />
+                                                 </div>
+                                                <div>
+                                                    <img class="" src="{!item.thumburl}"/>
+                                                </div>
+                                                <div>
+                                                    <div class=""> <strong >{!item.name}</strong></div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </aura:if>
+                
+                                        
+                                        <aura:if isTrue="{!item.type == 'drip'}" >
+                                            
+                                            <div class="slds-box" data-action="{!item.id}">
+                                               <div>
+                                                    <lightning:buttonIcon iconName="utility:add" variant="bare" onclick="{!c.addcontacttodrip}" alternativeText="add contact to drip" title="add contact to drip" />
+                                                </div> 
+                                                <div>
+                                                   <lightning:icon iconName="standard:hierarchy" alternativeText="drip" title="drip" />
+                                                </div>
+                                                <div>
+                                                    <div class=""> <strong >{!item.name}</strong></div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </aura:if>
+                                    <!--    <aura:if isTrue="{!item.assettype == 'template'}">
+                                            
+                                            <div class="slds-box">
+                                                
+                                                <div>
+                                                    <img class="" src="{!item.thumburl}"/>
+                                                </div>
+                                                <div>
+                                                    <div class=""> <strong >{!item.name}</strong></div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </aura:if>-->
+                                        <aura:if isTrue="{!item.type == 'newassets'}" >
+                                            
+                                            <div class="slds-box" data-action="{!item.id}">
+                                                
+                                                <div>
+                                                     <lightning:icon iconName="standard:work_type" alternativeText="newAsset" title="newAsset" />
+                                                </div>
+                                                <div>
+                                                    <div class=""> <strong >{!item.name}</strong></div>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!item.type == 'callscript'}" >
+                                            <div class="slds-box" data-action="{!item.id}">
+                                                    <div>
+                                                        <img class="" src="{!item.thumburl}"/>
+                                                    </div>
+                                                    <div>
+                                                        <div class=""> <strong >{!item.name}</strong></div>
+                                                    </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!item.templatetype == 3145728}" >
+                                            <div class="slds-box" data-action="{!item.id}">
+                                                <div>
+                                                    <lightning:buttonIcon iconName="utility:send" variant="bare" onclick="{!c.quicksendtocontact }" alternativeText="Quick send to contact" title="Quick send to contact" />
+                                                </div>
+                                                <div>
+                                                    <img class="" src="{!item.thumburl}"/>
+                                                </div>
+                                                <div>
+                                                    <div class=""> <strong >{!item.name}</strong></div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </aura:if>
+                                    </aura:iteration>
+                                </div>
+                                <div class="slds-col slds-size_4-of-12">
+                                    <span>Due On:{!v.dueonDate} </span>
+                                    
+                                    <span><lightning:icon iconName="utility:edit" size="x-small" alternativeText="Utility edit" title="edit" onclick="{!c.duedateEdit}"/></span>
+                                </div>
+                            </div>
+                        </div>
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </lightning:layoutItem>
+        </lightning:layout>
+        <div>
+            <aura:if isTrue="{!v.spinner}">
+                <div aura:id="spinnerId" class="slds-spinner_container">
+                    <div class="slds-spinner--brand  slds-spinner slds-spinner--small slds-is-relative" role="alert">
+                        <span class="slds-assistive-text">Loading...</span>
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!v.tabSelect}">
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aura:id="Modalbox" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick="{!c.modalclose}">
+                                <lightning:icon iconName="utility:close" class="asset-type-icon" variant="close" size="small"></lightning:icon>
+                            </button>
+                            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Set TO DO Notification</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div>Moving to Step</div><div>{!v.movingStep}</div>
+                            <div>
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <span><lightning:input type="date" name="date" label="Set Date for Remainder" value="{!v.date}" /></span>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <span><lightning:input type="time" name="time" label=""  value="{!v.time}" dateStyle="short"/></span>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <button class="slds-button slds-button_neutral" onclick="{!c.cancel}">Cancel</button>
+                            <button class="slds-button slds-button_brand" onclick="{!c.save}">Save</button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open" aura:id="Modalbackdrop"></div>
+            </aura:if>
+        </div>
+        <div>
+            <aura:if isTrue="{!v.dateEdit}">
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aura:id="ModalDatebox" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick="{!c.modaldateclose}">
+                                <lightning:icon iconName="utility:close" class="asset-type-icon" variant="close" size="small"></lightning:icon>
+                            </button>
+                            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Set TO DO Notification</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div><div class="slds-grid slds-gutters">
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <span><lightning:input type="date" name="input5" label="Set Date for Remainder" value="{!v.date}" /></span>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <span><lightning:input type="time" name="input4" label=""  value="{!v.time}" dateStyle="short"/></span>
+                                    </div>
+                                </div>
+                              </div> 
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <button class="slds-button slds-button_neutral" onclick="{!c.datecancel}">Cancel</button>
+                            <button class="slds-button slds-button_brand" onclick="{!c.save}">Save</button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open" aura:id="ModalDatebackdrop"></div>
+            </aura:if>
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,9 @@
+<design:component>
+	<design:attribute name="subsource" label="Source of the iFrame" description="Please enter the AMP page you want to see. Clean is required for loading clean pages" />
+    <!--<design:attribute name="ClientName" label="ClientName" description="Please enter the client name for custom javascript" />-->
+    <design:attribute name="iframeheight" label="Height of the iFrame" description="Please enter the height for the iFrame, if not specified, it'll be calculated using window's height" />
+    <design:attribute name="EnablePMtoExpand" label="Enable PostMessage to Auto Expand" description="This feature will enable the Post Message logic to be implemented from MindMatrix whenever there is a modal open trigger in MM and will expand that modal in SFDC"/>
+    <design:attribute name="addCleanUrl" label="Hide MM navigation?" description="This is by default true, and if true, the MM product will not show the navigation menu."/>
+    <design:attribute name="defaultAutoExpand" label="Auto Expand" description="This feature will work as an auto expander of the page on onload"/>
+    <design:attribute name="openTabInNewWindow" label="Open MM URL in New Tab" description="This feature will open the iframe URL in a new tab."/>
+</design:component>

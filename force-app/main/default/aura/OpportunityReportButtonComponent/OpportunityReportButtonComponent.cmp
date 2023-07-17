@@ -1,0 +1,37 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" controller="AMPSObjectController" access="global" >
+    <ltng:require scripts="{!join(',',$Resource.jQuery351)}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <ltng:require styles="{!$Resource.quickaction}" />
+    <aura:attribute name="opportunity" type="Opportunity"/>
+    <aura:attribute name="opportunitysrc" type="String"/>
+    <div class="sendampemail" style="height:700px;width:100%;display:none;">
+        <iframe id="iframe-modal" src="{!v.opportunitysrc}" height="700" width="100%" style="height:700px;width:100%;"></iframe>
+    </div>
+    <div class="divMessageBox deleteoption animated fadeIn fast" style="display:none;" id="MsgBox">
+        <div class="MessageBoxContainer animated fadeIn fast" id="Msg2-1">
+            <div class="MessageBoxMiddle">
+                <span class="MsgTitle">Field Mapping is not present for this opportunity.</span>
+                <div class="MessageBoxButtonSection">
+                    <button class="bot2-Msg1-2 btn btn-default btn-sm botTempo" onclick="{!c.closemsgbox}">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div aura:id="syncwithamp" style="position:relative;height:180px;">
+        <div class="spinner">
+            <aura:if isTrue="{!v.IsSpinner}">
+                <lightning:spinner variant="brand" style="position:absolute;" size="large" />
+            </aura:if>
+        </div>
+        <div class="slds-clearfix"/>
+        <h2 class="Syncmessage" style="display:none;text-align: center;font-size:25px;padding-top:40px;">Opportunity is successfully synced with AMP</h2>
+        <a class="mmReportLink" onclick="{!c.redirect}" style="display:none;text-align:center;padding-left: 31%;">
+            click here to redirect MM Report tab.
+        </a>
+    </div>
+    <div aura:id="close" style="display:none;">
+        <lightning:button class="slds-float_right" onclick="{!c.submit}">Ok</lightning:button>
+    </div>
+    <div aura:id="submitbtn" style="display:none;">
+        <lightning:button class="slds-float_right" onclick="{!c.clickok}">Ok</lightning:button>
+    </div>
+</aura:component>

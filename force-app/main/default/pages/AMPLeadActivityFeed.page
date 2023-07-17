@@ -1,0 +1,29 @@
+<apex:page standardController="Lead" sidebar="false">
+    <!-- NO LOGER USING THIS PAGE-->
+<!--<apex:outputPanel >
+<apex:form id="theForm" >
+ <apex:actionFunction name="loadFeedIframe" id="loadFeedIframe" action="{!getActivityFeed}" reRender="theForm" status="status" >
+</apex:actionFunction>
+   <script src="{!$Resource.jQuery351}"></script>
+   <script language="JavaScript"> 
+        window.onload = function() {loadFeedIframe();}
+    </script>
+ <div style="position: relative;">
+    <apex:iframe src="{!infoPageURL}"  frameborder="0" scrolling="false" height="350" id="itarget" title="Content" width="100%" ></apex:iframe>
+        <apex:outputpanel >
+            <apex:actionstatus id="status">
+                <apex:facet name="start">
+                    <div class="waitingSearchDiv" id="00Bd0000003nrlY_loading" style="background-color: #fbfbfb;
+                           opacity:0.65;height: 100%; width: 100%;">
+                            <div class="waitingHolder" style="width: 100%; top: 40%;">
+                            <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                            <span class="waitingDescription">Please wait...</span>
+                        </div>
+                    </div>
+                </apex:facet>
+            </apex:actionstatus>
+        </apex:outputpanel>
+        </div>
+    </apex:form>
+</apex:outputPanel>-->
+</apex:page>

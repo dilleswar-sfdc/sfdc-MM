@@ -1,0 +1,159 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" controller="AMPSObjectController" >
+	   
+    <ltng:require scripts="{!join(',',$Resource.jQuery351)}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <aura:attribute name="userid" type="String"/>
+    <aura:attribute name="install" type="string"/>
+    <aura:attribute name="theme" type="String"/>
+    <aura:attribute name="size" type="String"/>
+    <aura:attribute name="test" type="String"/>
+    <aura:attribute name="lead" type="Lead"/>
+    <aura:attribute name="cirDeg" type="String" default="360"/>
+    <aura:attribute name="perText" type="String" default="50%"/>
+    <aura:attribute name="quicklink1" type="Object"/>
+    <aura:attribute name="playbookdata" type="Object"/>
+    <aura:attribute name="pagination" type="Object"/>
+    <aura:attribute name="nodata" type="Boolean" default="false"/>
+    <aura:attribute name="dependantwidget" type="String" default="oneapp"/>
+    <aura:attribute name="sliderlength" type="Integer" default="3"/>
+    <aura:attribute name="page" type="Integer" default="0"/>
+    <aura:attribute name="cid" type="Integer" default="0"/>
+    <aura:attribute name="pages" type="Integer" default="0"/>
+    <aura:attribute name="pagesize" type="Integer" default="10"/>
+    <aura:attribute name="message" type="String"/>
+    <aura:attribute name="rowcount" type="String"/>
+    <aura:attribute name="filteredtext" type="String"/>
+    <aura:attribute name="filter" type="String"/>
+    <aura:attribute name="isPlaybookFilter" type="Boolean" default="false"/>
+    <aura:attribute name="hidepagination" type="Boolean" default="false"/>
+    <aura:attribute name="isEnablement" type="Boolean" default="false"/>
+    <aura:attribute name="selectedfilter" type="String" default=""/>
+    <aura:attribute name="searchtext" type="String" default=""/>
+    <aura:attribute name="source" type="String" default=""/>
+    <aura:attribute name="ErrorMsg" type="String" default="Sorry! We could not find any data to show you."/>
+    <ltng:require styles="{!$Resource.custom}" />
+    <aura:attribute name="mainnavbgcolor" type="String" default="#ccc"/>
+    <aura:attribute name="mainnavfontcolor" type="String" default="black"/>
+    <aura:attribute name="typeid" type="Integer" default="0"/>
+   	<aura:attribute name="componentHeader" type="String" default="Playbook" access="global"/>
+    <aura:attribute name="header" type="String" />
+   
+
+    <iframe class="dummyiframe" style="display:none;height:0px;border:none;" src="{!v.dummyiframesrc}"></iframe>
+    <div class="playbook" style="margin-top: 20px;background: white;">
+        <aura:if isTrue="{!v.isPlaybookFilter}">
+            <div class="filteredtext">
+                <span style="padding-right:5px;">Searched for: <b>{!v.filter}</b></span>
+                <button title="Click on X to remove pre-filters and show all playbooks" onclick="{!c.clear }" class="clear" style="border: none;background: white;">
+                    <lightning:icon class="cleariconcolor" iconName="utility:clear" size="x-small" variant="clear"/>
+                </button>
+            </div>
+        </aura:if>
+        <div class="playbook-icon" style="display:inline-flex;padding-left: 15px;padding-top: 15px;">
+            <lightning:Icon class="playbookiconcolor" iconName="utility:knowledge_base" variant="knowledge_base"/>
+            <span>
+                <h2 style="font-size:2em !important; padding-left:5px;"> {!v.header}</h2>
+            </span>
+        </div>
+        <div class="playbook-container" style="margin-top:15px;">
+            <lightning:layout >
+                <lightning:layoutItem flexibility="auto" padding="around-small" size="2">
+                    <div class="input-group" style="width:100%;display: inline-flex;">
+                        <span onkeyup="{!c.keyCheck}">
+                            <lightning:input aura:id="searchfilter" label="" class="search" placeholder="Search for records" type="string" onchange="{!c.keyCheck}"/>
+                        </span>
+                        <!--<input aura:id="searchfilter" class="form-control" style="padding: 5px 10px;width:100%;" type="text" placeholder="Search for records"/>-->
+                        <div style="position:relative;" >
+                            <button  onclick="{! c.search }" class="searchplaybook" style="border: none;position: absolute;background: white;right: 2px;top: 25px;" type="button">
+                                <lightning:icon iconName="utility:search" variant="search" size="x-small"></lightning:icon>
+                            </button>
+                            <button  onclick="{! c.clear }" class="clear" style="display:none;border: none;position: absolute;background: white;right: 2px;top: 25px;" type="button">
+                                <lightning:icon iconName="utility:clear" variant="search" size="x-small"></lightning:icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px;padding-bottom: 15px;border-bottom: 1px solid rgba(128, 128, 128, 0.38);">
+                        <span style="color:#3276b1 !important;font-weight: bold;">FOLDER</span>
+                        <span onclick="{!c.refresh}" title="Refresh" class="refresh-me" style="float:right;position:relative;cursor:pointer;height: 22px;">
+                            <lightning:icon class="cleariconcolor" iconName="utility:sync" size="x-small" variant="clear"/>
+                        </span>
+                    </div>
+                    <div style="margin-top: 15px;padding-bottom: 15px;">
+                        <span>
+                            <lightning:icon class="righticon" iconName="utility:right" variant="sync" size="x-small"></lightning:icon> 
+                        </span>
+                        <span style="color:#25B1EF !important">Playbooks </span><span style="color:#25B1EF !important">({!v.rowcount})</span>
+                    </div>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" size="10">
+                        <div class="internalPlaybooksection">
+                            <div class="widget iplaybookv1" style="border: 0;">
+                                <div class="slds-box">
+                                    <div class="slds-grid" style="position:relative;min-height:300px;">
+                                        <div class="demo-only divspinner" style="display:none;">
+                                            <div role="status" class="slds-spinner slds-spinner_small spinpos">
+                                                <div class="slds-spinner__dot-a"></div>
+                                                <div class="slds-spinner__dot-b"></div>
+                                            </div>
+                                            <div style="position: absolute;top: 10px;left: 50px;font-size: 25px;">Loading...</div>
+                                        </div>
+                                        <div class="iplaybookv1body" style="width:100% !important;">
+                                            <aura:if isTrue="{!v.nodata}">
+                                                <div style='padding: 20px;border: 1px solid #80808066; border-radius: 3px;'>
+                                                   {!v.ErrorMsg}
+                                                </div>
+                                                <aura:set attribute="else">
+                                                    <aura:if isTrue="{!v.isEnablement}">                                                        
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-grid slds-wrap ipbody" id="playbook-list" style="position:relative;">
+                                                                <ul class="inbox-download-list inbox-thumbnail">
+                                                                    <aura:iteration items="{!v.quicklink1.item}" var="item" start="0">
+                                                                        <li style="display:inline;padding: 15px;" id="{!'list_'+item.count}">
+                                                                            <div class="well well-sm">
+                                                                                <div class="enable well-img-sm" id="{!item.id}" onclick="{!c.openenablement}">
+                                                                                    <lightning:icon class="usericon" iconName="utility:user" size="xx-small" variant="clear"/>   
+                                                                                    <img class="thumb-img-sm" src="{!item.imgUrl}"/>
+                                                                                </div>
+                                                                                <br/> 
+                                                                                <strong title="{!item.name}">{!item.shortName}</strong>
+                                                                            </div>
+                                                                        </li>
+                                                                    </aura:iteration>
+                                                                </ul>
+                                                            </div>                                                        	
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </aura:set>
+                                            </aura:if>
+                                        </div>
+                                    </div>
+                                    <aura:if isTrue="{!v.hidepagination}">
+                                        <div class="paginate" style="float:right;">
+                                            <lightning:button disabled="{!v.page == 0}" variant="brand" label="&lt;" onclick="{! c.prev }" />            
+                                            <aura:iteration items="{!v.pagination}" var="paginate" start="0">
+                                                <lightning:button class="{!'page-'+paginate}" disabled="{!v.page == paginate-1}" aura:id="{!'page-'+paginate}" variant="brand" label="{!paginate}" onclick="{! c.paginate }" />
+                                            </aura:iteration>
+                                            <lightning:button disabled="{!(v.page == (v.pages-1))}" variant="brand" label="&gt;" onclick="{! c.next }" />                    
+                                        </div>
+                                    </aura:if>
+                                </div>
+                            </div>
+                            <div class="demo-only demo-modal modal-independant" style="display:none;">
+                                <section  role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-section slds-modal slds-fade-in-open slds-modal_large">
+                                    <div class="slds-modal__container">
+                                        <header class="slds-modal__header" style="padding:0px !important;">
+                                            <button class="slds-button modal-close" onclick="{!c.modalclose}"><lightning:icon iconName="utility:close" class="asset-type-icon" variant="close" size="small"></lightning:icon></button>
+                                        </header>
+                                        <div class="slds-modal__content slds-p-around_medium" > 
+                                            <iframe id="iframe-modal" aura:id="iframe-modal-independant" src="" width="100%"></iframe>
+                                        </div>
+                                    </div>
+                                </section>
+                                <div class="slds-backdrop slds-backdrop_open"></div>
+                            </div>
+                        </div>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </div>
+    </div>
+    
+</aura:component>

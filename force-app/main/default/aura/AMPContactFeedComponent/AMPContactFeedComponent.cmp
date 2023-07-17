@@ -1,0 +1,117 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" controller="AMPSObjectController">
+    <!-- Handle component initialization in a client-side controller -->
+    <ltng:require scripts="{!join(',',$Resource.jQuery351,$Resource.dataTablesJS, $Resource.PostMessage)}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <!-- Dynamically load the list of contacts -->
+    <aura:attribute name="firstname" type="String"/>
+    <aura:attribute name="feeddetails" type="Object"/>
+    <aura:attribute name="currentview" type="Object"/>
+    <aura:attribute name="lastname" type="String"/>
+    <aura:attribute name="contact" type="Contact"/>
+    <aura:attribute name="baseurl" type="string"/>
+    <aura:attribute name="clientid" type="string"/>
+    <aura:attribute name="siteurl" type="string"/>
+    <aura:attribute name="token" type="string"/>
+    <aura:attribute name="install" type="string"/>
+    <aura:attribute name="userid" type="string"/>
+    <aura:attribute name="lastssotime" type="Datetime"/>
+    <aura:attribute name="dummyiframesrc" type="string"/>
+    <aura:attribute name="assetsrc" type="string"/>
+    <aura:attribute name="playbooksrc" type="string"/>
+    <aura:attribute name="contactfeeddata" type="Object" />
+    <aura:attribute name="page" type="Integer" default="0"/>
+    <aura:attribute name="pages" type="Integer" default="0"/>
+    <aura:attribute name="pagesize" type="Integer" default="5"/>
+    <aura:attribute name="pagination" type="Object"/>
+    <aura:attribute name="hidepagination" type="Boolean" default="true"/>
+    <aura:attribute name="showFeed" type="Boolean" default="true"/>
+    
+    <aura:attribute name="AMPAssetsFeedComponent" type="String"/>
+    <aura:attribute name="AMPNewAsset" type="String"/>
+    <aura:attribute name="AMPModalViewAsset" type="String"/>
+    <aura:attribute name="showContactfeed" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="showPlaybookfeed" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="showAssetfeed" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="AMPNewPlaybook" type="String"/>
+    <aura:attribute name="ssoHeader" type="String" default="Could not find SSO Details"/>
+    <aura:attribute name="isContactFeed" type="Boolean" default="false"/>
+    <aura:attribute name="playbookComponentHeader" type="String" default="Playbook" access="global"/>
+    <aura:attribute name="assetComponentHeader" type="String" default="View Assets" access="global"/>
+    
+    <aura:attribute name="AMPAssetContainer" type="String"/>
+    <aura:attribute name="subsource" type="string" default="" access="global"/>
+    <aura:attribute name="assetHeight" type="string" default="1000" access="global" />
+    <aura:attribute name="AMPPlaybookContainer" type="String"/>
+    <aura:attribute name="playbookSource" type="string" default="" access="global"/>
+    <aura:attribute name="playbookHeight"  type="string" default="1000" access="global"/>
+    
+    <aura:attribute name ="AlreadyAuthenticated" type ="Boolean" default="false"/>
+    
+    <div class="contectfeed-container"  >      
+        <section>
+            <div class="div-position margin-bottom-20">
+                {!v.AMPAssetContainer}
+            </div>
+            <aura:if isTrue="{!v.showPlaybookfeed}">
+                <div class="margin-top-20">
+                    {!v.AMPPlaybookContainer}
+                </div>
+            </aura:if>
+        </section>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="divMessageBox deleteoption animated fadeIn fast" style="display:none;" aura:id="MsgBoxBackDel">
+        <div class="MessageBoxContainer animated fadeIn fast" id="Msg2-1">
+            <div class="MessageBoxMiddle">
+                <span class="MsgTitle">Please Enter Your Install Url in Remote Site Settings</span>
+                <p class="pText" style="font-size: 15px;">
+                    <b> Goto Setting > Setup > Search-Remote Site Settings</b> in Quick Find and add <b>Install URL<span>({!v.siteurl}/*)</span></b> as it is <b>Mandatory</b> for the api's to work.
+                </p>
+                <div class="MessageBoxButtonSection">
+                    <button class="bot2-Msg1-2 btn btn-default btn-sm botTempo">Ok</button>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+    <div class="divMessageBox deleteoption animated fadeIn fast" style="display:none;" aura:id="MsgBoxInvalidToken">
+        <div class="MessageBoxContainer animated fadeIn fast" id="Msg2-1">
+            <div class="MessageBoxMiddle">
+                <span class="MsgTitle">The developer token is invalid</span>
+                <p class="pText" style="font-size: 15px;">
+                    Go to MM and generate a developer api and copy that to the MM Settings.
+                </p>
+                <a onclick="{!c.redirecttosettings}" style="text-align:center;padding-left: 21%;color:#fff;">
+                    click here to redirect to MM Settings tab.
+                </a>
+                <div class="MessageBoxButtonSection">
+                    <button class="bot2-Msg1-2 btn btn-default btn-sm botTempo">Ok</button>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+    
+</aura:component>

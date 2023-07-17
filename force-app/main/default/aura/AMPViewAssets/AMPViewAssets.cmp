@@ -1,0 +1,462 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes,lightningcommunity:allowInRelaxedCSP" access="global" controller="AMPViewAssetController" >
+    <ltng:require scripts="{!$Resource.jQuery351}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="mainnavbgcolor" type="String" default="#ccc"/>
+    <aura:attribute name="mainnavfontcolor" type="String" default="black"/>
+    <aura:attribute name="subnavbgcolor" type="String" default="white"/>
+    <aura:attribute name="src" type="String"/>
+    <aura:attribute name="title" type="String"/>
+    <aura:attribute name="userid" type="String" default="0"/>
+    <aura:attribute name="install" type="string" default="https://dvl-master.amp.vg"/>
+    <aura:attribute name="companyname" type="String" default="MindMatrix"/>
+    <aura:attribute name="isiconcolor" type="String"/>
+    <aura:attribute name="username" type="String" default=""/>
+    <aura:attribute name="newdata" type="Object"/>
+    <aura:attribute name="recentlydata" type="Object"/>
+    <aura:attribute name="populardata" type="Object"/>
+    <aura:attribute name="recommendeddata" type="Object"/>
+    <aura:attribute name="bookmarkeddata" type="Object"/>
+    <aura:attribute name="items" type="Object"/>
+    <aura:attribute name="dependantwidget"  type="String" default="community"/>
+    <aura:attribute name="unauthorized" type="String"/>
+    <aura:attribute name="andor" type="String" default="OR"/>
+    <aura:attribute name="showerror" type="Boolean" default="false"/>
+    <aura:attribute name="createuserviasso" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="isOpen" type="Boolean" default="false"/>
+    <aura:attribute name="showwidget" type="String" default="none"/>
+    <aura:attribute name="viewTabName" type="Object"/>
+    <aura:attribute name="currentTabFolderEnum" type="String"/>
+    <aura:attribute name="searchtxt" type="Object"/>
+    <aura:attribute name="tabs" type="Object"/>
+    <aura:attribute name="options" type="Object"/>
+    <aura:attribute name="permission" type="Object"/>
+    <aura:attribute name="page" type="Integer" default="0"/>
+	 <aura:attribute name="pages" type="Integer" default="0"/>
+    <aura:attribute name="pagesize" type="Integer" default="10"/>
+	<aura:attribute name="isMedia" type="Integer" default="0"/>
+    <aura:attribute name="templateTypeLink" type="Object"/>
+	<aura:attribute name="rowcount" type="String" />
+	<aura:attribute name="itemss" type="Object"/>
+    <aura:attribute name="actionUrl" type="String"/>
+	<aura:attribute name="currentFolderwithID" type="Object"/>
+    <aura:attribute name="isFirstLoad" type="String" default="0"/>
+    <aura:attribute name="isFirstLoadCheck" type="String" default="0"/>
+	<aura:attribute name="isLoadUncheck" type="String" default="0"/>
+    <aura:attribute name="flag" type="Boolean" default="false"/>
+    <aura:attribute name="filterFlag" type="Boolean" default="true"/>
+    <aura:attribute name="categorizedfilters" type="Object"/>
+    <aura:attribute name="Noncategorizedfilters" type="Object"/>
+    <aura:attribute name="filterids" type="Object"/>
+    <aura:attribute name="conditionVal" type="Boolean" />
+    <aura:attribute name="allTabs" type="Object" />
+    <aura:attribute name="tabcountNew" type="Object" />
+    <aura:attribute name="tabcountVal" type="Object"/>
+    <aura:attribute name="flagcountVal" type="Boolean" default="true"/>
+    <aura:attribute name="showsearcherror" type="Boolean" default="false"/>
+    <aura:attribute name="apiErrorMsg" type="String"/>
+	<aura:handler name="viewModalEvent" event="c:viewAssetModalEvt" action="{!c.viewModalEvt}"/>
+	<aura:handler name="viewModalActionEvent" event="c:AMPViewActionModalEvt" action="{!c.viewActionModalEvt}"/>
+	<aura:handler name="authorizedEvent" event="c:modalEvent" action="{!c.showViewAsset}"/>
+    <ltng:require styles="{!$Resource.slick}" />
+    <ltng:require styles="{!$Resource.slicktheme}" />
+    <ltng:require styles="{!$Resource.custom}" />
+    <aura:attribute name="tosredirecturl" type="String"/>
+    <aura:attribute name="iframesrc" type="String"/>
+    <aura:attribute name="tosContent" type="String" default="Please accept the Terms of Service to proceed"/>
+    <aura:attribute name="usePromises" type="Boolean" default="true" description="Flag to switch between promise/non-promise version"/>
+	
+    {!v.unauthorized}
+    <div>
+     <aura:if isTrue="{!v.createuserviasso}">
+            <aura:if isTrue="{!v.isOpen}">
+                
+                <!--###### MODAL BOX Start######--> 
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open tosModal">
+                    <div class="slds-modal__container">
+                        <!-- ###### MODAL BOX HEADER Start ######-->
+                        <header class="slds-modal__header textcenter">
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Terms of Service</h2>
+                        </header>
+                        <!--###### MODAL BOX BODY Part Start######-->
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <!--<p><b>{!v.tosContent}</b>
+                            </p>-->
+                            <iframe src="{!v.iframesrc}" width="100%" height="100%" style="{}"/>
+                        </div>
+                        <!--###### MODAL BOX FOOTER Part Start ######-->
+                        <footer class="slds-modal__footer">
+                          <!--<lightning:button variant="brand" 
+                                              label="I agree to the Terms of Service"
+                                              title="I agree to the Terms of Service"
+                                              onclick="{! c.redirectTosUrl }"/>-->
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open" style="background-color: #000000e6;"></div>
+                <!--###### MODAL BOX Part END Here ######-->
+                
+            </aura:if>
+        </aura:if>
+    </div>
+    <div class="viewassets sec-view-assets" style="{!'width:100% !important;margin-top: 20px;display:'+v.showwidget }">
+        
+        <lightning:layout horizontalAlign="spread" multipleRows="true">
+            <lightning:layoutItem flexibility="grow" padding="around-small" size="12" mediumDeviceSize="12" largeDeviceSize="7" class="view-assets-left">
+                <div class="row ">
+                    <lightning:layout >
+                        <lightning:layoutItem flexibility=" auto" padding="around-small" size="4">
+                            <h3>View Assets</h3>
+                            <p>Select a category or search across all assets.</p>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem flexibility=" auto" class="input-search" padding="around-small" size="8">
+                            <lightning:layout >
+                                <lightning:layoutItem flexibility="auto" size="6" class="slds-p-horizontal--medium va-search-cat">
+                                    <div  class="input-group">
+                                        <div style="position:relative;" >
+                                            <div class="dropdowncolor view-asset-dropdown">
+                                                <div class="slds-form-element__control">
+                                                    <div class="slds-select_container">
+                                                        <select onchange="{!c.hideerror}" class="categoryPicklist slds-select" style="height: 40px;">    </select>
+                                                    </div>
+                                                    <!--new asset changes-->
+                                                       <!-- <div  class="text-danger errorMsg" style="color: #b94a48;display: block;" id="_72edbe6faa944fe5907da95287849e95_nocategoryselected"></div>-->
+                                                   <aura:if isTrue="{!v.showerror}">	
+                                                        <div class="text-danger" style="color: #b94a48;display: block;" id="_72edbe6faa944fe5907da95287849e95_nocategoryselected">*Please select a category</div>	
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                            <!--<button style="{!'background:'+v.mainnavbgcolor+';border: none;height: 40px;width: 45px;border-radius: 0px 3px 3px 0px;'}" type="button">
+                                                <lightning:icon iconName="utility:down" class="CPViewAssetssearchIcon" variant="down" size="small"></lightning:icon>
+                                            </button>-->
+                                        </div>
+                                    </div>
+                                    <button class="slds-button slds-button_brand" onclick="{!c.showAssets}" style="{!'background:'+v.mainnavbgcolor+'; color:'+v.mainnavfontcolor+';border: none;margin-bottom: 10px;margin-top: 10px;'}" type="button">Show me!</button>
+                                </lightning:layoutItem> 
+                                
+                                <lightning:layoutItem flexibility="auto" size="6" class="slds-p-horizontal--medium va-search-key">
+                                    <span class="slds-truncate or">{!v.andor}</span>
+                                    <div class="input-group">
+                                        <input class="form-control slds-input searchinput" style="height:40px;padding: 5px 10px;display: block;width: 100%;padding-right: 55px;" type="text" placeholder="Keyword Search"/>
+                                        <div style="position: absolute;display: inline-block;top: 0;right: 12px;">
+                                            <button onclick="{!c.showSearchAsset}" style="{!'background:'+v.mainnavbgcolor+';border: none;height: 40px;width: 45px;border-radius: 0px 3px 3px 0px;'}" type="button">
+                                                <lightning:icon iconName="utility:search" class="CPViewAssetssearchIcon" variant="search" size="small"></lightning:icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <button class="slds-button slds-button_brand" onclick="{!c.showSearchAsset}" style="{!'background:'+v.mainnavbgcolor+'; color:'+v.mainnavfontcolor+';border: none;margin-bottom: 10px;margin-top: 10px;'}" type="button">Search!</button>
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                </div>
+            </lightning:layoutItem>
+            <lightning:layoutItem flexibility="grow" padding="around-small" size="12" mediumDeviceSize="12" largeDeviceSize="5" class="view-assets-right">
+                <div class="row iconclick">
+                    <lightning:layout aura:id="mainlayout">
+                        <lightning:layoutItem flexibility="auto" padding="horizontal-small" size="3" class="asset-type">
+                            <div icon="bookmarked">
+                                <div class="asset-type-icon bookmarkedicon disabled">
+                                    <div style="display:inline-block;margin-right:10px" class="assets bookmarkedassetclick" id="bookmarked">
+                                        <lightning:icon aura:id="bookmarked" iconName="utility:priority" class="CPViewAssetsiconcolor iconbgcolor asset-type-icon"  variant="priority" size="large"></lightning:icon>
+                                        <span class="slds-truncate asset-count "><span class="count_bookmarked">0</span></span>
+                                    </div>
+                                </div>
+                                <p >My Favorites</p>
+                            </div>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem flexibility="auto" padding="horizontal-small" size="3" class="asset-type">
+                            <div icon="recently">
+                                <div class="asset-type-icon recentlyicon disabled">
+                                    <div style="display:inline-block;margin-right:10px" class="assets recentlyassetclick" id="recently">
+                                        <lightning:icon aura:id="recently" iconName="custom:custom13" class="CPViewAssetsiconcolor iconbgcolor asset-type-icon"  variant="custom13" size="large" ></lightning:icon>
+                                        <span class="slds-truncate asset-count "><span class="count_recently">0</span></span>
+                                    </div>
+                                </div>
+                                <p>Recently Used Assets</p>
+                            </div>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem flexibility="auto" padding="horizontal-small" size="3" class="asset-type">
+                            <div icon="new">
+                                <div class="asset-type-icon newicon disabled">
+                                    <div style="display:inline-block;margin-right:10px" class="assets newassetclick" id="new">
+                                        <lightning:icon aura:id="new" iconName="standard:contract" class="CPViewAssetsiconcolor iconbgcolor" value='new'  variant="contract" size="large"></lightning:icon>
+                                        <span class="slds-truncate asset-count "><span class="count_new">0</span></span>
+                                    </div>
+                                </div>
+                                <p>New Assets</p>
+                            </div>
+                        </lightning:layoutItem>
+                        
+                        <lightning:layoutItem flexibility="auto" padding="horizontal-small" size="3" class="asset-type">
+                            <div icon="recommended">
+                                <div class="asset-type-icon recommendedicon disabled">
+                                    <div style="display:inline-block;margin-right:10px" class="assets recommendedassetclick" id="recommended">
+                                        <lightning:icon aura:id="recommended" iconName="utility:opened_folder" class="CPViewAssetsiconcolor iconbgcolor iconsize asset-type-icon"  variant="opened_folder" size="large"></lightning:icon>
+                                        <span class="slds-truncate asset-count "><span class="count_recommended">0</span></span>
+                                    </div>
+                                </div>
+                                <p>Recommended Assets</p>
+                            </div>
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+   <!-- inner asset modal -->
+        <div class="demo-only demo-modal modal-independant-asset"  >
+		
+            <section  role="dialog" tabindex="-1" aria-labelledby="modal-heading-asset-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-section slds-modal  slds-modal_large" aura:id="Modalbox">
+               
+                <div class="slds-modal__container ">
+                     <header class="slds-modal__header">
+                        <button class="slds-button modal-close" onclick="{!c.modalAssetclose}"><lightning:icon iconName="utility:close" class="btncolor" variant="close" size="small"></lightning:icon></button>
+                    </header> 
+                   
+					 
+                    <div class="slds-modal__content slds-p-around_medium modalheight" > 
+                     
+						    <c:AMPModalViewAsset aura:id="child" isPopUp="true"/>
+                    </div>
+                   
+                    <div id="modal-footer-send-asset" style="display:none;">
+                      
+                    </div>
+                </div>
+                
+            </section>
+            <div class="slds-backdrop "  aura:id="Modalbackdrop"></div>
+           
+        </div>
+		<!-- action button modal -->
+        <div class="demo-only demo-modal modal-independant" style="display:none;">
+            <section  role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-section slds-modal slds-fade-in-open slds-modal_large modal-xlg">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 id="modal-heading" class="slds-text-heading_medium slds-hyphenate" style="display:inline-block;"></h2>
+                        <button id='modal-id' class="slds-button modal-close iframe-close" onclick="{!c.modalclose}"><lightning:icon iconName="utility:close" class="asset-type-icon" variant="close" size="small"></lightning:icon></button>
+                        <div id="amp-select" style="display:none;float:right;">
+                            <div class="slds-form-element__control">
+                                <div class="slds-select_container">
+                                    <select id="selectvalues" class="slds-select" onchange="{!c.handleMenuSelect}">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" > 
+                        <iframe id="iframe-modal" aura:id="iframe-modal-independant" src="" width="100%"></iframe>
+                    </div>
+                    <div id="modal-footer-send" style="display:none;">
+                        <footer class="slds-modal__footer">
+                            <button class="slds-button slds-button_brand" Value="Send" onclick="{!c.sendEmail}" label="Send">Send</button>
+                        </footer>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+        <!--action iframe modal -->
+        <div class="demo-only demo-modal modal-independant-actioniframe"  >
+		
+            <section  role="dialog" tabindex="-1" aria-labelledby="modal-heading-actioniframe-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-section slds-modal  slds-modal_large modal-xlg" aura:id="modalBoxIframe">
+               
+                <div class="slds-modal__container ">
+                     <header class="slds-modal__header">
+                        <button class="slds-button modal-close iframe-close" onclick="{!c.modalIframeAssetClose}"><lightning:icon iconName="utility:close" class="btncolor" variant="close" size="small"></lightning:icon></button>
+                    </header> 
+                   
+					 
+                    <div class="slds-modal__content slds-p-around_medium modalheight" > 
+						    <iframe id="action-iframe-modal" aura:id="action-iframe-modal-independant" src="{!v.actionUrl}" width="100%"></iframe>
+                    </div>
+                   
+                    <div id="modal-footer-send-actioniframe" style="display:none;">
+                      
+                    </div>
+                </div>
+                
+            </section>
+            <div class="slds-backdrop "  aura:id="modalBackdropIframe"></div>
+           
+        </div>
+        
+ 
+    </div>
+    
+    <div class="view-assets-result " style="display:none;">
+        <div class="slds-box c-accordian">
+            <div class="slds-grid" style="position:relative;">
+                <div class="slds-col slds-size--1-of-1">
+                    <div class="panel-default">
+                        <div class="panel-heading closeaccordion">
+                            <h3 class="panel-title">
+                                <a class="maintitle"></a>
+                            </h3>
+                            <span class="subtitle"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="min-assets closeaccordion slds-box" style="{!'cursor:pointer;position:absolute; right:25px; top:16px;background-color:'+v.mainnavbgcolor}">
+                   <!-- <lightning:icon iconName="utility:dash" title="minimize" class="iconbgcolor min-iconcolor" variant="minimize" size="small" ></lightning:icon>-->
+                    <div>__
+                    </div>
+                </div>
+            </div>
+            <div class="slds-grid">
+                
+                <div class="demo-only divspinner" style="display:none;">
+                    <div role="status" class="slds-spinner slds-spinner_small spinpos">
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                    <div style="position: absolute;top: 10px;left: 50px;font-size: 25px;">Loading...</div>
+                </div>
+                <div class="slds-col slds-size--1-of-1 view-assets-container" style="min-height:200px;">
+                    
+                    <div class="resultdata">
+                        <aura:if isTrue="{!(v.items.assets.length == 0)}">
+                            <div style='padding: 20px;border: 1px solid #80808066; border-radius: 3px;'>Sorry! We could not find any data to show you.</div>
+                            <aura:set attribute="else">
+                                <aura:iteration items="{!v.items.assets}" var="item" start="0">
+                                    <div id="{!item.id}" class="{!'asset-col '+item.class}">
+                                        <div class="linkid" style="display:none;">{!item.linkid}</div>
+                                        <div class="linktype" style="display:none;">{!item.linktype}</div>
+                                        <div class="flag6" style="display:none;">{!item.flag6}</div>
+                                        <div class="status" style="display:none;">{!item.status}</div>
+                                        <div class="iframesrc" style="display:none;">{!item.iframesrc}</div>
+                                        <div class="templatetype" style="display:none;">{!item.metadata.templatetype}</div>
+                                        <div class="output" style="display:none;">{!item.metadata.output}</div>
+                                        <div class="usedatasource" style="display:none;">{!item.metadata.usedatasource}</div>
+                                        <div class="hasquestionnaire" style="display:none;">{!item.metadata.hasquestionnaire}</div>
+                                        <div class="name" style="display:none;">{!item.metadata.name}</div>
+                                        <div class="page" style="display:none;">{!item.metadata.page}</div>
+                                        <div class="metadata" style="display:none;">{!item.metadatastr}</div>
+                                        <div class="temp2">
+                                            <div class="temp2-top">
+                                                <aura:if isTrue="{!item.showsend}">
+                                                    <span class="send tooltip" style="text-align:center;">
+                                                        <span class="tooltiptext">Send</span>
+                                                        <lightning:icon iconName="utility:email" class="CPViewAssetsiconcolor" size="x-small"/>
+                                                    </span>
+                                                </aura:if>
+                                                <aura:if isTrue="{!item.showdownload}">
+                                                    <span class="download tooltip">
+                                                        <span class="tooltiptext">Download</span>
+                                                        <lightning:icon iconName="utility:download" class="CPViewAssetsiconcolor" size="x-small"/>
+                                                    </span>
+                                                </aura:if>
+                                                <aura:if isTrue="{!item.showsendtopartner}">
+                                                    <span class="sendtopartner tooltip">
+                                                        <span class="tooltiptext">Send To Partner</span>
+                                                        <lightning:icon iconName="utility:turn_off_notifications" class="CPViewAssetsiconcolor " size="x-small"/>
+                                                    </span>
+                                                </aura:if>
+                                                <aura:if isTrue="{!item.showrating}">
+                                                    <span class="rating tooltip">
+                                                        <span class="tooltiptext">Rating</span>
+                                                        <lightning:icon iconName="utility:user" class="CPViewAssetsiconcolor " size="x-small"/>
+                                                    </span>
+                                                </aura:if>
+                                                <aura:if isTrue="{!item.showpublish}">
+                                                    <span class="publish tooltip">
+                                                        <span class="tooltiptext">Social</span>
+                                                        <lightning:icon iconName="utility:world" class="CPViewAssetsiconcolor " size="x-small"/>
+                                                    </span>
+                                                </aura:if>
+                                                <aura:if isTrue="{!item.showaddtodataroom}">
+                                                    <span class="addtodataroom tooltip">
+                                                        <span class="tooltiptext">Add To Dataroom</span>
+                                                        <lightning:icon iconName="utility:notebook" class="CPViewAssetsiconcolor " size="x-small"/>
+                                                    </span>
+                                                </aura:if>
+                                                <aura:if isTrue="{!item.showcustomize}">
+                                                    <span class="customize tooltip">
+                                                        <span class="tooltiptext">Customize</span>
+                                                        <lightning:icon iconName="utility:settings" class="CPViewAssetsiconcolor " size="x-small"/>
+                                                    </span>	
+                                                </aura:if>
+                                                <aura:if isTrue="{!item.showreport}">
+                                                    <span class="report tooltip">
+                                                        <span class="tooltiptext">Report</span>
+                                                        <lightning:icon iconName="utility:chart" class="CPViewAssetsiconcolor " size="x-small"/>
+                                                    </span>
+                                                </aura:if>
+                                                <aura:if isTrue="{!item.showprintvendor}">
+                                                    <span class="printvendor tooltip">
+                                                        <span class="tooltiptext">Print Vendor</span>
+                                                        <lightning:icon iconName="utility:copy" class="CPViewAssetsiconcolor " size="x-small"/>
+                                                    </span>
+                                                </aura:if>
+                                                <aura:if isTrue="{!item.showebook}">
+                                                    <span class="ebook tooltip">
+                                                        <span class="tooltiptext">EBook</span>
+                                                        <lightning:icon iconName="utility:location" class="CPViewAssetsiconcolor " size="x-small"/>
+                                                       <!-- <div class="faltugiri" style="display:none;"></div>-->
+                                                    </span>
+                                                </aura:if>
+                                              <!--  <aura:if isTrue="{!item.associatedAssets}">
+                                                    <span class="associatedAssets tooltip">
+                                                        <span class="tooltiptext">AssociatedAssets</span>
+                                                        <lightning:icon iconName="utility:work_order_type" class="CPViewAssetsiconcolor " size="x-small"/>
+                                                        <div class="faltugiri" style="display:none;"></div>
+                                                    </span>
+                                                </aura:if>-->
+                                            </div>
+                                            <div class="temp2-thumb-icon">
+                                                <aura:if isTrue="{!(item.hovericon != '')}">
+                                                    <lightning:icon iconName="{!item.hovericon}" class="CPViewAssetsiconcolor" size="x-medium"/>
+                                                </aura:if>
+                                            </div>
+                                            <div class="temp2-thumb clearfix">
+                                                <div>
+                                                    <div class="temp2-thumb-img">
+                                                        <div> 
+                                                            <img src="{!item.imgsrc}" style="max-height: 100px;max-width: 100px;"></img> 
+                                                            <aura:if isTrue="{!item.showvideoimage}">
+                                                                <lightning:icon iconName="utility:right" class="temp2-ico" size="small"/>
+                                                            </aura:if>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <aura:if isTrue="{!item.shownewimage}">
+                                                        <div style="position:absolute;left:-15px;top:-10px;"> <img src="{!item.newimgsrc}" style="width: 30px;height: 30px;"></img> </div>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                            <h4 style="{!'color:' + v.bar +' !important'}">{!item.metadata.name}</h4>
+                                        </div>
+                                    </div>
+                                </aura:iteration>
+                                <aura:if isTrue="{!v.items.showmore}">
+                                    <div class="asset-col">
+                                        <div class="temp2 more viewAll">
+                                            <div class="typename">{!v.items.tabname}</div>
+                                            <p>Click to show all results.</p>
+                                            <button id="viewAll" class="slds-button slds-button_brand" style="background-color: #b5ae0e;border-color: #b5ae0e;color: #6e5bc4;">View All</button>
+                                        </div>
+                                    </div>
+                                </aura:if>
+                            </aura:set>
+                        </aura:if>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="divMessageBox deleteoption animated fadeIn fast" style="display:none;" id="MsgBoxSelectCategory">
+        <div class="MessageBoxContainer animated fadeIn fast" id="Msg2-1">
+            <div class="MessageBoxMiddle">
+                <span class="MsgTitle"></span>
+                <p class="pText">Please select a category</p>
+                <div class="MessageBoxButtonSection">
+                    <button class="bot1-Msg1-1 btn btn-default btn-sm botTempo" onclick="{!c.HideMessage}"> OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+</aura:component>

@@ -1,0 +1,51 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,flexipage:availableForRecordHome" access="global" controller="AMPViewAssetSearchController" >
+    <ltng:require scripts="{!$Resource.jQuery351}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <ltng:require styles="{!$Resource.custom}" />
+    <aura:attribute name="height" type="string" default="100%"/>
+    <aura:attribute name="token" type="string"/>
+    <aura:attribute name="installurl" type="String"/>
+    <aura:attribute name="userdetails" type="User"/>
+    <aura:attribute name="viewassetsearchsrc" type="String"/>
+    <div class="viewassetsearchcontainer" style="height:100%">
+        <iframe style="{!'background:white;position: absolute;left: 0px;border:none; height:'+v.height+'px;'}" src="{!v.viewassetsearchsrc}" width="100%" height="100%"/>
+    </div>
+    <div class="divMessageBox deleteoption animated fadeIn fast" style="display:none;" aura:id="MsgBoxRemoteSiteSettings">
+        <div class="MessageBoxContainer animated fadeIn fast" id="Msg2-1">
+            <div class="MessageBoxMiddle">
+                <span class="MsgTitle">Remote site settings!!!</span>
+                <p class="pText" style="font-size: 15px;">
+                    Go to Remote site settings and add the install url.
+                </p>
+                <div class="MessageBoxButtonSection">
+                    <button class="bot2-Msg1-2 btn btn-default btn-sm botTempo">Ok</button>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+    
+    <div class="divMessageBox deleteoption animated fadeIn fast" style="display:none;" aura:id="MsgBoxAPISettings">
+        <div class="MessageBoxContainer animated fadeIn fast" id="Msg2-1">
+            <div class="MessageBoxMiddle">
+                
+                <span class="MsgTitle">MM API Settings is not available.</span>
+                <p class="pText" style="font-size: 15px;">
+                    Go to MM API Settings and update the details.
+                </p>
+                <div class="MessageBoxButtonSection">
+                    <button class="bot2-Msg1 btn btn-default btn-sm botTempo" onclick="{!c.redirect}">Ok</button>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+    <div class="spinner-div">
+        <div class="slds-spinner_container">
+            <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_delayed">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </div>
+</aura:component>

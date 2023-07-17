@@ -1,0 +1,17 @@
+<design:component>
+ <design:attribute name="iconColor" label="iconColor" description="Enter iconColor " />
+ <design:attribute name="iconSize" label="iconSize" description="Enter iconSize " />
+<design:attribute name="iconName" label="IconName" description="Enter IconName " />   
+<design:attribute name="sourceUrl" label="SourceUrl" description="Enter source url" />   
+<design:attribute name="Text" label="Text" description="Enter text" />
+<design:attribute name="description" label="description" description="Enter description" />
+<design:attribute name="RedirectionOption" datasource="Popup,Enablement,ExternalRedirection,InternalRedirection" description="select redirection option"/>  
+<design:attribute name="Properties" label="properties" description="Enter properties" />
+ <!--below attributes are not in use-->
+<design:attribute name="Width" label="Don't use this" description="Don't use this" />
+<design:attribute name="Height" label="Don't use this" description="Don't use this" />
+<design:attribute name="color" label="Don't use this" description="Don't use this" />
+<design:attribute name="Backgroundcolor" label="Don't use this" description="Don't use this" />
+<design:attribute name="dropdown" label="Don't use this" description="Don't use this" />
+<design:attribute name="sectionLabels" label="Don't use this" description="Don't use this" />	
+</design:component>

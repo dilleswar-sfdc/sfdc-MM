@@ -1,0 +1,7 @@
+<design:component>
+	<design:attribute name="subsource" label="Source of the iFrame" description="Please enter the AMP page you want to see. Clean is required for loading clean pages" />
+    <design:attribute name="ClientName" label="ClientName" description="Please enter the client name for custom javascript" />
+    <design:attribute name="iframeheight" label="Height of the iFrame" description="Please enter the height for the iFrame, if not specified, it'll be calculated using window's height" />
+    <design:attribute name="defaultexpandattr" label="Frame expanded by default" description="don't use this attribute" />
+    <design:attribute name="addCleanUrl" label="Hide MM navigation?" description="This is by default true, and if true, the MM product will not show the navigation menu."/>
+</design:component>

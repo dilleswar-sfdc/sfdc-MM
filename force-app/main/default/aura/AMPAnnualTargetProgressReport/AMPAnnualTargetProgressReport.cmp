@@ -1,0 +1,94 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" controller="AMPAnnualTargetProgressReportController" >
+    <aura:attribute name="mainnavbgcolor" type="String" default="#ccc"/>
+    <aura:attribute name="mainnavfontcolor" type="String" default="black"/>
+    <aura:attribute name="install" type="string" default="https://dvl-sf-sso.amp.vg"/>
+    <aura:attribute name="userid" type="String" default="1763"/>
+    <aura:attribute name="view" type="string"/>
+    <aura:attribute name="chartobj" type="Object" access="public"/>
+    <ltng:require scripts="{!join(',', $Resource.jQuery351, $Resource.chart)}" afterScriptsLoaded="{!c.generateChart}"/>
+    <ltng:require styles="{!$Resource.slick}" />
+    <ltng:require styles="{!$Resource.slicktheme}" />
+    <ltng:require styles="{!$Resource.custom}" />
+    <aura:attribute name="dependantwidget"  type="String" default="community"/>
+    <aura:attribute name="isOpen" type="Boolean" default="false"/>
+    <aura:attribute name="createuserviasso" type="Boolean" default="false" access="global"/>
+     <div>
+        <aura:if isTrue="{!v.createuserviasso}">
+            <aura:if isTrue="{!v.isOpen}">
+                
+                <!--###### MODAL BOX Start######--> 
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open tosModal">
+                    <div class="slds-modal__container">
+                        <!-- ###### MODAL BOX HEADER Start ######-->
+                        <header class="slds-modal__header textcenter">
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Terms of Service</h2>
+                        </header>
+                        <!--###### MODAL BOX BODY Part Start######-->
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                           <!-- <p><b>{!v.tosContent}</b>
+                            </p>-->
+                            <iframe src="{!v.iframesrc}" width="100%" height="100%" style="{}"/>
+                        </div>
+                        <!--###### MODAL BOX FOOTER Part Start ######-->
+                        <footer class="slds-modal__footer">
+                          <!--<lightning:button variant="brand" 
+                                              label="I agree to the Terms of Service"
+                                              title="I agree to the Terms of Service"
+                                              onclick="{! c.redirectTosUrl }"/>-->
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open" style="background-color: #000000e6;"></div>
+                <!--###### MODAL BOX Part END Here ######-->
+                
+            </aura:if>
+        </aura:if>
+    </div>
+    <section class="widget slds-box annualtarget">
+        <div class="widget-header slds-page-header">
+            <div style="display:inline-block;">
+                <lightning:icon iconName="utility:metrics" class="iconcolor" variant="metrics" size="x-small"/>
+                <span class="slds-truncate"> Annual Target Progress Report- Target vs Bookings</span>
+            </div>
+            <div class="annualtarget-dropdown" style="display: inline-flex;float: right;">
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <div class="slds-select_container"> 
+                            <select class="slds-select" onchange="{!c.handleMenuSelect}" id="selectannualstats">
+                                <option value="2">Monthly</option>
+                                <option value="5">Quarterly</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <span>
+                    <lightning:icon iconName="utility:settings" class="settingiconcolor" variant="settings" size="x-small"/>
+                </span>
+            </div>
+            
+        </div>
+
+        <div class="slds-box widget-content" style="min-height:270px;width:100%;position:relative;">
+            <div class="demo-only divspinner">
+                <div role="status" class="slds-spinner slds-spinner_small spinpos">
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+                <div style="position: absolute;top: 10px;left: 50px;font-size: 25px;">
+                    Loading...
+                </div>
+            </div>
+            <lightning:layout horizontalAlign="space">
+                <lightning:layoutItem flexibility="auto" aura:id="chartLayout" padding="around-small" size="12">
+                    
+                    <div class="slds-grid slds-wrap">
+                        <div aura:id="stiChartDiv" class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1">
+                            <canvas aura:id="annactivity-companylist-graph" height="300" width="1024"/>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </div>
+
+    </section>
+</aura:component>

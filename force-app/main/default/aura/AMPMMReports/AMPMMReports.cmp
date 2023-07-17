@@ -1,0 +1,11 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes"  access="global" controller="AMPMMReportsController" >
+	<ltng:require scripts="{!$Resource.jQuery351}" afterScriptsLoaded="{!c.doInit}"/>
+    <ltng:require styles="{!$Resource.custom}" />
+    <aura:attribute name="height" type="string" default=""/>
+    <aura:attribute name="classtohide" type="string" default="hide"/>
+    <aura:attribute name="install" type="string" default="https://mm.amp.vg/"/>
+    <aura:attribute name="iframesrc" type="string" default=""/>
+    <aura:attribute name="unauthorized" type="String"/>
+    {!v.unauthorized}
+    <iframe src="{!v.iframesrc}" width="100%" height="100%" style="{!'position: absolute;left: 0px;border:none; height:'+v.height+'px;'}" class="{!v.classtohide}" id="reportspage"/>
+</aura:component>

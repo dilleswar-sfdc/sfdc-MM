@@ -1,0 +1,7 @@
+<design:component>
+	<design:attribute name="Text" label="Button Text" description="Enter button text" />
+    <design:attribute name="Width" label="Button Width" description="Enter button width without 'px' [i.e 15]" />
+    <design:attribute name="Height" label="Button Height" description="Enter button height without 'px' [i.e 15]" />
+    <design:attribute name="color" label="Button Text Color" description="Enter button color code or color name" />
+    <design:attribute name="Backgroundcolor" label="Button Background Color" description="Enter button color code or color name" />
+</design:component>

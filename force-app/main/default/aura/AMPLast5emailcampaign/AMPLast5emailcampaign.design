@@ -1,0 +1,4 @@
+<design:component label="Last 5 email campaign">
+	<design:attribute name="margintop" label="Margin top" description="Set margin top accordingly" />
+    <design:attribute name="createuserviasso" label="Create User VIA SSO" description="Do you want this widget to create user via sso" />
+</design:component>

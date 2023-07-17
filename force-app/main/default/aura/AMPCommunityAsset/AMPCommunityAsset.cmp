@@ -1,0 +1,36 @@
+<aura:component implements="force:appHostable,force:hasRecordId,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightningcommunity:allowInRelaxedCSP"  access="global" controller="AMPCommunityAssetController" >
+	<ltng:require scripts="{!join(',', $Resource.jQuery351, $Resource.MMClients)}" afterScriptsLoaded="{!c.doInit}"/>
+    <ltng:require styles="{!$Resource.custom}" />
+    <aura:attribute name="mainnavbgcolor" type="String" default=""/>
+    <aura:attribute name="mainnavfontcolor" type="String" default=""/>
+    <aura:attribute name="subnavbgcolor" type="String" default=""/>
+    <aura:attribute name="height" type="string" default="1300"/>
+    <aura:attribute name="classtohide" type="string" default="hide"/>
+    <aura:attribute name="install" type="string" default="https://mm.amp.vg/"/>
+    <aura:attribute name="iframesrc" type="string" default=""/>
+    <aura:attribute name="unauthorized" type="String"/>
+    <aura:attribute name="subsource" type="string" default="" access="global"/>
+    <aura:attribute name="ClientName" type="String" default="" access="global"/>
+    <aura:attribute name="iframeheight" type="string" default="" access="global"/>
+    <aura:attribute name="defaultexpandattr" type="boolean" default="false" access="global"/>
+    
+    <aura:attribute name="backdropvisibility" type="string" default="hide"/>
+    <aura:attribute name="messagevisibility" type="string" default="show"/>
+    <aura:attribute name="messagetext" type="string" default="Please wait..."/>
+    
+    <aura:attribute name="maindivclass" type="string" default="notexpanded"/>
+    <aura:attribute name="iconclass" type="string" default="notexpandedicon"/>
+    <aura:attribute name="eltAndeln" type="string" default=""/>
+    <aura:attribute name="addCleanUrl" type="Boolean" default="true" access="global"/>
+    <div>
+        <div class="{!v.maindivclass}">
+           <!-- <lightning:icon onclick="{!c.toggleexpansion}" size="x-small" class="{!'expandicon cursorpointer slds-float_right ' + v.iconclass}" iconName="utility:expand" alternativeText="Expand" title="Expand" />-->
+            <div class="{!'pleasewaitmessage ' + v.messagevisibility}">
+            	<span class="messagespan">{!v.messagetext}</span>
+            </div>
+            <iframe src="{!v.iframesrc}" width="100%" style="{!'border:none; height:'+v.height+'px;'}" class="{!v.classtohide}" id="viewassetpage"/>
+        </div>
+        <div class="{!'custombackdropclass slds-backdrop slds-backdrop_open ' + v.backdropvisibility}"></div>
+    </div>
+    
+</aura:component>

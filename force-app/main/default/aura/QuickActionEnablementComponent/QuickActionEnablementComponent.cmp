@@ -1,0 +1,114 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,flexipage:availableForRecordHome" access="global" controller="AMPSObjectController" >
+	
+    <ltng:require scripts="{!$Resource.jQuery351}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <ltng:require styles="{!$Resource.custom}" />
+    <aura:attribute name="classtohide" type="string" default="hide"/>
+    <aura:attribute name="quickactionsrc" type="string"/>
+    <aura:attribute name="height" type="string" default="0"/>
+    <aura:attribute name="isQuickaction" type="Boolean" default="false"/>
+    <aura:attribute name="playbookurl" type="String"/>
+    <aura:attribute name="AMPInternalPlaybookComponent" type="String"/>
+    <aura:attribute name="printurl" type="String"/>
+    <aura:attribute name="ebookurl" type="String"/>
+    <aura:attribute name="btnname" type="String"/>
+    <aura:attribute name="weburl" type="String"/>
+    <aura:attribute name="baseurl" type="string"/>
+    <aura:attribute name="clientid" type="string"/>
+    <aura:attribute name="siteurl" type="string"/>
+    <aura:attribute name="token" type="string"/>
+	<aura:attribute name="lastssotime" type="Datetime"/> 
+    <aura:attribute name="dummyiframesrc" type="string"/>
+    <aura:attribute name="install" type="String"/>
+    <aura:attribute name="isFirst" type="Boolean" default="true"/>
+    <aura:attribute name="contact" type="Contact"/>
+    <aura:attribute name="messagevisibility" type="string" default="show"/>
+    <aura:attribute name="messagetext" type="string" default="Please wait..."/>
+    <iframe class="dummyiframe" style="display:none;height:0px;border:none;" src="{!v.dummyiframesrc}"></iframe>
+    <div class="playbookcontainer" style="display:none;background:white;min-height:500px;">
+        <lightning:spinner aura:id="mySpinner" />
+        <lightning:layout >
+            <lightning:layoutItem flexibility="auto" padding="around-small" size="12" class="grid-padding">
+                {!v.AMPInternalPlaybookComponent}
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+    <div class="quickactioncontainer" style="display:none;height:100%">
+        <div class="quickactionbtn">
+            <lightning:button onclick="{!c.showmodal}">{!v.btnname}</lightning:button>
+        </div>
+        <div class="demo-only" id="quickactionmodal" style="height: 640px;display:none;">
+            <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <div style="position:relative;">
+                    <button class="slds-button modal-close" style="position:absolute;top: -34px;right: 0px;" onclick="{!c.modalclose}"><lightning:icon iconName="utility:close" class="closequickaction" variant="close" size="small"></lightning:icon></button>
+                    </div>                    
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" style="padding:50px;">
+                        <div class="createampsale">
+                            <div class="dripcampaign">
+                                <div class="amptype" id="playbook">
+                                    <div class="amptypetext">Playbooks</div>
+                                    <div class="amptypeimg">
+                                        <lightning:icon iconName="utility:record_create" class="imgcolor" variant="record_create"/>
+                                    </div>
+                                </div>
+                                <div class="amptype" id="print">
+                                    <div class="amptypetext">Print Materials</div>
+                                    <div class="amptypeimg">
+                                        <lightning:icon iconName="utility:knowledge_base" class="imgcolor" variant="knowledge_base"/>
+                                    </div>
+                                </div>
+                                <div class="amptype" id="ebook">
+                                    <div class="amptypetext">Online ebooks</div>
+                                    <div class="amptypeimg">
+                                        <lightning:icon iconName="utility:notebook" class="imgcolor" variant="notebook"/>
+                                    </div>
+                                </div>
+                                <div class="amptype" id="web">
+                                    <div class="amptypetext">Web Pages</div>
+                                    <div class="amptypeimg">
+                                        <lightning:icon iconName="utility:world" class="imgcolor" variant="world"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+        <div class="createampsale" style="margin: 0 auto;width: 100%;display:none;">
+            <div class="dripcampaign">
+                <div class="amptype" id="playbook">
+                    <div class="amptypetext">Playbooks</div>
+                    <div class="amptypeimg">
+                        <lightning:icon iconName="utility:record_create" class="imgcolor" variant="record_create"/>
+                    </div>
+                </div>
+                <div class="amptype" id="print">
+                    <div class="amptypetext">Print Materials</div>
+                    <div class="amptypeimg">
+                        <lightning:icon iconName="utility:knowledge_base" class="imgcolor" variant="knowledge_base"/>
+                    </div>
+                </div>
+                <div class="amptype" id="ebook">
+                    <div class="amptypetext">Online ebooks</div>
+                    <div class="amptypeimg">
+                        <lightning:icon iconName="utility:notebook" class="imgcolor" variant="notebook"/>
+                    </div>
+                </div>
+                <div class="amptype" id="web">
+                    <div class="amptypetext">Web Pages</div>
+                    <div class="amptypeimg">
+                        <lightning:icon iconName="utility:world" class="imgcolor" variant="world"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="{!'pleasewaitmessage ' + v.messagevisibility}">
+            	<span class="messagespan">{!v.messagetext}</span>
+         </div>
+        <iframe style="{!'background:white;position: absolute;left: 0px;border:none; height:'+v.height+'px;'}" src="{!v.quickactionsrc}" width="100%" height="100%" class="{!v.classtohide}" id="quickactionenablement"/>
+    </div>
+    
+    
+</aura:component>

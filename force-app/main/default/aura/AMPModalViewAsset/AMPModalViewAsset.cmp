@@ -1,0 +1,1304 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes,lightningcommunity:allowInRelaxedCSP" access="global" controller="AMPSObjectController" >
+    <ltng:require scripts="{!join(',',$Resource.jQuery351)}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <ltng:require styles="{!$Resource.custom}" />
+    <aura:attribute name="install" type="String" default=""/>
+    <aura:attribute name="nodata" type="Boolean" default="false"/>
+    <aura:attribute name="page" type="Integer" default="0"/>
+    <aura:attribute name="currentpage" type="Integer" default="1"/>
+    <aura:attribute name="pages" type="Integer" default="0"/>
+    <aura:attribute name="pagesize" type="Integer" default="10"/>
+    <aura:attribute name="rowcount" type="String" />
+    <aura:attribute name="isEnablement" type="Boolean" default="false"/>
+    <aura:attribute name="searchtext" type="String" default=""/>
+    <aura:attribute name="selTabId" type="String" />
+    <aura:attribute name="tabs" type="Object" />
+    <aura:attribute name="options" type="String[]" default="Public"/>
+    <aura:attribute name="searchtxt" type="Object"/>
+    <aura:attribute name="AdvSearchModal" type="Boolean" default="false"/>
+    <aura:attribute name="itemss" type="Object"/>
+    <aura:attribute name="uncheckId" type="Integer[]"/>
+    <aura:attribute name="currentFolderwithID" type="Object"/>
+    <aura:attribute name="dropUp" type="Boolean" default="false"/>
+    <aura:attribute name="linkid" type="String" />
+    <aura:attribute name="currentTabFolderEnum" type="String"/>
+    <aura:attribute name="templateTypeLink" type="Object"/>
+    <aura:attribute name="searchTextValue" type="String"/>
+    <aura:attribute name="spinner" type="Boolean" default="false"/>
+    <aura:attribute name="afterspinner" type="Boolean" default="false"/>
+    <aura:attribute name="productOverview" type="Boolean" default="false"/>
+    <aura:attribute name="permission" type="Object" />
+    <aura:attribute name="folderFilter" type="Object"/>
+    <aura:attribute name="modalFilter" type="Object"/> 
+    <aura:attribute name="tabCount" type="Object"/>
+    <aura:attribute name="isMedia" type="Integer" default="0"/>
+    <aura:attribute name="isShownInModal" type="Boolean" />
+    <aura:attribute name="dataRoomID" type="Integer" />
+    <aura:attribute name="select" type="String" default="Public"/>
+    <aura:attribute name="modalsearchtext" type="String" />
+    <aura:attribute name="alltabData" type="Object" />
+    <aura:attribute name="option" type="Object"/>
+    <aura:attribute name="folderid" type="Object"/>
+    <aura:attribute name="modalpermission" type="Object"/>
+    <aura:attribute name="assetData" type="Object"/>
+    <aura:attribute name="currentFolder" type="Object"/>
+    <aura:attribute name="selectedValue" type="Object"/>
+    <aura:attribute name="isPopUp" type="Boolean" default="false"/>
+    <aura:attribute name="sourceType" type="String"/>
+    <aura:attribute name="projectTypeId" type="Integer"/>
+    <aura:attribute name="categorizedfilters" type="Object"/>
+    <aura:attribute name="Noncategorizedfilters" type="Object"/>
+    <aura:attribute name="nonCategorizedDropDown" type="Boolean" default="false"/>
+    <aura:attribute name="CategorizedDropDown" type="Boolean"/>
+    <aura:attribute name="ifnonCategorizedData" type="Boolean"/>
+    <aura:attribute name="ifCategorizedData" type="Boolean"/>
+    <aura:attribute name="NonCategorizedbuttonstate" type="Boolean" default="false"/>
+    <aura:attribute name="Categorizedbuttonstate" type="Boolean" default="false"/>
+    <aura:attribute name="conditionVal" type="Boolean" />
+    <aura:attribute name="color" type="String" />
+    <aura:attribute name="condition" type="String" default="OR"/>
+    <aura:attribute name="tabcountData" type="Object" />
+    <aura:attribute name="showTabs" type="Boolean" default="false" />
+    <aura:attribute name ="tabcss" type="Integer" default="0"/>
+    <aura:attribute name ="ErrorMsg" type="String" default="Sorry! We could not find any data to show you."/>
+    <aura:attribute name ="componentHeader" type="String" default="View Assets" access="global"/>
+    <aura:attribute name ="viewAssetHeader" type="String" />
+   	<aura:registerEvent name="CmpmodalEvent" type="c:modalEvent" />
+   	<aura:registerEvent name="viewModalEvent" type="c:viewAssetModalEvt" />
+	<aura:registerEvent name="viewModalActionEvent" type="c:AMPViewActionModalEvt" />
+    <aura:handler name="cmpEvent" event="c:pageEvent" action="{!c.handleComponentEvent}"/>
+    <aura:method name="modalViewMethod" action="{!c.modalViewAction}">
+        <aura:attribute name="eltandeln" type="String"/>
+        <aura:attribute name="modalsearchtxt" type="String"/> 
+        <aura:attribute name="modaltabs" type="Object"/> 
+        <aura:attribute name="modaloption" type="Object"/> 
+        <aura:attribute name="modalfolder" type="Object"/> 
+        <aura:attribute name="modalpermission" type="Object"/> 
+        <aura:attribute name="modalfolderEnum" type="Object"/>
+        <aura:attribute name="tabName" type="String"/>
+        <aura:attribute name="check" type="Boolean"/>
+        <aura:attribute name ="ErrorMsg1" type="String"/>
+        <aura:attribute name ="header" type="String" access="global"/>
+        <aura:attribute name="mainnavbgcolor" type="String"/>
+        <aura:attribute name="mainnavfontcolor" type="String"/>
+        <aura:attribute name="modalItem" type="Object"/>
+        <aura:attribute name="modalpages" type="Integer"/>
+        <aura:attribute name="modalRowCount" type="String"/>
+        <aura:attribute name="modalInstallName" type="String"/>
+        <aura:attribute name="source" type="String"/>
+        <aura:attribute name="projecttypeid" type="Integer"/>
+        <aura:attribute name="linkid" type="Integer"/>
+        <aura:attribute name="categorizedfilter" type="Object"/>
+        <aura:attribute name="Noncategorizedfilter" type="Object"/>
+    </aura:method>
+	<aura:method name="modalViewAnotherMethod" action="{!c.modalViewAnotherAction}"> 
+        <aura:attribute name="modalItem" type="Object"/> 
+      	<aura:attribute name="modalRowCount" type="String"/>
+        <aura:attribute name="modalInstall" type="String"/>
+        <aura:attribute name="modalPages" type="Integer"/>
+        <aura:attribute name="tabcount" type="Object"/>
+        <aura:attribute name="tabName" type="String"/>
+        <aura:attribute name="flagcountVal" type="Boolean"/>        
+        <aura:attribute name="categorizedfil" type="Object"/>
+        <aura:attribute name="Noncategorizedfil" type="Object"/>
+        <aura:attribute name ="ErrorMsg1" type="String"/>
+    </aura:method>
+    <aura:method name="modalViewTabMethod" action="{!c.modalViewTabMethod}"> 
+        <aura:attribute name="tabcountVal" type="Object"/>
+    </aura:method>
+    <aura:method name="viewAssetMethod" action="{!c.viewAssetMethod}">
+        <aura:attribute name="viewSearchtxt" type="String"/>
+        <aura:attribute name="viewTab" type="String"/>
+        <aura:attribute name="viewOption" type="Object"/>
+        <aura:attribute name="viewFolderId" type="Object"/>
+		<aura:attribute name="viewPermission" type="Object"/>
+        <aura:attribute name="viewFolderEnum" type="Object"/>
+         <aura:attribute name="tabName" type="String"/>
+        <aura:attribute name="check" type="Boolean"/>
+        <aura:attribute name ="ErrorMsg1" type="String"/>
+        <aura:attribute name="mainnavbgcolor" type="String"/>
+        <aura:attribute name="mainnavfontcolor" type="String"/>
+        <aura:attribute name="viewItemss" type="Object"/>
+        <aura:attribute name="viewPages" type="Integer"/>
+        <aura:attribute name="viewrowcount" type="String"/>
+		<aura:attribute name="viewInstall" type="String"/>
+		<aura:attribute name="categorizedfilter" type="Object"/>
+        <aura:attribute name="Noncategorizedfilter" type="Object"/>
+     	<aura:attribute name="flagcountVal" type="Boolean"/>
+       
+    </aura:method>
+    <aura:method name="ViewAssetTabMethod" action="{!c.ViewAssetTabMethod}"> 
+        <aura:attribute name="tabcountVal" type="Object"/>
+    </aura:method>
+	<aura:method name="viewModalAsset" action="{!c.viewModalAction}"> 
+        <aura:attribute name="viewModalItemss" type="Object"/>
+        <aura:attribute name="viewModalOption" type="Object"/>
+		<aura:attribute name="viewPages" type="Integer"/>
+    </aura:method>
+	<aura:method name="viewModalClose" action="{!c.viewModalClose}">
+    </aura:method>
+    <div class="assetrecord clearfix" aura:id="childCmp" >
+         <lightning:icon iconName="standard:performance" alternativeText="View Asset" title="View Asset" />
+        <span class="heading cstm-d-inline" aura:id="changeHeader"> <h1 class="headerChange">{!v.viewAssetHeader}</h1></span>
+        <div class="header">
+            <div class="slds-grid">
+                <div aura:id="changeSearchHeader" class="slds-col slds-size_2-of-12">  
+                    <h2 class="changeSearchHeader"  style="font-size: 22px;margin-right: 56px;padding-top: 14px;"> Search</h2>
+                </div>
+                  <div class="slds-col slds-size_3-of-12"> 
+                      <lightning:select name="dropdown" label="" aura:id="dropdownId"  onchange="{!c.selectOption}" value="{!v.selectedValue}" title="click for dropdown">
+                          <aura:iteration items="{!v.options}" var="option" >
+                              <option text="{!option.text}" value="{!option.value}" ></option>
+                          </aura:iteration>
+                      </lightning:select>
+                </div>
+                  <div class="slds-col slds-size_7-of-12"> 
+                      <div class="input-group">
+                          <span onkeyup="{!c.handleKeyUp}">
+                              <lightning:input aura:id="searchfilter" label="" class="search" placeholder="Search for records" type="string" value="{!v.searchtxt}" />
+                          </span>
+                         <div style="position:relative" >
+                              <button  onclick="{! c.searchIcon }" class="searchplaybook" style="border: none;position: absolute;background: white;right: 2px;top: -26px;" type="button">
+                                  <lightning:icon iconName="utility:search" variant="search" size="x-small" title="search the content"></lightning:icon>
+                              </button>
+                              <button  onclick="{! c.clearIcon }" class="clear" style="display:none;border: none;position: absolute;background: white;right: 2px;top: -26px;" type="button">
+                                  <lightning:icon iconName="utility:clear" variant="search" size="x-small" title="clear the content"></lightning:icon>
+                              </button>
+                          </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+       	<div class="slds-tabs--scoped " >
+                <div class="outerdiv">
+                <div aura:id="arrowleft" class="tab-arrow-left slds-hide" onclick="{!c.tabarrowLeft}">
+                     <lightning:icon iconName="utility:left" title="Slide Left" size="large"/>
+                </div>
+                   
+                        <ul id="showTabs" class="slds-tabs--scoped__nav tabUL " role="tablist" >
+                            <aura:iteration items="{!v.tabs}" var="tab">
+                                
+                                <li  aura:id="liList" class=" slds-tabs--scoped__item slds-text-title--caps slds-tabs_{variant}__item
+                                                             customClassForTab" title="{!tab.TabName}" Style="{!'left:'+v.tabcss+'px;'}" >
+                                    <div style="font-weight: 900;"> 
+                                        <a aura:id="selTAbColor" class="slds-tabs--scoped__link" href="javascript:void(0);" 
+                                              onclick="{!c.handleActive}" role="tab" tabindex="0" aria-selected="false" 
+                                              aria-controls="tab-default-1" id="{!tab.TabName}" >{!(tab.TabName+' ' +tab.countdisplay) }
+                                        </a>
+                                    </div> 
+                                    <div  aura:id="tabrotate" id="{!tab.TabName}"><lightning:icon  iconName="utility:sync" size="xx-small" variant="clear" />
+                                    </div>
+                                </li>            
+                            </aura:iteration>
+                        </ul>
+                
+                 <div aura:id="arrowright" class="tab-arrow-right slds-hide" onclick="{!c.tabarrowRight}">
+                     <lightning:icon iconName="utility:right" title="Slide Right" size="large"/>
+                </div>
+                </div>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_12-of-12 inbox-nav-bar">
+                    <div class="inbox-views">
+                    </div>    
+                </div>    
+                <div class="slds-col slds-size_2-of-12 chkbx">
+                    <span>
+                        <div style="position: relative;">
+                            <div class="folder-title " style="color:#3276b1 !important;font-weight: bold;" ><b>FOLDER</b></div>
+                          
+                            <div class="rotate">
+                                <span onclick="{!c.rotatesysclick}" title="Refresh"  style="float:right;position:relative;cursor:pointer;height: 22px;">
+                                    <lightning:icon class="cleariconcolor" iconName="utility:sync" size="x-small" variant="clear"/>
+                                </span>
+                            </div>
+                        </div>
+                    </span>
+                    <span class="scroldown">
+                        <aura:iteration items="{!v.currentFolderwithID}" var="folder">
+                            <div class="each-folder clearfix">
+                                <div class="filter-checkbox"><input type="checkbox" name ="chk" class="checkbox_click" checked="true" id="{!folder.enum}" onclick="{!c.onUncheck}"/></div>
+                                <div class="filter-label">{!folder.foldername}</div>
+                            </div>
+                            
+                        </aura:iteration>
+                    </span>
+                    <aura:if isTrue="{!(v.ifnonCategorizedData || v.ifCategorizedData)}">
+                    <div>
+                        <div class="pos-rel">
+                            <div style="color:#3276b1 !important;font-weight: bold;" ><b class="filtertext">FILTERS</b></div>
+                            <div>
+                                <lightning:button variant="destructive-text" label="{!v.condition}" title="Click to set filter condition" onclick="{! c.onconditionclick }"/>
+                            </div>
+                        </div>
+                        
+						<div class="pos-rel-remove">
+                        	<h1 style="color: darkcyan;font-size: 14px;">Remove All Filters</h1>
+                            <lightning:buttonIcon iconName="utility:clear"  size="large" variant="bare" title="click to remove all filters" onclick="{!c.allfilterClear}" />
+                        </div>    
+                        <aura:if isTrue="{!v.ifnonCategorizedData}">
+                        <div>
+                            
+                            <lightning:buttonStateful
+                                                      labelWhenOff="All Filters"
+                                                      labelWhenOn="All Filters"
+                                                      iconNameWhenOff="utility:add"
+                                                      iconNameWhenOn="utility:dash"
+                                                      state="{! v.NonCategorizedbuttonstate }"
+                                                      onclick="{! c.NonCategorized }"
+                                                      title="click to set filters"
+                                                      />
+                          
+                            <div class="scroldownfilter slds-hide" id="nonCategorisedState">
+                                <aura:iteration items="{!v.Noncategorizedfilters}" var="item">
+                                    <ul>
+                                        <li ><a class="filter" id="{!item.id}" onclick="{!c.filterclick}"  onmouseover="{!c.filtermouseOver}" onmouseout="{!c.filtermouseOut}">{!item.name}</a></li>
+                                    </ul>
+                                </aura:iteration>
+                            </div>
+                       
+                        </div>
+                        </aura:if>
+                         <aura:if isTrue="{!v.ifCategorizedData}">
+                        <div>
+                        	<lightning:buttonStateful
+                                                      labelWhenOff="Categorized"
+                                                      labelWhenOn="Categorized"
+                                                      iconNameWhenOff="utility:add"
+                                                      iconNameWhenOn="utility:dash"
+                                                      state="{! v.Categorizedbuttonstate }"
+                                                      onclick="{! c.Categorized }"
+                                                      />
+                           
+                            <div class="scroldownfilter slds-hide" id="CategorisedState">
+                                <aura:iteration items="{!v.categorizedfilters}" var="item">
+                                    <ul>
+                                        <li ><a class="filter" id="{!item.id}" onclick="{!c.filterclick}"  style="">{!item.name}</a></li>
+                                    </ul>
+                                </aura:iteration>
+                            </div>
+                      
+                        </div>
+                        </aura:if>
+                        
+                       
+                    </div>
+                	</aura:if>
+                </div>
+                <div class="slds-col slds-size_10-of-12 body" id="maincontainer">
+                <div name="tabdataName" aura:id="TabDataId" id="tab-default-1"
+                     class="slds-tabs--scoped__content slds-show customClassForTabData" 
+                     role="tabpanel" aria-labelledby="Fruits_linking" >
+                    <aura:if isTrue="{!v.spinner}">
+                        <div class="divspinner">
+                            <div role="status" class="slds-spinner slds-spinner_small ">
+                                <div class="slds-spinner__dot-a"></div>
+                                <div class="slds-spinner__dot-b"></div>
+                            </div>
+                            <div>
+                                <div style="font-size: 25px;margin-left: 62px;">Loading...</div>
+                            </div> 
+                        </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.nodata}">
+                        <div>
+                            {!v.ErrorMsg}
+                        </div>
+                        <aura:set attribute="else">
+                            <span>
+                                <aura:iteration items="{!v.itemss}" var="item" >
+                                    <aura:if isTrue="{!item.typename == 'PRINT'}">
+                                        <div class="slds-box">
+                                            <li>
+                                                <div class="enable well-img-sm" id="{!item.id}" data-action="{!item.index}" data-name="vipul" onclick="{!c.view}">
+                                                    <img class="thumb-img-sm" src="{!item.imgUrl}"/>
+                                                    <div class="thumb-img-bottom">
+                                                        <div class="thumb-labels">
+                                                            <aura:if isTrue="{!item.output}">
+                                                                <span class="label label-default" style="background-color: #3276b1;">customize</span>
+                                                                <aura:set attribute="else">
+                                                                    <aura:if isTrue="{!(item.usedatasource == '1' || item.hasquestionnaire == true || item.useprojectsource == '1')}">
+                                                                        <span class="label label-default" style="background-color: #a90329;">requires setup</span>
+                                                                        <aura:set attribute="else">
+                                                                            <span class="label label-default" >direct use</span>
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                        </div>   
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                                <div class="thumb-title"> <strong >{!item.name}</strong></div>
+                                                <div class="thumb-action">
+                                                    
+                                                        <a data-action="{!item.index}" onclick="{!c.download}" style="width:100px !important;"> Download</a>
+                                                   
+                                                    <aura:if isTrue="{!v.permission.canEditPrint}">
+                                                        |<a data-action="{!item.index}" onclick="{!c.customize}"> Customize</a>
+                                                    </aura:if>
+                                                    
+                                                    <aura:if isTrue = "{!item.output}">
+                                                        <aura:if isTrue="{!( v.permission.canOrderPrint || v.permission.canPublishPrint || v.permission.canSendPrint || v.permission.haseBookAccess || (v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canSendPrint,v.permission.canEmailSend )) || and(v.isShownInModal, v.dataRoomID > 0) || and(!v.isShownInModal, v.permission.hasdataroomaccess) )}">
+                                                            <a  class="thumb-more-links" title="Click for more option" data-action="{!item.index}" onclick="{!c.dropup}" style="font-weight:bolder;padding-left:10px;text-decoration: none;">...</a>
+                                                        </aura:if>
+                                                        <aura:set attribute="else">
+                                                            <aura:if isTrue="{!( v.permission.canOrderPrint || v.permission.canPublishPrint || v.permission.canSendPrint || v.permission.haseBookAccess || (v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canSendPrint,v.permission.canEmailSend ))|| and(v.isShownInModal, v.dataRoomID > 0) || and(!v.isShownInModal, v.hasdataroomaccess) )}"> 
+                                                                <a class="thumb-more-links" title="Click for more option" data-action="{!item.index}" onclick="{!c.dropup}" style="font-weight:bolder;padding-left:10px;text-decoration: none;">...</a>
+                                                            </aura:if> 
+                                                        </aura:set>
+                                                    </aura:if>
+                                                    
+                                                    <div class="btn-group dropup pull-right toggle" id="{!'dropup_'+item.index}" >
+                                                        <ul class="dropdown-menu" style="min-width:100px !important;">
+                                                            <aura:if isTrue="{!( v.permission.canOrderPrint || v.permission.canPublishPrint || v.permission.canSendPrint || v.permission.haseBookAccess || and(v.permission.canSendPrint,v.permission.hasPartnerAccess , v.permission.hasUserAccess) || and(v.isShownInModal, v.dataRoomID > 0) || and(!v.isShownInModal, v.permission.hasdataroomaccess) )}">  
+                                                                <aura:if isTrue = "{!v.permission.canSendPrint}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.send}" style="width:100px !important;"> Send</a>
+                                                                    </li>
+                                                                </aura:if>
+                                                                
+                                                                <aura:if isTrue="{!v.permission.canPublishPrint}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.publish}" style="width:100px !important;"> Social</a>
+                                                                    </li>
+                                                                </aura:if>
+                                                                <aura:if isTrue="{v.permission.canOrderPrint}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.PrintVendor}" style="width:100px !important;"> PrintOrder</a>
+                                                                    </li>
+                                                                </aura:if>
+                                                                <aura:if isTrue="{!v.permission.haseBookAccess}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.ebook}" style="width:100px !important;"> EBook</a>
+                                                                    </li>  
+                                                                </aura:if>
+                                                                
+                                                                <aura:if isTrue="{!(v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canSendPrint,v.permission.canEmailSend ))}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.SendToUsers}" style="width:100px !important;"> Send To Users</a>
+                                                                    </li> 
+                                                                </aura:if> 
+                                                                <aura:if isTrue="{!and(v.isShownInModal, v.dataRoomID > 0)}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.addToRoom}" style="width:100px !important;"> Add To DataRoom</a>
+                                                                    </li> 
+                                                                </aura:if>
+                                                                <aura:if isTrue="{!and(!v.isShownInModal, v.permission.hasdataroomaccess) }">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.addToRoom}" style="width:100px !important;"> Add To DataRoom</a>
+                                                                    </li> 
+                                                                </aura:if>  
+                                                            </aura:if>
+                                                        </ul>                              
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </div>
+                                    </aura:if>
+                                    <aura:if isTrue="{!item.typename == 'DATAROOM'}">
+                                        <div class="slds-box">
+                                            <li>
+                                                <div class="enable well-img-sm" id="{!item.id}" data-action="{!item.index}" onclick="{!c.view}">
+                                                    <img class="thumb-img-sm" src="{!item.imgUrl}"/>
+                                                    <div class="thumb-img-bottom">
+                                                        <div class="thumb-labels">
+                                                            <span class="label label-default" style="">direct use</span>
+                                                        </div>  
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="thumb-title"> <strong >{!item.name}</strong></div>
+                                                <div class="thumb-action">
+                                                 
+                                                    <aura:if isTrue ="{!v.permission.canPlayBookEdit}">
+                                                        <a data-action="{!item.index}" onclick="{!c.customize}"> Customize</a>
+                                                    </aura:if>
+                                                    <aura:if isTrue = "{!item.output}">
+                                                        <a  title="Click for more option" class="thumb-more-links" data-action="{!item.index}"  onclick="{!c.dropup}" style="font-weight:bolder;padding-left:10px;text-decoration: none;">...</a>                
+                                                        <aura:set attribute="else">
+                                                            <aura:if isTrue="{!(v.permission.canPlayBookSend || v.permission.canPlayBookPublish ||  (v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canPlayBookSend,v.permission.canEmailSend )))}">
+                                                                <a title="Click for more option" class="thumb-more-links" data-action="{!item.index}"  onclick="{!c.dropup}" style="font-weight:bolder;padding-left:10px;text-decoration: none;">...</a> 	
+                                                            </aura:if>
+                                                        </aura:set>
+                                                    </aura:if>     
+                                                    <aura:if isTrue = "{!item.output}">
+                                                        <div class="btn-group dropup pull-right toggle" id="{!'dropup_'+item.index}">
+                                                            <ul class="dropdown-menu" style="min-width:100px !important;">
+                                                                <aura:if isTrue="{!v.permission.canPlayBookSend}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.send}" style="width:100px !important;"> Send</a>
+                                                                    </li>
+                                                                </aura:if>
+                                                                <aura:if isTrue="{!v.permission.canPlayBookPublish}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.publish}" style="width:100px !important;"> Social</a>
+                                                                    </li>
+                                                                </aura:if>
+                                                                <aura:if isTrue="true">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" data-action-item="0" onclick="{!c.report}" style="width:100px !important;"> Report</a>
+                                                                    </li>
+                                                                </aura:if>
+                                                                <aura:if isTrue="{!(v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canPlayBookSend,v.permission.canEmailSend ))}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" data-action-item="0" onclick="{!c.SendToUsers}" style="width:100px !important;"> Send To Users</a>
+                                                                    </li>
+                                                                </aura:if>
+                                                            </ul>
+                                                        </div> 
+                                                        <aura:set attribute="else">
+                                                            <div class="btn-group dropup pull-right toggle" id="{!'dropup_'+item.index}">
+                                                                <ul class="dropdown-menu" style="min-width:100px !important;">
+                                                                    <aura:if isTrue="{!v.permission.canPlayBookSend}">
+                                                                        <li style="margin:0px;">
+                                                                            <a data-action="{!item.index}" onclick="{!c.send}" style="width:100px !important;"> Send</a>
+                                                                        </li>
+                                                                    </aura:if>
+                                                                    <aura:if isTrue="{!v.permission.canPlayBookPublish}">
+                                                                        <li style="margin:0px;">
+                                                                            <a data-action="{!item.index}" onclick="{!c.publish}" style="width:100px !important;"> Social</a>
+                                                                        </li>
+                                                                    </aura:if>
+                                                                    <aura:if isTrue="{!(v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canPlayBookSend,v.permission.canEmailSend ))}">
+                                                                        <li style="margin:0px;">
+                                                                            <a data-action="{!item.index}" data-action-item="0" onclick="{!c.SendToUsers}" style="width:100px !important;"> Send To Users</a>
+                                                                        </li>
+                                                                    </aura:if>
+                                                                </ul>
+                                                            </div> 
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </div>
+                                            </li>
+                                           
+                                        </div>
+                                    </aura:if>
+                                    <aura:if isTrue="{!item.filetype == 'VIDEO'}">
+                                        <div class="slds-box">
+                                            <li>
+                                                
+                                                <div class="enable well-img-sm" id="{!item.id}" data-action="{!item.index}" onclick="{!c.view}">
+                                                    <span>
+                                                        <aura:if isTrue="{!item.noThumb}">
+                                                           <img id="{!'file'+item.id}" src="{!$Resource. video}" width="80"/>
+                                                            
+                                                            <lightning:icon class="playicon" iconName="utility:play" variant="sync" size="x-small"></lightning:icon>
+                                                            <aura:set attribute="else">
+                                                                <img id="{!'file'+item.id}" src="{!item.imgUrl}" width="120"/>
+                                                                <lightning:icon class="playicon" iconName="utility:play" variant="sync" size="x-small"></lightning:icon>
+                                                            </aura:set>
+                                                        </aura:if>                                                                                    
+                                                    </span>
+                                                    <div class="thumb-img-bottom">
+                                                        <div class="thumb-labels">
+                                                            <span class="label label-default" >direct use</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="thumb-title"> <a data-action="{!item.index}" onclick="{!c.view}"> {!item.name}</a></div>
+                                                <div   class="thumb-action">
+                                                    <aura:if isTrue="{!(and(item.templatetype == undefined ,item.trackinglink == undefined))}">
+                                                     
+                                                        <aura:if isTrue = "{!v.permission.canEmailSend	}">
+                                                            <a data-action="{!item.index}" onclick="{!c.send}" style="width:100px !important;"> Send</a>
+                                                        </aura:if> 
+                                                        <aura:if isTrue="{!(and(v.permission.canVideoPublish,v.permission.canAutoPublish)||(v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canEmailSend ))||and(v.isShownInModal, v.dataRoomID > 0)||and(!v.isShownInModal, v.permission.hasdataroomaccess))}">
+                                                        <a  title="Click for more option" class="thumb-more-links" data-action="{!item.index}"   onclick="{!c.dropup}" style="font-weight:bolder;padding-left:10px;text-decoration: none;">...</a>
+                                                            </aura:if>
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!(and(item.templatetype == undefined ,item.trackinglink == undefined))}">
+                                                        <div class="btn-group dropup pull-right toggle" id="{!'dropup_'+item.index}" >
+                                                            <ul class="dropdown-menu" style="min-width:100px !important;">
+                                                                <aura:if isTrue ="{!item.output == 2}">
+                                                                    <aura:if isTrue="{!and(v.permission.canAutoPublish,v.permission.canVideoPublish)}">
+                                                                        <li style="margin:0px;">
+                                                                            <a data-action="{!item.index}" onclick="{!c.publish}" style="width:100px !important;"> Social</a>
+                                                                        </li>
+                                                                    </aura:if>
+                                                                </aura:if>
+                                                                <aura:if isTrue="{!(v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canEmailSend ))}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.SendToUsers}" style="width:100px !important;"> Send To Users</a>
+                                                                    </li> 
+                                                                </aura:if>                                   
+                                                                <aura:if isTrue="{!and(v.isShownInModal, v.dataRoomID > 0)}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.addToRoom}" style="width:100px !important;"> Add To DataRoom</a>
+                                                                    </li> 
+                                                                </aura:if>
+                                                                <aura:if isTrue="{!and(!v.isShownInModal, v.permission.hasdataroomaccess) }">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.addToRoom}" style="width:100px !important;"> Add To DataRoom</a>
+                                                                    </li> 
+                                                                </aura:if>                                                                
+                                                            </ul>                              
+                                                        </div>                             
+                                                    </aura:if>
+                                                </div>
+                                            </li>
+                                        </div>
+                                    </aura:if>
+                                    <aura:if isTrue="{!item.typename == 'EBOOK' || !item.typename == 'SMS'}">
+                                        <div class="slds-box">
+                                            <li >
+                                                <div data-action="{!item.index}" onclick="{!c.customize}" class="enable well-img-sm" id="{!item.id}">
+                                                    <img class="thumb-img-sm" src="{!item.imgUrl}"/>
+                                                    <div class="thumb-img-bottom">
+                                                        <div class="thumb-labels">
+                                                            <aura:if isTrue="{!item.output}">
+                                                                <span class="label label-default" style="background-color:#337ab7;">customized</span>
+                                                                <aura:set attribute="else">
+                                                                    <aura:if isTrue="{!item.usedatasource == '1' || item.hasquestionnaire}">
+                                                                        <span class="label label-default" style="background-color:#d9534f">requires setup</span>
+                                                                        <aura:set attribute="else">
+                                                                            <span class="label label-default" style="background-color: #999;">direct use</span>
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                        </div>  
+                                                    </div>
+                                                </div>
+                                               
+                                                <div class="thumb-title"> <strong >{!item.name}</strong></div>
+                                                <div   class="thumb-action">
+                                                 
+                                                    <aura:if isTrue = "{!v.permission.caneBookSend}">                	
+                                                        |<a data-action="{!item.index}" onclick="{!c.send}" style="width:100px !important;"> Send</a>
+                                                    </aura:if>
+                                                    <a  title="Click for more option" class="thumb-more-links" data-action="{!item.index}"   onclick="{!c.dropup}" style="font-weight:bolder;padding-left:10px;text-decoration: none;">...</a>
+                                                    
+                                                        <div class="btn-group dropup pull-right toggle" id="{!'dropup_'+item.index}" >
+                                                            <ul class="dropdown-menu" style="min-width:100px !important;">
+                                                               
+                                                                    <aura:if isTrue="{!v.permission.caneBookPublish}">
+                                                                        <li style="margin:0px;">
+                                                                            <a data-action="{!item.index}" onclick="{!c.publish}" style="width:100px !important;"> Social</a>
+                                                                        </li>
+                                                                    </aura:if>
+                                                               
+                                                                <aura:if isTrue="{!and(v.permission.caneBookSend, v.permission.hasPartnerAccess ,v.permission.hasUserAccess)}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.SendToUsers}" style="width:100px !important;"> Send To Users</a>
+                                                                    </li> 
+                                                                </aura:if>                                   
+                                                                <aura:if isTrue="{!v.permission.hasdataroomaccess}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.addToRoom}" style="width:100px !important;"> Add To DataRoom</a>
+                                                                    </li> 
+                                                                </aura:if>
+                                                               
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.report}" style="width:100px !important;"> Report</a>
+                                                                    </li> 
+                                                                                                                               
+                                                            </ul>                              
+                                                        </div>                             
+                                                    
+                                                
+                                                </div>
+                                            </li>
+                                        </div>
+                                    </aura:if>
+                                   
+                                    <aura:if isTrue="{!(item.filetype == 'TEXT'|| item.filetype == 'PPT' || item.filetype == 'XLS' || item.filetype == 'CSV' ||
+                    item.filetype == 'STEP'||  item.filetype == 'PPTX' || item.filetype == 'PDF'  ||
+                    item.filetype == 'DOC' || item.filetype == 'DOCX' || item.filetype == 'XLSX' 
+                    || item.filetype == 'CSS'  || item.filetype == 'XML'  || item.filetype == 'ZIP' || 
+                    item.filetype == 'ZIPX'  || item.filetype == 'RAR'  || item.filetype == '7Z' || item.filetype == 'S7Z'
+                    || item.filetype == 'CFS'  || item.filetype == 'ICS'  || item.filetype == 'VCS'  || item.filetype == 'DWG'
+                    || item.filetype == 'STP' ||item.filetype == 'DOCUMENT')}">
+                                        
+                                        <div class="slds-box">
+                                            <li>
+                                                <div class="enable well-img-sm" id="{!item.id}" data-action="{!item.index}" data-name="vipul" onclick="{!c.view}">
+                                                	<aura:if isTrue="{!item.filetype == 'TEXT'}">
+                                                    	<lightning:icon iconName="doctype:txt"  />
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!(item.filetype == 'PPT' || item.filetype == 'PPTx')}">
+                                                    	<lightning:icon iconName="doctype:ppt"  />
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!(item.filetype == 'XLS' || item.filetype == 'XLSX')}">
+                                                    	<lightning:icon iconName="doctype:excel"  />
+                                                    </aura:if>
+													<aura:if isTrue="{!(item.filetype == 'CSV')}">
+                                                    	<lightning:icon iconName="doctype:csv"  />
+                                                    </aura:if>
+													<aura:if isTrue="{!(item.filetype == 'ZIP' ||item.filetype == 'ZIPX' )}">
+                                                    	<lightning:icon iconName="doctype:zip"  />
+                                                    </aura:if>
+													<aura:if isTrue="{!(item.filetype == 'DOCUMENT'||item.filetype == 'DOCX' ||item.filetype == 'DOC')}">
+                                                    	<lightning:icon iconName="doctype:word"  />
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!(item.filetype == 'PDF')}">
+                                                    	<img class="thumb-img-sm" src="{!item.thumburl200}"/>
+                                                    </aura:if>
+													<aura:if isTrue="{!(item.filetype == 'STEP'||item.filetype == 'CSS' ||item.filetype == 'XML'||
+													item.filetype == 'RAR'||item.filetype == '7Z'||item.filetype == 'S7Z' ||item.filetype == 'CFS' 
+														||item.filetype == 'ICS' ||item.filetype == 'VCS'||item.filetype == 'DWG'||item.filetype == 'STP' )}">
+                                                    	<lightning:icon iconName="doctype:unknown"  />
+                                                    </aura:if>
+                                                    <div class="thumb-img-bottom">
+                                                        <div class="thumb-labels">
+                                                            <aura:if isTrue="{!item.output}">
+                                                                <span class="label label-default" style="background-color: #3276b1;">customize</span>
+                                                                <aura:set attribute="else">
+                                                                    <aura:if isTrue="{!(item.usedatasource == '1' || item.hasquestionnaire == true || item.useprojectsource == '1')}">
+                                                                        <span class="label label-default" style="background-color: #a90329;">requires setup</span>
+                                                                        <aura:set attribute="else">
+                                                                            <span class="label label-default" >direct use</span>
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                        </div>            
+                                                    </div>
+                                                </div>
+                                               
+                                                <div class="thumb-title"> <strong >{!item.name}</strong></div>
+                                                <div class="thumb-action">
+                                                    <aura:if isTrue="{!(and(item.templatetype == undefined ,item.trackinglink == undefined))}">
+                                                      <aura:if isTrue = "{!item.output == 1}"> 
+                                                            <a data-action="{!item.index}" onclick="{!c.download}" style="width:100px !important;"> Download</a>
+                                                         </aura:if>
+                                                        
+                                                        <aura:if isTrue="{!(v.permission.canAutoPublish||(v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canEmailSend ))||and(v.isShownInModal, v.dataRoomID > 0)||and(!v.isShownInModal, v.permission.hasdataroomaccess)||v.permission.hasRatingAccess)}">
+                                                        <a title="Click for more option" class="thumb-more-links"  data-action="{!item.index}" onclick="{!c.dropup}" style="font-weight:bolder;padding-left:10px;text-decoration: none;">...</a>
+                                                            </aura:if>
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!(and(item.templatetype == undefined ,item.trackinglink == undefined))}">
+                                                        <div class="btn-group dropup pull-right toggle" id="{!'dropup_'+item.index}" >
+                                                            <ul class="dropdown-menu" style="min-width:100px !important;">
+                                                                <aura:if isTrue ="{!item.output == 1}">
+                                                                    <aura:if isTrue = "{!v.permission.canEmailSend	}">
+                                                                        <li style="margin:0px;">
+                                                                            <a data-action="{!item.index}" onclick="{!c.send}" style="width:100px !important;"> Send</a>
+                                                                        </li>
+                                                                    </aura:if>
+                                                                    <aura:if isTrue="{!v.permission.canAutoPublish}">
+                                                                        <li style="margin:0px;">
+                                                                            <a data-action="{!item.index}" onclick="{!c.publish}" style="width:100px !important;"> Social</a>
+                                                                        </li>
+                                                                    </aura:if>
+                                                                </aura:if>
+                                                                <aura:if isTrue="{!(v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canEmailSend ))}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.SendToUsers}" style="width:100px !important;"> Send To Users</a>
+                                                                    </li> 
+                                                                </aura:if>                                   
+                                                                <aura:if isTrue="{!and(v.isShownInModal, v.dataRoomID > 0)}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.addToRoom}" style="width:100px !important;"> Add To DataRoom</a>
+                                                                    </li> 
+                                                                </aura:if>
+                                                                <aura:if isTrue="{!and(!v.isShownInModal, v.permission.hasdataroomaccess) }">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.addToRoom}" style="width:100px !important;"> Add To DataRoom</a>
+                                                                    </li> 
+                                                                </aura:if>
+                                                                <aura:if isTrue="{!item.output == 1}">
+                                                                    <aura:if isTrue="{!v.permission.hasRatingAccess}">
+                                                                        <li style="margin:0px;">
+                                                                            <a data-action="{!item.index}" onclick="{!c.rating}" style="width:100px !important;"> Feedback</a>
+                                                                        </li> 
+                                                                    </aura:if>     
+                                                                </aura:if>                                                                                
+                                                            </ul>                              
+                                                        </div>                             
+                                                    </aura:if>
+                                                </div>
+                                            </li>
+                                        </div>                       
+                                        
+                                    </aura:if>
+                                    <aura:if isTrue="{!item.typename == 'POWERPOINT'}">
+                                        <div class="slds-box">
+                                            <li >
+                                                <div class="enable well-img-sm" id="{!item.id}" data-action="{!item.index}" onclick="{!c.view}">
+                                                    <img class="thumb-img-sm" src="{!item.imgUrl}"/>
+                                                    <div class="thumb-img-bottom">
+                                                        <div class="thumb-labels">
+                                                            <span class="label label-default" >direct use</span>
+                                                        </div> 
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="thumb-title"> <strong >{!item.name}</strong></div>
+                                                <div class="thumb-action">
+                                                    <aura:if isTrue = "{!v.permission.canPowerPointsend }">  	
+                                                        <a data-action="{!item.index}" onclick="{!c.send}" style="width:100px !important;"> Send</a>
+                                                    </aura:if>
+                                                    <aura:if isTrue = "{!item.output}">
+                                                        <aura:if isTrue="{!( and(v.permission.canPowerPointsend,v.permission.hasPartnerAccess , v.permission.hasUserAccess) || and(v.permission.canPowerPointEdit,!v.isShownInModal) || and(v.isShownInModal, v.dataRoomID > 0) || and(!v.isShownInModal, v.hasdataroomaccess) )}">
+                                                            <a title="Click for more option" class="thumb-more-links" data-action="{!item.index}" onclick="{!c.dropup}" style="font-weight:bolder;padding-left:10px;text-decoration: none;">...</a>
+                                                        </aura:if>
+                                                        <aura:set attribute="else">
+                                                            <aura:if isTrue="{!( (v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canPowerPointsend,v.permission.canEmailSend )) || and(v.permission.canPowerPointEdit,!v.isShownInModal) || and(v.isShownInModal, v.dataRoomID > 0) || and(!v.isShownInModal, v.hasdataroomaccess) )}"> 
+                                                                <a title="Click for more option" class="thumb-more-links" data-action="{!item.index}" onclick="{!c.dropup}" style="font-weight:bolder;padding-left:10px;text-decoration: none;">...</a>
+                                                            </aura:if>
+                                                        </aura:set>
+                                                    </aura:if>                                       
+                                                    
+                                                    <aura:if isTrue="{!item.output}">
+                                                        <div class="btn-group dropup pull-right toggle" id="{!'dropup_'+item.index}" >
+                                                            <ul class="dropdown-menu" style="min-width:100px !important;">
+                                                                
+                                                                <aura:if isTrue="{!and(v.permission.canPowerPointEdit,!v.isShownInModal)}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.customize}"> Customize</a>
+                                                                    </li>       
+                                                                </aura:if>      
+                                                                <aura:if isTrue="{!(v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canPowerPointsend,v.permission.canEmailSend ))}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.SendToUsers}" style="width:100px !important;"> Send To Users</a>
+                                                                    </li> 
+                                                                </aura:if>
+                                                                <li style="margin:0px;">
+                                                                    <a data-action="{!item.index}" onclick="{!c.download}" style="width:100px !important;"> Download</a>
+                                                                </li>                                                                   
+                                                                <li style="margin:0px;">
+                                                                    <a data-action="{!item.index}" onclick="{!c.report}" style="width:100px !important;"> Report</a>
+                                                                </li> 
+                                                                <aura:if isTrue="{!and(v.isShownInModal, v.dataRoomID > 0)}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.addToRoom}" style="width:100px !important;"> Add To DataRoom</a>
+                                                                    </li> 
+                                                                </aura:if>
+                                                                <aura:if isTrue="{!and(!v.isShownInModal, v.permission.hasdataroomaccess) }">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.addToRoom}" style="width:100px !important;"> Add To DataRoom</a>
+                                                                    </li> 
+                                                                </aura:if>
+                                                            </ul>                              
+                                                        </div>  
+                                                        <aura:set attribute="else">
+                                                            <div class="btn-group dropup pull-right toggle" id="{!'dropup_'+item.index}" >
+                                                                <ul class="dropdown-menu" style="min-width:100px !important;">
+                                                                    
+                                                                    <aura:if isTrue="{!and(v.permission.canPowerPointEdit,!v.isShownInModal)}">
+                                                                        <li style="margin:0px;">
+                                                                            <a data-action="{!item.index}" onclick="{!c.customize}"> Customize</a>
+                                                                        </li>       
+                                                                    </aura:if>                             
+                                                                    <aura:if isTrue="{!(v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canPowerPointsend,v.permission.canEmailSend ))}">
+                                                                        <li style="margin:0px;">
+                                                                            <a data-action="{!item.index}" onclick="{!c.SendToUsers}" style="width:100px !important;"> Send To Users</a>
+                                                                        </li> 
+                                                                    </aura:if>
+                                                                    
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.download}" style="width:100px !important;"> Download</a>
+                                                                    </li> 
+                                                                    <aura:if isTrue="{!and(v.isShownInModal, v.dataRoomID > 0)}">
+                                                                        <li style="margin:0px;">
+                                                                            <a data-action="{!item.index}" onclick="{!c.addToRoom}" style="width:100px !important;"> Add To DataRoom</a>
+                                                                        </li> 
+                                                                    </aura:if>
+                                                                    <aura:if isTrue="{!and(!v.isShownInModal, v.hasdataroomaccess) }">
+                                                                        <li style="margin:0px;">
+                                                                            <a data-action="{!item.index}" onclick="{!c.addToRoom}" style="width:100px !important;"> Add To DataRoom</a>
+                                                                        </li> 
+                                                                    </aura:if>
+                                                                </ul>                              
+                                                            </div>                                      
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </div>
+                                            </li>
+                                        </div>
+                                    </aura:if>
+                                    <aura:if isTrue="{!item.typename == 'EMAIL'}">
+                                        <div class="slds-box">
+                                            <li>
+                                                <div class="enable well-img-sm" id="{!item.id}" data-action="{!item.index}" data-name="vipul" onclick="{!c.view}">
+                                                    <img class="thumb-img-sm" src="{!item.imgUrl}"/>
+                                                <div class="thumb-img-bottom">
+                                                    <div class="thumb-labels">
+                                                        <aura:if isTrue="{!item.output}">
+                                                            <span class="label label-default" style="background-color: #3276b1;">customize</span>
+                                                            <aura:set attribute="else">
+                                                                <aura:if isTrue="{!(item.usedatasource == '1' || item.hasquestionnaire == true || item.useprojectsource == '1')}">
+                                                                    <span class="label label-default" style="background-color: #a90329;">requires setup</span>
+                                                                    <aura:set attribute="else">
+                                                                        <span class="label label-default" >direct use</span>
+                                                                    </aura:set>
+                                                                </aura:if>
+                                                            </aura:set>
+                                                        </aura:if>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                               
+                                                <div class="thumb-title"> <strong >{!item.name}</strong></div>
+                                              
+                                                <div  class="thumb-action">
+                                                    <aura:if isTrue ="{!(!item.output)}">
+                                                        <aura:if isTrue ="{!v.permission.canEmailSend}">
+                                                            <a data-action="{!item.index}" onclick="{!c.send}" style="width:100px !important;"> Send</a>|
+                                                        </aura:if>
+                                                        <aura:if isTrue = "{!and(!item.output,item.hasquestionnaire != true,item.usedatasource != true)}"> 
+                                                            <a data-action="{!item.index}" onclick="{!c.download}" style="width:100px !important;"> Download</a>
+                                                         </aura:if>
+                                                    </aura:if>
+                                                     <aura:if isTrue ="{!(!item.output)}">
+                                                         <aura:if isTrue="{!(v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canEmailSend ))}">
+                                                             <a  title="Click for more option" class="thumb-more-links" data-action="{!item.index}" onclick="{!c.dropup}" style="font-weight:bolder;padding-left:10px;text-decoration: none;">...</a>
+                                                         </aura:if>
+                                                    </aura:if> 
+                                                    <div class="btn-group dropup pull-right toggle" id="{!'dropup_'+item.index}" >
+                                                        <ul class="dropdown-menu" style="min-width:100px !important;">
+                                                                <li style="margin:0px;">
+                                                                    <a data-action="{!item.index}" onclick="{!c.SendToUsers}" style="width:100px !important;"> Send To Users</a> 
+                                                                </li>
+                                                        </ul>                              
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </div>
+                                    </aura:if>
+                                    <aura:if isTrue="{!item.typename == 'WEB'}">
+                                        <div class="slds-box">
+                                            <li>
+                                                <div class="enable well-img-sm" id="{!item.id}" data-action="{!item.index}" data-name="vipul" onclick="{!c.customize}">
+                                                    <img class="thumb-img-sm" src="{!item.imgUrl}"/>
+                                                    <div class="thumb-img-bottom">
+                                                        <div class="thumb-labels">
+                                                            <aura:if isTrue="{!item.output}">
+                                                                <span class="label label-default" style="background-color: #3276b1;">customize</span>
+                                                                <aura:set attribute="else">
+                                                                    <aura:if isTrue="{!(item.usedatasource == '1' || item.hasquestionnaire == true || item.useprojectsource == '1')}">
+                                                                        <span class="label label-default" style="background-color: #a90329;">requires setup</span>
+                                                                        <aura:set attribute="else">
+                                                                            <span class="label label-default" >direct use</span>
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               
+                                                
+                                                <div class="thumb-title"> <strong>{!item.name}</strong></div>
+                                                
+                                                <div class="thumb-action">
+                                                    <aura:if isTrue="{!v.permission.canWebEdit}">
+                                                        <a data-action="{!item.index}" onclick="{!c.customize}"> Customize</a>
+                                                    </aura:if>
+                                                    
+                                                    <aura:if isTrue = "{!item.output}">
+                                                        <aura:if isTrue="{!( v.permission.canWebPublish || v.permission.canWebSend  || and(v.isShownInModal, v.dataRoomID > 0) || and(!v.isShownInModal ))}">
+                                                            <a title="Click for more option" class="thumb-more-links" data-action="{!item.index}" onclick="{!c.dropup}" style="font-weight:bolder;padding-left:10px;text-decoration: none;">...</a>
+                                                        </aura:if>
+                                                    </aura:if>
+                                                    <aura:if isTrue = "{!item.output}">
+                                                        <div class="btn-group dropup pull-right toggle" id="{!'dropup_'+item.index}" >
+                                                            <ul class="dropdown-menu" style="min-width:100px !important;">
+                                                                <aura:if isTrue = "{!v.permission.canWebSend}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.send}" style="width:100px !important;"> Send</a>
+                                                                    </li>
+                                                                </aura:if>
+                                                                <aura:if isTrue="{!v.permission.canWebPublish}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.publish}" style="width:100px !important;"> Social</a>
+                                                                    </li>
+                                                                </aura:if>
+                                                                <aura:if isTrue="{!item.output}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.report}" style="width:100px !important;"> Report</a>
+                                                                    </li>
+                                                                </aura:if>                                                                             
+                                                                <aura:if isTrue="{!and(v.isShownInModal, v.dataRoomID > 0)}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.addToRoom}" style="width:100px !important;"> Add To DataRoom</a>
+                                                                    </li> 
+                                                                </aura:if>
+                                                                <aura:if isTrue="{!and(!v.isShownInModal, v.hasdataroomaccess) }">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.addToRoom}" style="width:100px !important;"> Add To DataRoom</a>
+                                                                    </li> 
+                                                                </aura:if>
+                                                            </ul>                              
+                                                        </div>  
+                                                    </aura:if>
+                                                </div>
+                                            </li>
+                                        </div> 
+                                    </aura:if>
+                                    <aura:if isTrue="{!item.typename == 'INTERNALPLAYBOOK'}">
+                                        <div class="slds-box">
+                                            <li >
+                                                <div class="enable well-img-sm" id="{!item.id}" data-action="{!item.index}" data-name="vipul" onclick="{!c.view}">
+                                                    <img class="thumb-img-sm" src="{!item.imgUrl}"/>
+                                                    <div class="thumb-img-bottom">
+                                                        <div class="thumb-labels">
+                                                            <aura:if isTrue="{!item.output}">
+                                                                <span class="label label-default" style="background-color: #3276b1;">customize</span>
+                                                                <aura:set attribute="else">
+                                                                    <aura:if isTrue="{!(item.usedatasource == '1' || item.hasquestionnaire == true || item.useprojectsource == '1')}">
+                                                                        <span class="label label-default" style="background-color: #a90329;">requires setup</span>
+                                                                        <aura:set attribute="else">
+                                                                            <span class="label label-default" >direct use</span>
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                        </div>  
+                                                    </div>
+                                                </div>
+                                               
+                                                <div class="thumb-title"> <strong >{!item.name}</strong></div>
+                                                <div class="thumb-action">
+                                                    <aura:if isTrue="{!item.output}">
+                                                        <a data-action="{!item.index}" data-action-item="0" onclick="{!c.report}" style="width:100px !important;"> Report</a>
+                                                    </aura:if>
+                                                </div>
+                                            </li>
+                                        </div> 
+                                    </aura:if>
+                                    <aura:if isTrue="{!item.typename == 'BLOGPOST'}">
+                                        <div class="slds-box">
+                                            <li>
+                                                <div class="enable well-img-sm" id="{!item.id}" data-action="{!item.index}" data-name="vipul" onclick="{!c.view}">
+                                                    <img class="thumb-img-sm" src="{!item.imgUrl}"/>
+                                                    <div class="thumb-img-bottom">
+                                                        <div class="thumb-labels">
+                                                            <aura:if isTrue="{!item.output}">
+                                                                <span class="label label-default" style="background-color: #3276b1;">customize</span>
+                                                                <aura:set attribute="else">
+                                                                    <aura:if isTrue="{!(item.usedatasource == '1' || item.hasquestionnaire == true || item.useprojectsource == '1')}">
+                                                                        <span class="label label-default" style="background-color: #a90329;">requires setup</span>
+                                                                        <aura:set attribute="else">
+                                                                            <span class="label label-default" >direct use</span>
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                        </div> 
+                                                    </div>
+                                                </div>
+                                               
+                                                <div class="thumb-title"> <strong>{!item.name}</strong></div>
+                                               <!-- <div class="thumb-action">
+                                                    <aura:if isTrue="{!v.permission.canWebPublish }">
+                                                        <a data-action="{!item.index}" onclick="{!c.publish}" style="width:100px !important;"> social</a>
+                                                    </aura:if>
+                                                </div>-->
+                                            </li>
+                                        </div> 
+                                    </aura:if>
+                                   
+                                    <aura:if isTrue="{!item.trackinglink == true}">
+                                        <div class="slds-box">
+                                            <li >
+                                                <div class="enable well-img-sm" id="{!item.id}" data-action="{!item.index}" data-name="vipul" onclick="{!c.view}">
+                                              
+                                                    <aura:if isTrue="{!item.trackinglink == true}">
+                                                        <lightning:icon iconName="action:share_link" alternativeText="share_link" />
+                                                    </aura:if>
+                                                    
+                                                    <div class="thumb-img-bottom">
+                                                        <div class="thumb-labels">
+                                                            <aura:if isTrue="{!item.output}">
+                                                                <span class="label label-default" style="background-color: #3276b1;">customize</span>
+                                                                <aura:set attribute="else">
+                                                                    <aura:if isTrue="{!(item.usedatasource == '1' || item.hasquestionnaire == true || item.useprojectsource == '1')}">
+                                                                        <span class="label label-default" style="background-color: #a90329;">requires setup</span>
+                                                                        <aura:set attribute="else">
+                                                                            <span class="label label-default">direct use</span>
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                        </div>   
+                                                    </div>
+                                                </div>
+                                                                                                               
+                                                <div class="thumb-title"> <strong>{!item.name}</strong></div>
+                                                <div class="thumb-action">
+                                                    <aura:if isTrue="{!item.trackinglink == true}">
+                                                        <a data-action="{!item.index}" onclick="{!c.send}" style="width:100px !important;"> Send</a>
+                                                        |<a data-action="{!item.index}" onclick="{!c.copy}" style="width:100px !important;"> copy</a>
+                                                    </aura:if>
+                                                </div>
+                                            </li>
+                                        </div> 
+                                    </aura:if>
+                                    
+                                    <aura:if isTrue="{!(item.filetype == 'JPEG'||item.filetype == 'PNG')}">
+                                        <div class="slds-box">
+                                            <li>
+                                                <div class="enable well-img-sm" id="{!item.id}" data-action="{!item.index}" data-name="vipul" onclick="{!c.view}">
+                                                    <img class="thumb-img-sm" src="{!item.imgUrl}"/>
+                                                    <div class="thumb-img-bottom">
+                                                        <div class="thumb-labels">
+                                                            <aura:if isTrue="{!item.output}">
+                                                                <span class="label label-default" style="background-color: #3276b1;">customize</span>
+                                                                <aura:set attribute="else">
+                                                                    <aura:if isTrue="{!(item.usedatasource == '1' || item.hasquestionnaire == true || item.useprojectsource == '1')}">
+                                                                        <span class="label label-default" style="background-color: #a90329;">requires setup</span>
+                                                                        <aura:set attribute="else">
+                                                                            <span class="label label-default">direct use</span>
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="thumb-title"> <strong>{!item.name}</strong></div>
+                                                <div class="thumb-action">
+                                                    <aura:if isTrue="{!(and(item.templatetype == undefined ,item.trackinglink == undefined))}">
+                                                     	<aura:if isTrue = "{!item.output == 0}"> 
+                                                            <a data-action="{!item.index}" onclick="{!c.download}" style="width:100px !important;"> Download</a>
+                                                         </aura:if>
+                                                        <aura:if isTrue="{!(v.permission.canEmailSend||v.permission.canAutoPublish||(v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canEmailSend ))||v.permission.hasRatingAccess||and(v.isShownInModal, v.dataRoomID > 0)||and(!v.isShownInModal, v.permission.hasdataroomaccess))}">
+                                                            <a title="Click for more option" class="thumb-more-links" data-action="{!item.index}" onclick="{!c.dropup}" style="font-weight:bolder;padding-left:10px;text-decoration: none;">...</a>
+                                                        </aura:if>
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!(and(item.templatetype == undefined ,item.trackinglink == undefined))}">
+                                                        <div class="btn-group dropup pull-right toggle" id="{!'dropup_'+item.index}" >
+                                                            <ul class="dropdown-menu" style="min-width:100px !important;">
+                                                                <aura:if isTrue = "{!v.permission.canEmailSend	}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.send}" style="width:100px !important;"> Send</a>
+                                                                    </li>
+                                                                </aura:if>
+                                                                <aura:if isTrue ="{!item.output == 0}">
+                                                                    <aura:if isTrue="{!v.permission.canAutoPublish}">
+                                                                        <li style="margin:0px;">
+                                                                            <a data-action="{!item.index}" onclick="{!c.publish}" style="width:100px !important;"> Social</a>
+                                                                        </li>
+                                                                    </aura:if>
+                                                                </aura:if>
+                                                                
+                                                                <aura:if isTrue="{!(v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canEmailSend ))}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.SendToUsers}" style="width:100px !important;"> Send To Users</a>
+                                                                    </li> 
+                                                                </aura:if>                                   
+                                                                <aura:if isTrue="{!and(v.isShownInModal, v.dataRoomID > 0)}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.addToRoom}" style="width:100px !important;"> Add To DataRoom</a>
+                                                                    </li> 
+                                                                </aura:if>
+                                                                <aura:if isTrue="{!and(!v.isShownInModal, v.permission.hasdataroomaccess) }">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.addToRoom}" style="width:100px !important;"> Add To DataRoom</a>
+                                                                    </li> 
+                                                                </aura:if>
+                                                                <aura:if isTrue="{!item.output == 0}">
+                                                                    <aura:if isTrue="{!v.permission.hasRatingAccess}">
+                                                                        <li style="margin:0px;">
+                                                                            <a data-action="{!item.index}" onclick="{!c.rating}" style="width:100px !important;"> Feedback</a>
+                                                                        </li> 
+                                                                    </aura:if>     
+                                                                </aura:if>                                                                             
+                                                            </ul>                              
+                                                        </div>                             
+                                                    </aura:if>
+                                                </div>
+                                            </li>
+                                        </div> 
+                                    </aura:if>
+                                   
+                                     <aura:if isTrue="{!item.typename == 'CONTRACT'}">
+                                        <div class="slds-box">
+                                            <li >
+                                                <div data-action="{!item.index}" onclick="{!c.customize}" class="enable well-img-sm" id="{!item.id}">
+                                                    <img class="thumb-img-sm" src="{!item.imgUrl}"/>
+                                                    <div class="thumb-img-bottom">
+                                                        <div class="thumb-labels">
+                                                            <aura:if isTrue="{!item.output}">
+                                                                <span class="label label-default" style="background-color:#337ab7;">customized</span>
+                                                                <aura:set attribute="else">
+                                                                    <aura:if isTrue="{!item.usedatasource == '1' || item.hasquestionnaire}">
+                                                                        <span class="label label-default" style="background-color:#d9534f">requires setup</span>
+                                                                        <aura:set attribute="else">
+                                                                            <span class="label label-default" style="background-color: #999;">direct use</span>
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                        </div>  
+                                                    </div>
+                                                </div>
+                                               
+                                                <div class="thumb-title"> <strong >{!item.name}</strong></div>
+                                                <div   class="thumb-action">
+                                                     <aura:if isTrue="{!(and(v.permission.canCreateAssets,v.permission.canSendAssets))}">      
+                                                         <a data-action="{!item.index}" onclick="{!c.send}" style="width:100px !important;"> send</a>
+                                                      </aura:if>
+                                                    
+                                                        <aura:if isTrue = "{!(and(item.usedatasource == false, item.hasquestionnaire == true ))}">
+                                                         |<a data-action="{!item.index}" onclick="{!c.customize}" style="width:100px !important;">customize</a>
+                                                        </aura:if>
+                                                  
+                                                   <aura:if isTrue="{!(and(v.permission.canCreateAssets,v.permission.canSendAssets))}">
+                                                        <aura:if isTrue = "{!(and(item.usedatasource ==false, item.hasquestionnaire == false))}">
+                                                            |<a data-action="{!item.index}" onclick="{!c.customize}" style="width:100px !important;">customize</a>
+                                                        </aura:if>
+                                                    </aura:if>
+                                                    <aura:if isTrue = "{!(and(item.usedatasource == false, item.hasquestionnaire == false))}">
+                                                        <aura:if isTrue="{!(v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canSendAssets,v.permission.canEmailSend ))}">
+                                                            <a  title="Click for more option" class="thumb-more-links" data-action="{!item.index}"   onclick="{!c.dropup}" style="font-weight:bolder;padding-left:10px;text-decoration: none;">...</a>
+                                                        </aura:if>
+                                                    </aura:if>     
+                                                    <aura:if isTrue = "{!(and(item.usedatasource == false, item.hasquestionnaire == false))}">
+                                                        <div class="btn-group dropup pull-right toggle" id="{!'dropup_'+item.index}" >
+                                                            <ul class="dropdown-menu" style="min-width:100px !important;">
+                                                                <aura:if isTrue="{!(v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canSendAssets,v.permission.canEmailSend ))}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.SendToUsers}" style="width:100px !important;"> Send To Users</a>
+                                                                    </li> 
+                                                                </aura:if>                                                                                                                   
+                                                            </ul>                              
+                                                        </div>
+                                                    </aura:if>
+                                                </div>
+                                            </li>
+                                        </div>
+                                    </aura:if>
+                                   
+                                    <aura:if isTrue="{!item.typename == 'WEBBANNER'}">
+                                        <div class="slds-box">
+                                            <li >
+                                                <div data-action="{!item.index}" onclick="{!c.customize}" class="enable well-img-sm" id="{!item.id}">
+                                                    <img class="thumb-img-sm" src="{!item.imgUrl}"/>
+                                                    <div class="thumb-img-bottom">
+                                                        <div class="thumb-labels">
+                                                            <aura:if isTrue="{!item.output}">
+                                                                <span class="label label-default" style="background-color:#337ab7;">customized</span>
+                                                                <aura:set attribute="else">
+                                                                    <aura:if isTrue="{!item.usedatasource == '1' || item.hasquestionnaire}">
+                                                                        <span class="label label-default" style="background-color:#d9534f">requires setup</span>
+                                                                        <aura:set attribute="else">
+                                                                            <span class="label label-default" style="background-color: #999;">direct use</span>
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                        </div>  
+                                                    </div>
+                                                </div>
+                                               
+                                                <div class="thumb-title"> <strong >{!item.name}</strong></div>
+                                                <div   class="thumb-action">
+                                                  
+                                                    <aura:if isTrue="{!(!item.output)}">
+                                                    	<aura:if isTrue="{!v.permission.canCreateWeb}">   
+                                                            <a data-action="{!item.index}" onclick="{!c.customize}" style="width:100px !important;"> customize</a>
+                                                            </aura:if>
+                                                             <aura:set attribute="else">
+                                                                 <aura:if isTrue="{!(!item.isapproved)}">
+                                                                     <aura:if isTrue="{!v.permission.canEditWeb}">
+                                                                          <a data-action="{!item.index}" onclick="{!c.customize}" style="width:100px !important;"> customize</a>
+                                                                          </aura:if>
+                                                                         <aura:set attribute ="else">
+                                                                            <aura:if isTrue="{!v.permission.canWebSend}">
+                                                                         	|<a data-action="{!item.index}" onclick="{!c.send}" style="width:100px !important;"> send</a>
+                                                                             </aura:if>   
+                                                                         </aura:set>
+                                                                    
+                                                                 </aura:if>
+                                                                   <aura:if isTrue="{!v.permission.canWebSend}">
+                                                                     |<a data-action="{!item.index}" onclick="{!c.send}" style="width:100px !important;"> send</a>
+                                                                   </aura:if> 
+                                                            </aura:set>                             
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!item.output}">
+                                                        <aura:if isTrue = "{!(item.usedatasource == '0'|| item.hasquestionnaire == false)}">
+                                                            <a  title="Click for more option" class="thumb-more-links" data-action="{!item.index}"   onclick="{!c.dropup}" style="font-weight:bolder;padding-left:10px;text-decoration: none;">...</a>
+                                                        </aura:if>
+                                                    </aura:if>
+                                                        <div class="btn-group dropup pull-right toggle" id="{!'dropup_'+item.index}" >
+                                                            <ul class="dropdown-menu" style="min-width:100px !important;">
+                                                               
+                                                                    <aura:if isTrue="{!v.permission.canWebPublish }">
+                                                                        <li style="margin:0px;">
+                                                                            <a data-action="{!item.index}" onclick="{!c.publish}" style="width:100px !important;"> social</a>
+                                                                        </li>
+                                                                    </aura:if>
+                                                               
+                                                                <aura:if isTrue="{!(v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canWebSend,v.permission.canEmailSend ))}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.SendToUsers}" style="width:100px !important;"> Send To Users</a>
+                                                                    </li> 
+                                                                </aura:if>                                   
+                                                                                                                                                                                               
+                                                            </ul>                              
+                                                        </div> 
+                                                </div>
+                                            </li>
+                                        </div>
+                                    </aura:if>
+                                    <aura:if isTrue="{!item.typename == 'FAQ'}">
+                                        <div class="slds-box">
+                                            <li>
+                                                <div class="enable well-img-sm" id="{!item.id}" data-action="{!item.index}" data-name="vipul" onclick="{!c.view}">
+                                                    <img class="thumb-img-sm" src="{!item.imgUrl}"/>
+                                                    <div class="thumb-img-bottom">
+                                                        <div class="thumb-labels">
+                                                            <aura:if isTrue="{!item.output}">
+                                                                <span class="label label-default" style="background-color: #3276b1;">customize</span>
+                                                                <aura:set attribute="else">
+                                                                    <aura:if isTrue="{!(item.usedatasource == '1' || item.hasquestionnaire == true || item.useprojectsource == '1')}">
+                                                                        <span class="label label-default" style="background-color: #a90329;">requires setup</span>
+                                                                        <aura:set attribute="else">
+                                                                            <span class="label label-default" >direct use</span>
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                        </div>   
+                                                    </div>
+                                                </div>
+                                                <div class="thumb-title"> <strong >{!item.name}</strong></div>
+                                                <div class="thumb-action">                
+                                                    	<a data-action="{!item.index}" onclick="{!c.associatedAssets}"> Associated Assets</a>
+                                                        <aura:if isTrue="{!( v.permission.canEmailSend || and(v.permission.canEmailSend,v.permission.hasPartnerAccess , v.permission.hasUserAccess) )}">
+                                                            <a  class="thumb-more-links" title="Click for more option" data-action="{!item.index}" onclick="{!c.dropup}" style="font-weight:bolder;padding-left:10px;text-decoration: none;">...</a>
+                                                        </aura:if>
+                                                    
+                                                    <div class="btn-group dropup pull-right toggle" id="{!'dropup_'+item.index}" >
+                                                        <ul class="dropdown-menu" style="min-width:100px !important;">
+                                                            <aura:if isTrue="{!( v.permission.canEmailSend || and(v.permission.canEmailSend,v.permission.hasPartnerAccess , v.permission.hasUserAccess) )}"> 
+                                                                <aura:if isTrue="{!v.permission.canEmailSend}">
+                                                                    <a data-action="{!item.index}" onclick="{!c.send}"> send</a>
+                                                                </aura:if>
+                                                                <aura:if isTrue="{!(v.permission.IsSiteAdmin||v.permission.IsSuperAdmin ||and( v.permission.hasPartnerAccess,v.permission.canEmailSend ))}">
+                                                                    <li style="margin:0px;">
+                                                                        <a data-action="{!item.index}" onclick="{!c.SendToUsers}" style="width:100px !important;"> Send To Users</a>
+                                                                    </li> 
+                                                                </aura:if> 
+                                                                
+                                                            </aura:if>
+                                                        </ul>                              
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </div>
+                                    </aura:if>
+                                </aura:iteration>
+                            </span>
+                        </aura:set>
+                    </aura:if>
+ 
+                    </div>
+                </div>
+            </div>
+                
+         </div>
+        <aura:if isTrue="{!v.pages != 0}"> 
+           <div class="assetpaginate" style="float:right;">
+               <button type="button" style="width:36px;height:36px;" class="{!v.page == 0?'disablecolor':'paginationbtncolor'}"  id="button1" disabled="{!v.page == 0}" alt="&lt;" label="&lt;" onclick="{! c.prev }" >&lt;</button>
+               <button  type="button" style="width:36px;height:36px;" class="{!and((v.page == 0) ,(v.pages == '0'))? 'disablecolor': 'paginationbtncolor'}" id="button2" title="{!'Total of '+(v.rowcount)+' record in '+v.pages+' pages'}"  disabled="{!and((v.page == 0) ,(v.pages == '0'))}"  label="{!v.currentpage}" >{!v.currentpage}</button>
+               <button type="button" style="width:36px;height:36px;" class="{!(v.page == (v.pages-1))?'disablecolor':'paginationbtncolor'}" id="button3" disabled="{!(v.page == (v.pages-1)) || (v.pages == '0')}"  label="&gt;" onclick="{! c.next }" > &gt;</button>                   
+           </div>
+        </aura:if>
+        
+    </div>
+</aura:component>

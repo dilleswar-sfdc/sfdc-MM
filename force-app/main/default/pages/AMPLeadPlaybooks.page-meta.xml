@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>34.0</apiVersion>
+    <availableInTouch>true</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>This will show lead data based related Playbooks and Assets only if user is associated with AMP and has resp. permissions</description>
+    <label>AMP Playbooks</label>
+</ApexPage>

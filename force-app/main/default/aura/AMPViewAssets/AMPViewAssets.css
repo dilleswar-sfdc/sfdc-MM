@@ -1,0 +1,879 @@
+.THIS {
+}
+.THIS .input-search{
+    display: table;
+    position: relative;
+}
+
+/*view asset csss start */
+.THIS.sec-view-assets {
+    background-color: #f5f5f5;
+    padding: 8px 0;
+    /*box-shadow: 1px 2px 4px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 1px 2px 4px rgba(0,0,0,0.2);*/
+    /*margin-bottom: 20px;*/
+}
+    .THIS.sec-view-assets h3 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 300;
+    }
+
+.THIS .view-assets-left p {
+    font-size: 14px;
+    line-height: 1.3;
+    color: #666;
+}
+
+.THIS.sec-view-assets .btn-primary.va-btn, .THIS .asset-search-bar .btn-primary.va-btn {
+    padding: 3px 12px;
+    height: 40px;
+    margin: 0;
+    top: 0;
+    left: 0
+}
+
+.THIS.sec-view-assets .va-btn .fa {
+    font-size: 22px;
+    color: #fff;
+}
+
+.THIS .view-assets-left span.or {
+    position: absolute;
+    left: -10px;
+    top: 10px;
+    font-weight: bold;
+    color: #666;
+}
+
+/* video widget css */
+.THIS .video-thumbbox{
+    background-color: #fafaf9;
+}
+.THIS .video-thumbbox:hover {
+    border-color: #1589ee;
+}
+.THIS .video-thumb-left{
+    position: relative;
+    max-width: 120px;
+    max-height: 120px;
+    height: 120px;
+}
+.THIS .video-thumb-img{
+    max-height: 120px;
+    max-width: 120px;
+    width: 120px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.THIS .video-thumb-icon{
+    background-color: #ff0101;
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    border-radius: 4px;
+    padding: 1px 4px;
+    top: 50%;
+    left: 50%;
+    line-height: 1.4;
+    transform: translate(-50%, -50%);
+}
+.THIS .video-thumb-icon .slds-icon{
+    width: 20px;
+    height: 20px;
+}
+
+/*.THIS.sec-view-assets .va-search-cat .input-group,
+.THIS.sec-view-assets .va-search-key .input-group {
+    width: 70%;
+    float: left;
+    padding-right: 10px;
+}
+
+.THIS.sec-view-assets .va-search-cat > .btn-primary,
+.THIS.sec-view-assets .va-search-key > .btn-primary {
+    width: 30%;
+    float: left;
+    margin: 0;
+}
+
+.THIS.sec-view-assets .va-search-cat {
+    margin-bottom: 20px;
+    position: relative;
+}*/
+
+.THIS.sec-view-assets .input-group .form-control {
+    height: 40px;
+    border: 1px solid #dddbda;
+}
+
+.THIS .asset-search-bar .input-group .form-control {
+    border-radius: 0;
+    height: 40px;
+}
+
+.THIS.sec-view-assets .btn-primary {
+    color: #fff;
+    background-color: #0071bc;
+    border-color: #0071bc;
+    margin: 10px 0;
+    padding: 8px 30px;
+}
+
+.THIS.sec-view-assets .input-group-btn .btn-primary {
+    margin: 0;
+}
+
+.THIS.sec-view-assets .input-group-btn .va-btn {
+    min-width: 45px;
+}
+
+.THIS.sec-view-assets .input-group-btn .search.va-btn {
+    max-width: 45px;
+    padding: 0;
+}
+
+.THIS.sec-view-assets .asset-type {
+    text-align: center;
+    word-break: break-word;
+    position: relative;
+}
+
+    .THIS.sec-view-assets .asset-type .fa {
+        font-size: 50px;
+        color: #0071bc;
+        transition: 0.25s ease color;
+    }
+
+    .THIS.sec-view-assets .asset-type:hover .fa,
+    .THIS.sec-view-assets .asset-type.active .fa {
+        color: #4caf50;
+    }
+
+.THIS.sec-view-assets .asset-type-icon .slds-icon{
+    width: 4rem;
+    height: 4rem;
+}
+.THIS.sec-view-assets .modal-independant .asset-type-icon .slds-icon{
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+}
+.THIS.sec-view-assets .slds-icon-utility-opened-folder.asset-type-icon .slds-icon {
+    width: 3rem;
+    height: 3rem;
+}
+
+.THIS .view-asset-dropdown .slds-select_container:before, 
+.THIS .view-asset-dropdown .slds-select_container:after{
+    top: 48%;    
+}
+
+.THIS.sec-view-assets .asset-type .asset-count {
+    position: absolute;
+    right: 12px;
+    top: 3px; 
+    background-color: #000;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 11px;
+    padding: 2px;
+    min-width: 20px;
+    display: inline-block;
+}
+
+.THIS.sec-view-assets .asset-type p {
+    line-height: 1.2;
+    text-transform: capitalize;
+    text-decoration: none;
+    display: block;
+    color: #666;
+    font-size: 15px;
+    margin-top: 0;
+    font-weight: 300;
+}
+
+.THIS.sec-view-assets .view-assets-left > .row {
+    /*padding: 10px 0;*/
+    padding: 0;
+    border-right: 1px solid #ccc;
+}
+
+.THIS.sec-view-assets .view-assets-right > .row {
+    /*padding: 10px 0;*/
+    padding: 0;
+}
+
+.THIS.sec-view-assets .select2-container .select2-arrow b {
+    color: #fff;
+    font-size: 24px;
+    line-height: 34px;
+}
+
+.THIS.sec-view-assets .select2-container a {
+    height: 40px;
+}
+
+.THIS.sec-view-assets .select2-container .select2-arrow {
+    background-color: #0071bc;
+    width: 45px;
+    padding: 3px 12px;
+    height: 40px;
+    top: -1px;
+}
+.THIS.sec-view-assets span.or{
+    position: absolute;
+    left: -10px;
+    top: 10px;
+    font-weight: bold;
+    color: #666;
+}
+.THIS.sec-view-assets .va-search-key{
+    position: relative;
+}
+
+
+/* view asset css end */
+
+/* temp2 css start  */
+.THIS .temp2 {
+    text-align: center;
+    padding: 25px 6px 14px;
+    width: 150px;
+    display: block;
+    float: none;
+    margin: 10px auto;
+    position: relative;
+    min-height: 180px;
+    max-height: 180px;
+    background-color: #fff;
+    border: 1px solid #f2f3f4;
+    transition: 0.25s ease border-color;
+    -webkit-transition: 0.25s ease border-color;
+    -o-transition: 0.25s ease border-color;
+}
+
+    .THIS .temp2.more .btn {
+        font-family: "Open Sans",Arial,Helvetica,sans-serif;
+    }
+
+.THIS .temp2-thumb img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.THIS .temp2 img {
+    max-width: 100%;
+}
+
+.THIS .temp2 h4 {
+    font-size: 15px;
+    color: #0071bc;
+    cursor: pointer;
+    margin: 6px 0 0;
+    line-height: 1.2;
+    height: 39px;
+    overflow: hidden;
+    text-transform: capitalize;
+}
+
+    .THIS .temp2 h4 a {
+        text-decoration: none;
+    }
+
+.THIS .temp2-thumb {
+    display: inline-block;
+    position: relative;
+    height: 100px;
+    text-align: center;
+}
+
+    .THIS .temp2-thumb .temp2-center-icon {
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 30px;
+        line-height: 100px;
+        width: 100px;
+    }
+
+    .THIS .temp2-thumb .temp2-ico {
+        color: #0071bc;
+        font-size: 30px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+    }
+
+.THIS .temp2-thumb-img {
+    position: relative;
+    height: 100px;
+    width: 100px;
+    line-height: 100px;
+    background-color: rgba(0,0,0,0.1);
+}
+
+    .THIS .temp2-thumb-img > img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        max-width: 100%;
+        max-height: 100%;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+    }
+
+.THIS .temp2 .temp2-top {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 2px;
+    margin-top: 3px;
+}
+
+.THIS .temp2 .temp2-thumb-icon{
+    position: absolute;
+    left: 40%;
+    top: 40%;
+    z-index: 1;
+    cursor:pointer;
+    display:none;
+}
+
+    .THIS .temp2 .temp2-top a {
+        margin: 0 1px;
+        width: 17px;
+        display: inline-block;
+    }
+
+.THIS .temp2 .temp2-top, .THIS .temp2-thumb .temp2-ico {
+    opacity: 0;
+    z-index: -1;
+}
+
+.THIS .temp2:hover .temp2-thumb .temp2-ico, .THIS .temp2:hover .temp2-top {
+    opacity: 1;
+    z-index: 1;
+}
+
+.THIS .temp2:hover {
+    border-color: #0071bc;
+}
+.THIS .temp2:hover .temp2-thumb-icon {
+    display:block;
+}
+
+.THIS .temp2.more {
+    text-align: left;
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+    .THIS .temp2.more p {
+        font-size: 16px;
+        color: #666;
+        font-weight: 300;
+    	margin-bottom: 10px;
+    	margin-top: 20px;
+    }
+
+    .THIS .temp2.more .btn-primary {
+        padding: 8px 16px;
+    }
+
+.THIS .asset-col {
+    display: block;
+    float: left;
+    text-align: center;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.THIS .temp2 .temp2-ico .slds-icon, 
+.THIS .temp2 .temp2-top-icon .slds-icon {
+    fill: #4475bc;
+}
+.THIS .temp2 .temp2-top-icon .slds-icon {
+    margin-left: 5px;
+    width: 0.8rem;
+    height: 0.8rem;
+    line-height: 0.8;
+}
+.THIS .temp2 .temp2-top .slds-icon{
+    cursor: pointer;
+}
+/* temp2 css end */
+
+
+
+/* c-accordian start */
+.THIS .slds-box.c-accordian {
+    border: none;
+}
+
+.THIS.view-assets-result {
+    background-color: #f5f5f5;
+    box-shadow: 1px 2px 4px rgba(0,0,0,0.2);
+    margin-top: -40px;
+}
+
+.THIS .c-accordian .panel-heading {
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0
+}
+
+.THIS .c-accordian .panel-title {
+    font-size: 28px;
+    position: relative
+}
+
+.THIS .c-accordian .panel-title a {
+    text-decoration: none;
+    background: #f5f5f5;
+    font-size: 24px;
+    padding: 0 20px;
+    position: relative;
+    font-weight: 300;
+    margin-left: 30px;
+    text-transform: capitalize
+}
+
+.THIS .c-accordian .panel-default>.panel-heading+.panel-collapse>.panel-body {
+    border-top-color: #fff;
+    padding: 10px 15px
+}
+
+.THIS .c-accordian .panel-default {
+    border: none;
+}
+
+.THIS .c-accordian h3.panel-title:before {
+    content: "";
+    display: block;
+    border-top: solid 1px #ccc;
+    width: 90%;
+    height: 1px;
+    position: absolute;
+    top: 82%;
+    left: 5%
+}
+
+.THIS .c-accordian .panel-default>.panel-heading,.THIS .c-accordian .inbox-body.no-content-padding {
+    background-color: #f5f5f5
+}
+
+.THIS .c-accordian .panel-heading [data-toggle="collapse"]:after {
+    font-family: 'FontAwesome';
+    content: "";
+    float: right;
+    color: #0071bc;
+    font-size: 34px;
+    line-height: 22px;
+    position: relative;
+    background-color: #fff;
+    top: 20px;
+    right: 0
+}
+
+/* c-accordian end */
+
+
+
+
+
+.THIS .animated.fast {
+    -webkit-animation-duration: .4s;
+    -moz-animation-duration: .4s;
+    -ms-animation-duration: .4s;
+    -o-animation-duration: .4s;
+    animation-duration: .4s;
+}
+.THIS .animated.fadeIn {
+    -webkit-animation-name: fadeIn;
+    -moz-animation-name: fadeIn;
+    -o-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+.THIS .fadeIn {
+    -webkit-animation-name: fadeIn;
+    -moz-animation-name: fadeIn;
+    -o-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+.THIS .animated {
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    -o-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+.THIS .divMessageBox {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.6);
+    z-index: 100000;
+}
+.THIS .divMessageBox .MessageBoxContainer {
+    top: 35%;
+    color: #fff;
+    position: relative;
+    width: 100%;
+    background-color: #232323;
+    background-color: rgba(0,0,0,.8);
+    padding: 20px;
+}
+.THIS .divMessageBox .MessageBoxMiddle {
+    position: relative;
+    left: 20%;
+    width: 60%;
+}
+.THIS .divMessageBox .MessageBoxMiddle .MsgTitle {
+    letter-spacing: -1px;
+    font-size: 24px;
+    font-weight: 300;
+}
+.THIS .divMessageBox .MessageBoxButtonSection {
+    width: 100%;
+    height: 30px;
+}
+.THIS .divMessageBox .MessageBoxButtonSection button {
+    float: right;
+    margin-right: 7px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 14px;
+    font-weight: 700;
+    color:black;
+}
+
+
+/*Independant widget modal start*/
+
+.THIS .slds-modal__content iframe {
+    height: 82vh;
+    border: none;
+}
+.THIS .slds-modal__header{
+    text-align: left;
+}
+.THIS .slds-modal__header.textcenter{
+    text-align: center;
+}
+.THIS .modal-close{
+    position: absolute;
+    right: 0;
+    top: -34px;
+}
+.THIS .modal-independant .slds-modal__container
+{
+    width:95% !important;
+}
+.THIS .modal-independant .asset-type-icon .slds-icon{fill:white !important;}
+
+/*Independant widget modal end*/
+.THIS .modalheight {
+    height: 90vh;
+    overflow: auto!important;
+}
+
+        /* Tooltip text */
+        .THIS .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 130px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        font-weight:bold;
+        padding: 3px 8px 3px 8px;
+    	margin-top: -25px;
+        
+        position: absolute;
+        z-index: 1;
+        }
+        
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .THIS .tooltip:hover .tooltiptext {
+        visibility: visible;
+        }
+        .THIS .maintitle{
+        color:rgb(62, 62, 60) !important;
+        }
+        .THIS .sec-view-assets .disabled{
+        cursor: not-allowed !important;
+        }
+        .THIS .sec-view-assets .disabled .slds-icon{
+        cursor: not-allowed !important;
+        }
+        .THIS .sec-view-assets .asset-type-icon{
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+        }
+        .THIS .CPViewAssetsclickcolor .iconbgcolor .slds-icon{
+        fill: var(--subnavbgcolor) !important;
+        }
+        .THIS .CPViewAssetssearchIcon .slds-icon{
+        fill: white;
+        }
+        .THIS .CPViewAssetsiconcolor .slds-icon{
+        fill: var(--mainnavbgcolor) !important;
+        }
+        .THIS .assets:hover .CPViewAssetsiconcolor .slds-icon{
+        fill: var(--subnavbgcolor) !important;
+        }
+        .THIS .view-assets-container .CPViewAssetsiconcolor
+        {
+        margin-right:5px;
+        }
+        .THIS .iconbgcolor{
+        background-color: #f5f5f5 !important;
+         cursor: pointer;                               
+        }
+        .THIS .iconsize{
+        margin:8px;
+        }
+        .THIS.viewassets .slds-select_container:after {
+        border-top: none; 
+        bottom: 0px;
+        border-left:10px solid transparent !important;
+        border-right:10px solid transparent !important;
+        border-bottom: 10px solid var(--mainnavfontcolor);
+        }
+        .THIS .viewassets .slds-select_container:before {
+        transform:rotate(180deg);
+        margin-top:10px;
+        border:none;
+        }
+        .THIS .viewassets #categoryPicklist option
+        {
+        background:white;
+        color: #333;
+        border: 1px solid gray;
+        }
+        .THIS .viewassets .slds-tabs_default__item.slds-active:after{
+        background-color:rgb(221, 219, 218);
+        }
+        .THIS .viewassets .slds-tabs--default__item:hover:after{
+        background-color:rgb(221, 219, 218);
+        margin-bottom:-1px;
+        }
+        .THIS .animated.fast {
+        -webkit-animation-duration: .4s;
+        -moz-animation-duration: .4s;
+        -ms-animation-duration: .4s;
+        -o-animation-duration: .4s;
+        animation-duration: .4s;
+        }
+        .THIS .animated.fadeIn {
+        -webkit-animation-name: fadeIn;
+        -moz-animation-name: fadeIn;
+        -o-animation-name: fadeIn;
+        animation-name: fadeIn;
+        }
+        .THIS .fadeIn {
+        -webkit-animation-name: fadeIn;
+        -moz-animation-name: fadeIn;
+        -o-animation-name: fadeIn;
+        animation-name: fadeIn;
+        }
+        .THIS .animated {
+        -webkit-animation-duration: 1s;
+        -moz-animation-duration: 1s;
+        -o-animation-duration: 1s;
+        animation-duration: 1s;
+        -webkit-animation-fill-mode: both;
+        -moz-animation-fill-mode: both;
+        -o-animation-fill-mode: both;
+        animation-fill-mode: both;
+        }
+        .THIS .divMessageBox {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0,0,0,.6);
+        z-index: 100000;
+        }
+        .THIS .MessageBoxContainer {
+        top: 35%;
+        color: #fff;
+        position: relative;
+        width: 100%;
+        background-color: #232323;
+        background-color: rgba(0,0,0,.8);
+        padding: 20px;
+        }
+        .THIS .MessageBoxMiddle {
+        position: relative;
+        left: 20%;
+        width: 60%;
+        }
+        .THIS .MessageBoxMiddle .MsgTitle {
+        letter-spacing: -1px;
+        font-size: 24px;
+        font-weight: 300;
+        }
+        .THIS .MessageBoxButtonSection {
+        width: 100%;
+        height: 30px;
+        }
+        .THIS .MessageBoxButtonSection button {
+        float: right;
+        margin-right: 7px;
+        padding-left: 15px;
+        padding-right: 15px;
+        font-size: 14px;
+        font-weight: 700;
+        color:black;
+        }
+        
+        .THIS .view-assets-result .slds-spinner:before {
+        background: gray !important;
+        }
+        .THIS .view-assets-result .slds-spinner__dot-a:before{
+        background: gray !important;
+        }
+        .THIS .view-assets-result .slds-spinner__dot-b:before{
+        background: gray !important;
+        }
+        .THIS .view-assets-result .slds-spinner:after{
+        background: gray !important;
+        }
+        .THIS .view-assets-result .slds-spinner__dot-a:after{
+        background: gray !important;
+        }
+        .THIS .view-assets-result .slds-spinner__dot-b:after{
+        background: gray !important;
+        }
+        .THIS .view-assets-result .spinpos{
+        position: absolute;
+        top: 30px;
+        left: 25px;
+        }
+        .THIS .view-assets-result .divspinner{
+        height: 100%;
+        width: 100%;
+        position: relative;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        min-height:200px;
+        
+        }
+        .THIS .view-assets-container     .asset-col {
+        display: none;
+        float: left;
+        text-align: center;
+        position: relative;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+        }
+        @media only screen and (max-width : 768px) {
+        .THIS .view-assets-container .asset-col:nth-child(-n+3),
+        .THIS .view-assets-container .asset-col:last-child {
+        width: 50%;
+        display: block;
+        }
+        
+        }
+        
+        @media only screen and (min-width : 768px) and (max-width: 991px) {
+        
+        
+        .THIS .view-assets-container .asset-col:nth-child(-n+3),
+        .THIS .view-assets-container .asset-col:last-child {
+        width: 25%;
+        display: block;
+        }
+        
+        }
+        
+        @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+        
+        
+        .THIS .view-assets-container .asset-col:nth-child(-n+3),
+        .THIS .view-assets-container .asset-col:last-child {
+        width: 25%;
+        display: block;
+        }
+        }
+        
+        @media only screen and (min-width : 992px) and (max-width: 1199px) {
+        
+        
+        .THIS .view-assets-container .asset-col:nth-child(-n+4),
+        .THIS .view-assets-container .asset-col:last-child {
+        width: 20%;
+        display: block;
+        }
+        }
+        
+        @media only screen and (min-width : 1200px) and (max-width: 1440px) {
+        
+        
+        .THIS .view-assets-container .asset-col:nth-child(-n+5),
+        .THIS .view-assets-container .asset-col:last-child {
+        width: 16.666%;
+        display: block;
+        }
+        }
+        
+        @media only screen and (min-width: 1441px) {
+        
+        
+        .THIS .view-assets-container .asset-col:nth-child(-n+7),
+        .THIS .view-assets-container .asset-col:last-child {
+        width: 12.5%;
+        display: block;
+        }
+        }
+        .THIS .view-assets-result .min-iconcolor .slds-icon-text-error {
+        fill: var(--mainnavbgcolor);
+        }
+        .THIS .modal-independant .asset-type-icon .slds-icon{fill:white !important;}
+        .THIS .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+        }
+        .THIS .slds-box{
+         padding:9px; 
+         padding-top: 1px;
+      	}
+        .THIS .btncolor .slds-icon.slds-icon-text-default.slds-icon_small {
+    fill: #fff;}
+ .THIS .tosModal .slds-modal__container {
+    max-width: 100%;
+    width: 100%;
+    height: 100vh;
+    padding: 10px;
+}
+.THIS .tosModal .slds-modal__container iframe {
+    height: calc(100vh - 125px);}
+ .THIS .modal-independant .modal-xlg .slds-modal__container {
+    width: calc( 100% - 30px ) !important;
+    height: calc( 100vh - 25px ) !important;
+    padding: 0;
+    margin-top: 5px;
+}         
+ .THIS .slds-modal__content iframe .modal-body {
+    overflow-y:auto !important;
+}                                                                                
+/*.THIS .view-assets-result {
+   display:none !important;                                                                                     
+ }*/

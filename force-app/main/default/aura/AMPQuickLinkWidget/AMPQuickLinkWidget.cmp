@@ -1,0 +1,83 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" controller="AMPQuickLinkWidgetController" >
+    <ltng:require scripts="{!$Resource.jQuery351}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:attribute name="design" type="String"/>
+    <aura:attribute name="mainnavbgcolor" type="String" default="#ccc"/>
+    <aura:attribute name="mainnavfontcolor" type="String" default="black"/>
+    <aura:attribute name="install" type="string" default=""/>
+    <aura:attribute name="userid" type="String" default="1763"/>
+    <aura:attribute name="quicklinkdesign" type="String" default="1"/>
+    <aura:attribute name="dependantwidget" type="String" default="community"/>
+    <ltng:require styles="{!$Resource.slick}" />
+    <ltng:require styles="{!$Resource.slicktheme}" />
+    <ltng:require styles="{!$Resource.custom}" />
+    <aura:attribute name="createuserviasso" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="isOpen" type="Boolean" default="false"/>
+    <aura:attribute name="tosContent" type="String" default="Please accept the Terms of Service to proceed"/>
+    <aura:attribute name="unauthorized" type="String"/>
+    <aura:attribute name="tosredirecturl" type="String"/>
+    <aura:attribute name="iframesrc" type="String"/>
+     <aura:handler name="authorizedEvent" event="c:modalEvent" action="{!c.showViewAsset}"/>
+    {!v.design}
+    {!v.unauthorized}
+    
+    <div>
+        <aura:if isTrue="{!v.createuserviasso}">
+            <aura:if isTrue="{!v.isOpen}">
+                
+                <!--###### MODAL BOX Start######--> 
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open tosModal">
+                    <div class="slds-modal__container">
+                        <!-- ###### MODAL BOX HEADER Start ######-->
+                        <header class="slds-modal__header textcenter">
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Terms of Service</h2>
+                        </header>
+                        <!--###### MODAL BOX BODY Part Start######-->
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                           <!-- <p><b>{!v.tosContent}</b>
+                            </p>-->
+                            <iframe src="{!v.iframesrc}" width="100%" height="100%" style="{}"/>
+                        </div>
+                        <!--###### MODAL BOX FOOTER Part Start ######-->
+                        <footer class="slds-modal__footer">
+                          <!--<lightning:button variant="brand" 
+                                              label="I agree to the Terms of Service"
+                                              title="I agree to the Terms of Service"
+                                              onclick="{! c.redirectTosUrl }"/>-->
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open" style="background-color: #000000e6;"></div>
+                <!--###### MODAL BOX Part END Here ######-->
+                
+            </aura:if>
+        </aura:if>
+    </div>
+    <div class="demo-only demo-modal modal-independant" style="display:none;">
+        <section  role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-section slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading" class="slds-text-heading_medium slds-hyphenate" style="display:inline-block;"></h2>
+                    <button class="slds-button modal-close" onclick="{!c.modalclose}"><lightning:icon iconName="utility:close" class="asset-type-icon" variant="close" size="small"></lightning:icon></button>
+                    <div id="amp-select" style="display:none;float:right;">
+                        <div class="slds-form-element__control">
+                            <div class="slds-select_container">
+                                <select id="selectvalues" class="slds-select" onchange="{!c.handleMenuSelect}">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" > 
+                    <iframe id="iframe-modal" aura:id="iframe-modal-independant" src="" width="100%"></iframe>
+                </div>
+                <div id="modal-footer-send" style="display:none;">
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_brand" Value="Send" onclick="{!c.sendEmail}" label="Send">Send</button>
+                    </footer>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+</aura:component>

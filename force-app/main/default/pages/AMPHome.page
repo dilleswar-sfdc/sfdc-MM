@@ -1,0 +1,66 @@
+<apex:page title="AMP Application" showHeader="true" sidebar="false" controller="AMPHomePageController" tabStyle="AMP__tab">
+    <apex:form id="theForm" >
+        <apex:actionFunction name="clearUserSettings" id="clearUserSettings" action="{!clearUserSettings}" reRender="theForm" status="status" />
+        <apex:actionFunction name="getAMPHomeUrl" id="getAMPHomeUrl" action="{!getAMPHomeUrl}" reRender="theForm" status="status">
+            <apex:param name="whatSection" assignTo="{!whatSection}" value="home"/>
+        </apex:actionFunction>
+        <script language="JavaScript">     
+        	function confirmRemoveAll() {
+                if(confirm('Are you sure you want to logout?')) {
+                    clearUserSettings();
+                }
+                return false;
+            }
+            function showLogout()
+            {
+                document.getElementsByClassName("logout-btn")[0].style.display = 'block'
+            }
+        	window.onload = function() { getAMPHomeUrl();}
+    	</script>
+        <div style="position: relative;">
+            <div class="logout-btn" style="display:none;" align="right" draggable="false" >
+                <apex:commandButton value="Logout" onclick="return confirmRemoveAll();"/>
+            </div>
+            <iframe src="{!homePageURL}" onload="showLogout();"  frameborder="0" scrolling="true" height="800" id="itarget" title="Content" width="100%" ></iframe>
+            <apex:outputpanel >
+                <apex:actionstatus id="status">
+                    <apex:facet name="start">
+                        <div class="waitingSearchDiv" id="00Bd0000003nrlY_loading" style="background-color: #fbfbfb;
+                                                                                          opacity:0.65;height: 100%; width: 100%;">
+                            <div class="waitingHolder" style="width: 100%; top: 20%;">
+                                <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                                <span class="waitingDescription">Please wait...</span>
+                            </div>
+                        </div>
+                    </apex:facet>
+                </apex:actionstatus>
+            </apex:outputpanel>
+        </div>
+    </apex:form> 
+    <style>
+        .logout-btn {
+        position: absolute;
+        z-index: 1;
+        right: 20px;
+        margin-top: 10px;
+        }
+        .logout-btn .btn {
+        background: none;
+        color: #fff;
+        background-color: #337ab7;
+        border-color: #2e6da4;
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        }
+    </style>
+    <script>
+    
+    </script>
+</apex:page>

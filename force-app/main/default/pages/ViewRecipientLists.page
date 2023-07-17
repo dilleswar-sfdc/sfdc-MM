@@ -1,0 +1,30 @@
+<apex:page standardController="AMP_Recipient_List__c"  extensions="ShowRecipientListController" action="{!search}">
+   <apex:form style="padding-top:7px" >
+        <div style="position: relative;">
+        <apex:pageBlock mode="edit" id="block">
+            <apex:pageBlockSection title="Recipient Lists" id="resultsBlock" columns="1">
+                <apex:pageMessages />            
+                <apex:outputText rendered="{!!rendered}" value="No records to display." styleClass="x-grid-empty" />
+                <apex:pageBlockTable value="{!rlist}" var="c" rendered="{!rendered}" styleClass="x-grid3-body" >
+                <apex:column headerValue="List Name" >
+                    <apex:outputLink value="{!hostURL}/{!c.Id}" title="Click to view detail">{!c.Name}</apex:outputLink> 
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:outputpanel >
+            <apex:actionstatus id="status">
+                <apex:facet name="start">
+                    <div class="waitingSearchDiv" id="00Bd0000003nrlY_loading" style="background-color: #fbfbfb;
+                           opacity:0.65;height: 100%; width: 100%;">
+                            <div class="waitingHolder" style="width: 100%; top: 50%;">
+                            <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                            <span class="waitingDescription">Please wait...</span>
+                        </div>
+                    </div>
+                </apex:facet>
+            </apex:actionstatus>
+        </apex:outputpanel>
+        </div>
+    </apex:form>
+</apex:page>

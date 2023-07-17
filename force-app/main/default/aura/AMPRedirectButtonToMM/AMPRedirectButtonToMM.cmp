@@ -1,0 +1,47 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes,flexipage:availableForAllPageTypes,lightningcommunity:allowInRelaxedCSP" access="global" controller="ampRedirectButtonToMM">
+    
+    <aura:attribute name="loadedText" type="String" default=""/>
+    <aura:attribute name="Text" type="String" default="RedirectToMM"  access="global"/>
+    <aura:attribute name="Width"  type="Integer" default="150"  access="global"/>
+    <aura:attribute name="Height"  type="Integer" default="50"  access="global"/>
+    <aura:attribute name="color"  type="String" default="Yellow" access="global" />
+    <aura:attribute name="Backgroundcolor"  type="String" default="black" access="global" />
+    <aura:attribute name="tosCheck"  type="Boolean" default="false" />
+    <aura:attribute name="install" type="string" default=""/>
+    <aura:attribute name="sessionId" type="string" default=""/>
+    <aura:attribute name="iframesrc" type="String"/>
+    <aura:attribute name="buttonClick" type="Boolean" default="true"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <button  onclick="{! c.handleClick }" aura:id="buttoneset" title="{!'click on'+' '+v.loadedText}" >
+        <b class='text-trim'>{!v.loadedText}</b>
+    </button>
+    <div>
+    <aura:if isTrue="{!v.tosCheck}">
+            <!--###### MODAL BOX Start######--> 
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open tosModal">
+                <div class="slds-modal__container">
+                    <!-- ###### MODAL BOX HEADER Start ######-->
+                    <header class="slds-modal__header textcenter">
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Terms of Service</h2>
+                    </header>
+                    <!--###### MODAL BOX BODY Part Start######-->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <!--<p><b>{!v.tosContent}</b>
+                            </p>-->
+                        <iframe src="{!v.iframesrc}" width="100%" height="100%" style="{}"/>
+                    </div>
+                    <!--###### MODAL BOX FOOTER Part Start ######-->
+                    <footer class="slds-modal__footer">
+                        <!--<lightning:button variant="brand" 
+                                              label="I agree to the Terms of Service"
+                                              title="I agree to the Terms of Service"
+                                              onclick="{! c.redirectTosUrl }"/>-->
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open" style="background-color: #000000e6;"></div>
+            <!--###### MODAL BOX Part END Here ######-->
+        
+    </aura:if>
+        </div>
+</aura:component>

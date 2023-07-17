@@ -1,0 +1,750 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" controller="AMPQuickLinkWidgetController" >
+    <ltng:require scripts="{!$Resource.jQuery351}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="src" type="String"/>
+    <aura:attribute name="title" type="String"/>
+    <aura:attribute name="mainnavbgcolor" type="String" default="#ccc"/>
+    <aura:attribute name="mainnavfontcolor" type="String" default="black"/>
+    <aura:attribute name="opportunityurl" type="String" default="black"/>
+    <aura:attribute name="install" type="string" default="https://dvl-sf-sso.amp.vg"/>
+    <aura:attribute name="userid" type="String" default="1763"/>
+    <aura:attribute name="dependantwidget" type="String" default="community"/>
+    <aura:attribute name="isoverridesalesforce" type="Boolean" default="true"/>
+    <ltng:require styles="{!$Resource.slick}" />
+    <ltng:require styles="{!$Resource.slicktheme}" />
+    <ltng:require styles="{!$Resource.custom}" />
+    <aura:attribute name="language" type="String" default="English"/>
+    <aura:attribute name="colorData" type="Object" />
+    <aura:attribute name="noData" type="Boolean" default="false"/>
+    <aura:attribute name="errorMsg" type="String" default="Sorry! We could not find any data to show you."/>
+      	
+    <aura:if isTrue="{!v.noData}">
+        {!v.errorMsg}
+        <aura:set attribute="else">
+    <div class="actionbutton bggray">
+        <div class="quicklinkdesignbutton2" style="background-color:#fff; position:relative;">
+            <div class="demo-only divspinner">
+                <div role="status" class="slds-spinner slds-spinner_small spinpos">
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+                <div style="position: absolute;top: 10px;left: 50px;font-size: 25px;">
+                    Loading...
+                </div>
+            </div>
+            <div class="quicklinkdesign2body" style="display:none;">
+                
+                <div class="slds-grid slds-grid--align-center slds-wrap" data-aura-rendered-by="679:477;a">
+                    <div class="qgrid grid_helpmesell slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="107:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="helpmesell" style="">
+                            <span id="src" title="Help Me Sell" style="display:none;">{!v.install}&nbsp;clean#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:moneybag" variant="moneybag" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption">
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Help Me Sell</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="qgrid grid_marketingcampaign slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="131:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="marketingcampaign" title="Click to get help for marketing campaign" style="">
+                            <span id="src" title="Marketing Campaign" style="display:none;">{!v.install}&nbsp;clean#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:announcement" variant="announcement" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption">
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Marketing Campaign</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="qgrid grid_socialcampaign slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="150:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="socialcampaign" title="Click to get help for social campaign" style="">
+                            <span id="src" title="Social Campaign" style="display:none;">{!v.install}&nbsp;clean#manage/campaigns/socialdrip</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <div class="fbIcon">f</div>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption">
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Social Campaign</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="qgrid grid_viewassets slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="174:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="viewassets" title="Click to view assets" style="">
+                            <span id="src" title="View Assets" style="display:none;">{!v.install}&nbsp;clean#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:file" variant="file" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption">
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">View Assets</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="qgrid grid_manageprospects slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="198:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="manageprospects" title="Click to manage prospects" style="">
+                            <span id="src" title="Manage Prospects" style="display:none;">{!v.install}&nbsp;clean#connections/contacts</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:groups" variant="groups" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption">
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Manage Prospects</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="qgrid grid_reports slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="221:477;a">
+                        <div class="clearfix design2" id="reports" style="">
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:metrics" class="iconcolor" variant="metrics" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption">
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Reports</h5>
+                                        <div class="datalisting">
+                                            <ul class="lists">
+    
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                </div>
+                    <div class="qgrid grid_helpmemarket slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="245:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="helpmemarket" style="">
+                            <a href="javascript:void(0);" class="btndetails">
+                                <span id="src" title="Help Me Market" style="display:none;">{!v.install}&nbsp;clean#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1</span>
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:announcement" variant="announcement" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption">
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Help Me Market</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                </div>
+                    <div class="qgrid grid_helpmebuildbrand slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="269:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="helpmebuildbrand" style="">
+                            <a href="javascript:void(0);" class="btndetails">
+                                <span id="src" title="Help Me Build Brand" style="display:none;">{!v.install}&nbsp;clean#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1</span>
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:announcement" variant="announcement" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption">
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Help Me Build Brand</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                </div>
+                    <div class="qgrid grid_trainingcertification slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="293:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="trainingcertification" style="">
+                            <span id="src" title="Training and certification" style="display:none;">{!v.install}&nbsp;clean#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:frozen" variant="frozen" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption">
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Training and certification</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                </div>
+                    <div class="qgrid grid_productpromotion slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="317:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="productpromotion" style="">
+                            <span id="src" title="Product Promotions" style="display:none;">{!v.install}&nbsp;clean#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:announcement" variant="announcement" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption">
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Product Promotions</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                </div>
+                    <div class="qgrid grid_create slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="344:477;a">
+                        <div class="clearfix design2" id="create" style="">
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:new" variant="new" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption">
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Create</h5>
+                                        <div class="datalisting">
+                                            <ul style="display:block;">
+                                                <li><a href="{!v.install+'&nbsp;clean#connections/contacts/create'}">Leads (0)</a></li>
+                                                <li><a href="{!v.install+'&nbsp;clean#manage/opportunity-records'}">Opportunities o (o DZD)</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                </div>
+                    <div class="qgrid grid_registerleads slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="371:477;a">
+                        <div class="clearfix design2" id="registerleads" style="">
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:groups" variant="groups" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Register Leads</h5>
+                                        <!--<p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>-->
+                                        <div class="datalisting">
+                                            <ul style="display:block;">
+                                                <li><a href="{!v.install+'&nbsp;clean#manage/leads/leadregistered'}">Registered (0)</a></li>
+                                                <li><a href="{!v.install+'&nbsp;clean#manage/leads/leadregistered/approved'}">Approved (0)</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                </div>
+                    <div class="qgrid grid_managemdffunds slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="401:477;a">
+                        <div class="clearfix design2 " id="managemdffunds" style="">
+                            <span id="src" title="MDF Funds" style="display:none;">{!v.install}&nbsp;clean#manage/mdf/funds</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:currency"  variant="currency" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">MDF Funds</h5>
+                                        <!--<p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>-->
+                                        <div class="datalisting">
+                                            <ul style="display:block;">
+                                                <li><a>Assigned (0 USD)</a></li>
+                                                <li><a>Approved (0 USD)</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                </div>
+                    <div class="qgrid grid_gettrained slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="425:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="gettrained" style="">
+                            <span id="src" title="Get Trained" style="display:none;">{!v.install}&nbsp;clean#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:notebook" variant="notebook" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Get Trained</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="This is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                </div>
+                    <div class="qgrid grid_sendemailcampaign slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="449:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="sendemailcampaign" style="">
+                            <span id="src" title="Send Email Campaign" style="display:none;">{!v.install}&nbsp;clean#communicate/email/action/compose</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:email" variant="email" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Send Email Campaign</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                </div>
+                    <div class="qgrid grid_manageassets slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="473:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="manageassets" style="">
+                            <span id="src" title="Manage Assets" style="display:none;">{!v.install}&nbsp;clean#setup/templates/templates</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:standard_objects"  variant="standard_objects" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Manage Assets</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                </div>
+                    <div class="qgrid grid_managewebstats slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="497:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="managewebstats" style="">
+                            <span id="src" title="Manage Web Stats" style="display:none;">{!v.install}&nbsp;clean#manage/externaltracking/sites</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:world" variant="world" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Manage Web Stats</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                </div>
+                    <div class="qgrid grid_nurtureprospects slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="521:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="nurtureprospects" style="">
+                            <span id="src" title="Nurture Prospects" style="display:none;">{!v.install}&nbsp;clean#manage/campaigns/drip</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:rules" class="tilticon" variant="rules" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Nurture Prospects</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                </div>
+                    <div class="qgrid grid_managesocial slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="540:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="managesocial" style="">
+                            <span id="src" title="Manage Social" style="display:none;">{!v.install}&nbsp;clean#manage/campaigns/socialdrip</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                        <div class="fbIcon">f</div>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Manage Social</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                </div>
+                    <div class="qgrid grid_createprintasset slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="560:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="createprintasset" style="">
+                            <span id="src" title="Create Print Asset" style="display:none;">{!v.install}&nbsp;clean#collateral/pdf</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <div>
+                                                <lightning:icon iconName="doctype:pdf" variant="Pdf" size="large"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Create Print Asset</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                </div>
+                    <div class="qgrid grid_communicatewithprospects slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="584:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="communicatewithprospects" style="">
+                            <span id="src" title="Communicate With Prospects" style="display:none;">{!v.install}&nbsp;clean#communicate/email/action/compose</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:email" variant="email" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Communicate With Prospects</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                </div>
+                    <div class="qgrid grid_managecontacts slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="608:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="managecontacts" style="">
+                            <span id="src" title="Manage Contacts" style="display:none;">{!v.install}&nbsp;clean#connections/contacts</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:groups" variant="groups" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Manage Contacts</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                </div>
+                    <div class="qgrid grid_createpresentation slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="628:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="createpresentation" style="">
+                            <span id="src" title="Create Presentation" style="display:none;">{!v.install}&nbsp;clean#collateral/presentation</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="doctype:ppt" variant="Pdf" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Create Presentation</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                </div>
+                    <div class="qgrid grid_watchvideo slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="652:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="watchvideo" style="">
+                            <span id="src" title="Watch Video" style="display:none;">{!v.install}&nbsp;clean#widgets/quicklink-widgets/internal-playbook-grid/helpmesell/helpmesell_company/2/188/1</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:video" variant="video" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Watch Video</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                </div>
+                    <div class="qgrid grid_importcontacts slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="676:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="importcontacts" style="">
+                            <span id="src" title="Import Contacts" style="display:none;">{!v.install}&nbsp;clean#connections/import</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:groups" variant="groups" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Import Contacts</h5>
+                                        <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="qgrid grid_createopportunity slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="700:477;a">
+                     <div class="clearfix design2  linkurl create-opportunity" id="createopportunity" style="">
+                            <span id="src" title="Create Opportunity" style="display:none;"></span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template  ">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:new" variant="new" size="large" title="Click to create opportunity" />
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption">
+ 										<h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to create opportunity">Create Opportunity</h5>
+                                      <!--  <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>-->
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="qgrid grid_registeradeal slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="676:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="registeradeal" style="">
+                            <span id="src" title="Register a deal" style="display:none;">{!v.install}&nbsp;clean#manage/leads/leadregistered/action/create</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:adduser" variant="adduser" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="Click to view tools for selling your products">Import Contacts</h5>
+                                     <!--   <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>-->
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                    </div>
+                   <div class="qgrid grid_createmdfrequest slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="676:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="createmdfrequest" style="">
+                            <span id="src" title="Create Request" style="display:none;">{!v.install}&nbsp;clean#manage/mdf/funds/action/?action=create</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:currency" variant="adduser" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="">Create Request</h5>
+                                     <!--   <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>-->
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="qgrid grid_marketingcampaignsreport slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="676:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="marketingcampaignsreport" style="">
+                            <span id="src" title="Campaigns Report" style="display:none;">{!v.install}&nbsp;clean#manage/mdf/funds/action/?action=create</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:currency" variant="adduser" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="">Campaigns Report</h5>
+                                     <!--   <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>-->
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="qgrid grid_externalquicklink1 slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="676:477;a">
+                        <div class="clearfix design2 externalquicklink" id="externalquicklink1" style="">
+                            <span id="src" title="ExternalQuickLink1" style="display:none;"></span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:link" variant="link" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="">ExternalQuickLink1</h5>
+                                     <!--   <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>-->
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="qgrid grid_externalquicklink2 slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="676:477;a">
+                        <div class="clearfix design2 externalquicklink" id="externalquicklink2" style="">
+                            <span id="src" title="ExternalQuickLink2" style="display:none;"></span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:link" variant="link" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="">ExternalQuickLink2</h5>
+                                     <!--   <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>-->
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="qgrid grid_externalquicklink3 slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="676:477;a">
+                        <div class="clearfix design2 externalquicklink" id="externalquicklink3" style="">
+                            <span id="src" title="ExternalQuickLink3" style="display:none;"></span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:link" variant="link" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="">ExternalQuickLink3</h5>
+                                     <!--   <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>-->
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="qgrid grid_externalquicklink4 slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="676:477;a">
+                        <div class="clearfix design2 externalquicklink" id="externalquicklink4" style="">
+                            <span id="src" title="ExternalQuickLink4" style="display:none;"></span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:link" variant="link" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="">ExternalQuickLink4</h5>
+                                     <!--   <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>-->
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="qgrid grid_externalquicklink5 slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="676:477;a">
+                        <div class="clearfix design2 externalquicklink" id="externalquicklink5" style="">
+                            <span id="src" title="ExternalQuickLink5" style="display:none;"></span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:link" variant="link" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="">ExternalQuickLink5</h5>
+                                     <!--   <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>-->
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="qgrid grid_externalquicklink6 slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="676:477;a">
+                        <div class="clearfix design2 externalquicklink" id="externalquicklink6" style="">
+                            <span id="src" title="ExternalQuickLink6" style="display:none;"></span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:link" variant="link" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="">ExternalQuickLink6</h5>
+                                     <!--   <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>-->
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                    </div>
+					<div class="qgrid grid_eventscalendar slds-p-around--small slds-grow slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12" data-aura-rendered-by="676:477;a">
+                        <div class="clearfix design2 smallbtnclick" id="eventscalendar" style="">
+                            <span id="src" title="eventscalendar" style="display:none;">{!v.install}&nbsp;clean#manage/calendar/eventscalendar?isquickllink=true</span>
+                            <a href="javascript:void(0);" class="btndetails">
+                                <section class="template">
+                                    <div class="temp-top">
+                                        <div class="temp-ico">
+                                            <lightning:icon iconName="utility:monthlyview" variant="monthlyview" size="large"/>
+                                        </div>
+                                    </div>
+                                    <div class="temp-caption"> 
+                                        <h5 class="btnheader" rel="tooltip" data-placement="bottom" data-original-title="">Event Calendar</h5>
+                                     <!--   <p class="btninfo" rel="tooltip" data-placement="bottom" data-original-title="THis is the help me sell description">THis is the help me sell description</p>-->
+                                    </div>
+                                </section>
+                            </a>
+                        </div>
+                    </div>
+               </div>
+                
+                
+                 
+            </div>
+            <div class="demo-only demo-modal modal-independant" style="display:none;">
+                <section  role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-section slds-modal slds-fade-in-open slds-modal_large">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <h2 id="modal-heading" class="slds-text-heading_medium slds-hyphenate" style="display:inline-block;"></h2>
+                            <button class="slds-button modal-close" onclick="{!c.modalclose}"><lightning:icon iconName="utility:close" class="asset-type-icon" variant="close" size="small"></lightning:icon></button>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" > 
+                            <iframe id="iframe-modal" aura:id="iframe-modal-independant" src="" width="100%"></iframe>
+                        </div>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="demo-only" id="quicklinkdesign2modal" style="display:none;">
+        <section  role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-section slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{!v.title}</h2>
+                    <button class="slds-button modal-close" id="quicklinkdesign2close">
+                        Close
+                    </button>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" > 
+                    <iframe src="{!v.src}" width="100%"></iframe>
+                </div>
+                <footer class="slds-modal__footer"> 
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+        </aura:set>
+    </aura:if>
+    
+    
+</aura:component>

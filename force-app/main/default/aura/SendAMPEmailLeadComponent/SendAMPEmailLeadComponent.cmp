@@ -1,0 +1,16 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" controller="AMPSObjectController" access="global" >
+    <ltng:require scripts="{!join(',',$Resource.jQuery351)}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    <ltng:require styles="{!$Resource.quickaction}" />
+    <aura:attribute name="lead" type="Lead"/>
+    <aura:attribute name="communityasset" type="string"/>
+    <aura:attribute name="modalopen" type="boolean" default="false"/>
+    <aura:attribute name="iconleft" type="string"/>
+    <aura:attribute name="icondisplay" type="string" default="none"/>
+    
+    <div  class="MindMatrixSendAMPEmail" aura:id="syncwithamp" style="position:relative;">
+        <!--<lightning:icon aura:id="sendAmpEmailCloseIconId" class="sendAmpEmailCloseIcon" 
+                        style="{!'left:'+v.iconleft+';display:'+v.icondisplay}" iconName="utility:close" alternativeText="Utility close" title="close" onclick="{!c.modalclose}"/>-->
+        {!v.communityasset}
+    </div>
+    
+</aura:component>

@@ -1,0 +1,19 @@
+h1 {
+    color : red;
+}
+
+#myClass {
+    color : blue;
+}
+
+.dont_show_modal .slds-modal__container{
+    display:none;
+}
+
+.override-slds-container-sendampemail .slds-modal__container{
+    width: 100%;
+    max-width: 90%;
+}
+.override-slds-container-sendampemail .slds-modal__container .slds-modal__close{
+    margin-right:25px;
+}

@@ -1,0 +1,92 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global" controller="AMPSObjectController">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="page" type="Integer" default="0"/>
+    <aura:attribute name="currentpage" type="Integer" default="1"/>
+    <aura:attribute name="pages" type="Integer" default="0"/>
+    <aura:attribute name="pagesize" type="Integer" default="10"/>
+    <aura:attribute name="rowcount" type="String" />
+    <aura:attribute name="Boolean" type="Boolean"/>
+    <aura:attribute name="allOpportunity" type="Object"/>
+    <aura:attribute name="paginationList" type="Object"/>
+   
+    <div class="slds-page-header">
+        <div class="slds-media">
+            <div class="slds-media__figure">
+                <lightning:icon iconName="action:new_opportunity" alternativeText="new_opportunity" title="new_opportunity" size="x-small" />
+            </div>
+            <div class="slds-media__body">
+                <div class="slds-page-header__name">
+                    <div class="slds-page-header__name-title">
+                        <h1>
+                            <span class="slds-page-header__title slds-truncate" title="Opportunities">Opportunities</span>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <aura:if isTrue="{!v.Boolean}">
+        <div>
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Opportunity Name">Opportunity Name</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Account Name">Account Name</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Stage">Stage</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Amount">Amount</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="CreatedDate">CreatedDate</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.paginationList}" var="item">
+                        <tr class="slds-hint-parent">
+                            <th data-label="Opportunity Name" scope="row">
+                                <div class="slds-truncate" title="">
+                                    <a href="{!'/one/one.app?#/sObject/'+ item.Id + '/view'}" tabindex="-1">{!item.Name}</a>
+                                </div>
+                            </th>
+                            <td data-label="Account Name">
+                                <div class="slds-truncate" title="">{!item.Account.Name}</div>
+                            </td>
+                            <td data-label="Stage">
+                                <div class="slds-truncate" title="">{!item.StageName}</div>
+                            </td>
+                            <td data-label="Amount">
+                                <div class="slds-truncate" title="">{!item.Amount}</div>
+                            </td>
+                            <td data-label="CreatedDate">
+                                <lightning:formattedDateTime value="{!item.CreatedDate}"/>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+        <div class="slds-page-header" style="height: 60px;">
+            <aura:if isTrue="{!v.pages != 0}"> 
+                <div class="assetpaginate" style="float:right;">
+                    <lightning:button disabled="{!v.page == 0}" variant="brand" label="&lt;" onclick="{! c.prev }" />
+                    <lightning:button title="{!'Total of '+(v.rowcount)+' record in '+v.pages+' pages'}" class="{!'page-'+v.page}" disabled="{!and((v.page == 0) ,(v.pages == '0'))}" variant="brand" label="{!v.currentpage}" />
+                    <lightning:button disabled="{!(v.page == (v.pages-1)) || (v.pages == '0')}" variant="brand" label="&gt;" onclick="{! c.next }" />                    
+                </div>
+            </aura:if>
+    	</div>
+        <aura:set attribute="else">
+            <div class="slds-page-header">
+                <span>Sorry! We could not find any opportunities to show you.</span>
+            </div>
+        </aura:set>
+  </aura:if>
+    
+    
+</aura:component>

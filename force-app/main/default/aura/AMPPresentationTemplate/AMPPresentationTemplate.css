@@ -1,0 +1,41 @@
+.THIS .text-trim{
+    width: 100%;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.THIS.label-default{
+    padding: .2em .6em .3em;
+    background-color: #999;
+    font-size: 75%;
+    line-height: 1;
+    color: #fff;
+    display: inline;
+    text-align: center;
+    border-radius: .25em;
+}
+.THIS .dropup{
+    display: block;
+    position: absolute;
+    bottom: 15px;
+    right: 0px;
+    box-shadow: 1px 1px 5px #dddddd;
+    background: white;
+    border: 1px solid #dddddd;
+}
+.THIS .dropup .dropdown-menu li{
+    padding:5px;
+}
+.THIS .toggle{
+    display:none;
+}
+.THIS .inactive{
+    display:none;
+}
+.THIS .blue{
+    color:#25B1EF !important;
+}
+.THIS .slds-form-element__label.slds-no-flex {
+    display:none;
+}

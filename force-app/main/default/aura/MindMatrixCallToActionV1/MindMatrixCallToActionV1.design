@@ -1,0 +1,11 @@
+<design:component>
+ <design:attribute name="iconColor" label="iconColor" description="Enter iconColor " />
+ <design:attribute name="iconSize" label="iconSize" description="Enter iconSize " />
+<design:attribute name="iconName" label="IconName" description="Enter IconName " />   
+<design:attribute name="sourceUrl" label="SourceUrl" description="Enter source url" />   
+<design:attribute name="Text" label="Text" description="Enter text" />
+<design:attribute name="description" label="description" description="Enter description" />
+<design:attribute name="RedirectionOption" datasource="Popup,Enablement,ExternalRedirection,InternalRedirection" description="select redirection option"/>  
+<design:attribute name="Properties" label="properties" description="Enter properties" />
+<design:attribute name="addCleanUrl" label="ShowNavigation" description="This is by default false, and if false, the MM product will not show the navigation menu. This setting controls only first-time user creation, once the navigation enable we can't disable it from SFDC we have to contact to MindMatrix Admin"/>
+</design:component>

@@ -1,0 +1,134 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" controller="AMPLinearPlaybookWidgetController" >
+    <ltng:require scripts="{!join(',', $Resource.jQuery351, $Resource.slickv1)}" afterScriptsLoaded="{!c.scriptLoaded}"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="mainnavbgcolor" type="String" default="#ccc"/>
+    <aura:attribute name="mainnavfontcolor" type="String" default="black"/>
+    <aura:attribute name="install" type="string" default="https://dvl-sf-sso.amp.vg"/>
+    <aura:attribute name="userid" type="String" default="1763"/>
+    <aura:attribute name="subnavbgcolor" type="String"/>
+    <aura:attribute name="src" type="String"/>
+    <aura:attribute name="title" type="String"/>
+    <aura:attribute name="companyname" type="String"/>
+    <aura:attribute name="username" type="String"/>
+    <aura:attribute name="tabs" type="Object"/>
+    <aura:attribute name="progressdata" type="Object"/>
+	<aura:attribute name="onboardingdata" type="Object"/>  
+    <aura:attribute name="sliderlength" type="Integer" default="1" access="global"/>
+    <aura:attribute name="dependantwidget" type="String" default="community"/>
+    <ltng:require styles="{!$Resource.slick}" />
+    <ltng:require styles="{!$Resource.slicktheme}" />
+    <ltng:require styles="{!$Resource.custom}" />
+    <aura:attribute name="unauthorized" type="String"/>
+    <aura:attribute name="createuserviasso" type="Boolean" default="false" access="global"/>
+     <aura:handler name="authorizedEvent" event="c:modalEvent" action="{!c.showViewAsset}"/>
+	{!v.unauthorized}
+   
+    <div class="inject"></div>
+    <div class="linear-playbook-widget slds-size--12-of-12" style="position:relative;">
+        <div class="demo-only maindivspinner" style="top: 25px;">
+            <div role="status" class="slds-spinner slds-spinner_small spinpos">
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+            <div style="position: absolute;top: 10px;left: 50px;font-size: 25px;">
+                Loading...
+            </div>
+        </div>
+        <div id="stageTemplate" style="display:none;">
+            <div id="originaltemplateid" style="display:none;"></div>
+            <section class="linear-responsive" style="width:100% !important;">
+                <aura:iteration items="{!v.tabs}" var="tab" start="0">
+                    <div>
+                        <div class="six-steps" style="display:inline;" id="{!tab.id}">
+                            <div class="{!'slds-size--12-of-12 playbookstage '+v.progress.progressclass}">
+                                
+                                <section class="{!(tab.checkwholestage) ? 'completed stagedata' : 'stagedata'}">
+                                    <span style="display:none;" class="duedays">{!tab.duedays}</span>
+                                    <div class="header">
+                                        <div class="vh-wrap">
+                                            <div class="vh-center" title="{!tab.stagenamelabel}">
+                                                <span class="number stageindex">{!tab.stageindextext}</span>
+                                                <span class="stagename">{!tab.stagename}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <aura:if isTrue="{!(tab.checkwholestage)}">
+                                            <div class="complete-state"><lightning:icon iconName="utility:check" size="large" variant="check"/></div>
+                                        </aura:if>
+                                        <ul class="stagedetails">
+                                            <aura:iteration items="{!tab.steps}" var="step" start="0">
+                                                <li id="{!step.id}" class="stepdetails" rel="tooltip" data-placement="right" data-original-title="{!step.text}">
+                                                    <aura:if isTrue="{!(step.ischeck)}">
+                                                        <span class="checkicon">
+                                                            <lightning:icon class="checkcolor" iconName="utility:check" size="xx-small" variant="check"/>
+                                                        </span>
+                                                        <span class="stepdetails-txt" style="{!'color:'+v.subnavbgcolor+' !important'}">{!step.text}</span>
+                                                        <aura:set attribute="else">
+                                                            <span class="checkicon" style="padding-right:15px"></span>
+                                                            <span class="stepdetails-txt">{!step.text}</span>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </li>
+                                            </aura:iteration>
+                                        </ul>
+                                    </div>
+                                    
+                                </section>
+                                <aura:if isTrue="{!tab.isduedays}">
+                                    <div id="progressTemplate">
+                                        <div class="show-progress">
+                                            <section class="">
+                                                <div class="header">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar" aria-valuenow="{!v.progressdata.completionPercentage}" aria-valuemin="0" aria-valuemax="100" style="{!'width: '+v.progressdata.completionPercentage+'%;'}"></div>
+                                                        <div class="progress-bar-caption">{!v.progressdata.completionPercentage+' '}%</div>
+                                                    </div>
+                                                </div>
+                                                <div class="progress-content">
+                                                    <div class="complete-state"><i class="fa fa-check"></i></div>
+                                                    <div class="content">
+                                                        <aura:if isTrue="{!(!(v.progressdata.isWarning))}">
+                                                            <span class="calendar">
+                                                                <lightning:icon class="nocolor" iconName="utility:event" size="small" variant="event"/>
+                                                            </span>
+                                                            <span class="daysleft">
+                                                                {!v.progressdata.daysleft+' / '}{!v.progressdata.dueDays+' '}Days Left
+                                                            </span>
+                                                            <aura:set attribute="else">
+                                                                <lightning:icon iconName="utility:warning" class="warningcolor" size="xx-small" variant="warning"/>
+                                                                <span style="color:black;">Past due action required</span>
+                                                            </aura:set>
+                                                        </aura:if>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </aura:if>
+                              
+                            </div>
+                        </div>
+                    </div>
+                </aura:iteration>
+            </section>
+            
+        </div>
+        
+        
+        <div class="demo-only demo-modal modal-independant" style="display:none;">
+            <section  role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-section slds-modal slds-fade-in-open slds-modal_large">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header" style="padding:0px;">
+                        <button class="slds-button modal-close" onclick="{!c.modalclose}"><lightning:icon iconName="utility:close" class="asset-type-icon" variant="close" size="small"></lightning:icon></button>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" > 
+                        <iframe id="iframe-modal" aura:id="iframe-modal-independant" src="" width="100%"></iframe>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </div>
+</aura:component>

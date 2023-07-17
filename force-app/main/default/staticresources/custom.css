@@ -1,0 +1,333 @@
+.divspinner{
+    z-index : 1 !important;
+}
+/* global font */
+.ampdashboard {
+	font-family: Raleway,'Salesforce Sans',Arial,sans-serif;
+}
+
+/* common css start*/
+button, input, optgroup, select, textarea{
+	outline: 0;
+}
+.mmdashboard{
+    overflow:hidden;
+}
+/* common css end*/
+
+/* common widget css */
+.ampdashboard .widget-container {
+    background-color: #f4f6f9;
+}
+.demo-modal .slds-modal__content{
+    overflow-y: hidden !important;
+}
+.ampdashboard .widget {
+    background-color: #fff;
+    /* margin-bottom: 20px; */
+	margin-bottom: 0;
+    padding: 0;
+	border-radius: .25rem;
+    border: 1px solid #dddbda;
+}
+.ampdashboard .widget > .widget-header .slds-dropdown--left {
+    left: auto!important;
+    right: 0!important;
+}
+.ampdashboard .widget > .widget-header {
+	height: 40px;
+	border: none;
+	padding: 0.5rem 0.8rem;
+	border-bottom: 1px solid #d9dbdd;
+}
+.ampdashboard .widget > .widget-content{
+    border: 0;
+	min-height: 300px;
+}
+.ampdashboard .widget .header-dropdown-right{
+    float: right;
+    margin-top: -6px;
+}
+.ampdashboard .widget .header-icon{
+	margin-right: 4px;
+}
+
+/* widget shadow css start */
+.statuswidget_option_c, .bggray.quicklink-grid, iframe#interactivebanner, .sec-view-assets, .marketing-list{
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 3px 6px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.1);
+    -webkit-transition: -webkit-box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
+    transition: -webkit-box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
+    transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
+    transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1), -webkit-box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
+}
+.statuswidget_option_c:hover, .bggray.quicklink-grid:hover, iframe#interactivebanner:hover, .sec-view-assets:hover, .marketing-list:hover{
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 3px 6px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.2);
+}
+/* widget shadow css end */
+
+/* ========= UI FIXES START ========= */
+
+/* one extra scroll removed from modal */
+.slds-modal .slds-modal__content {
+    overflow-y: auto !important;
+    padding: 10px;
+}
+/* needed to remove another scroll */
+html.modal-open > body {
+    overflow: hidden!important;
+}
+@media only screen  and (min-width : 1025px) {
+	/* modal fullscreen issue fixed */
+	html.modal-open .slds-modal .slds-modal__container {
+		position: fixed!important;
+		top: 1vh!important;
+		left: 1vw!important;
+		width: 98vw!important;
+		height: 98vh!important;
+		z-index: 99999!important;
+	}	
+}
+html.modal-open .viewport .oneHeader.slds-global-header_container {
+    z-index: 0;
+}
+html.modal-open  .slds-modal {
+    outline: none;
+}
+
+.bggray{
+	background-color: #d1d2d4;
+	margin-bottom: 15px;
+}
+.grid-padding{
+	padding: 10px 15px;
+}
+
+.announcements strong, .announcements b {
+    text-transform: capitalize;
+}
+
+.rotate-me, .rotate-icon lightning-icon {
+  -webkit-animation: rotate-me 2s infinite linear;
+  animation: rotate-me 2s infinite linear;
+}
+@-webkit-keyframes rotate-me {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@keyframes rotate-me {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+/*@media only screen and (min-width : 1025px) {
+	.internalPlaybooksection .iplaybookv1 .slds-p-around--small {
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+}*/
+iframe#interactivebanner{
+	margin-bottom: 10px;
+}
+.companySmartList {
+    margin-top: 12px;
+    display: inline-block;
+}
+
+/* ========= UI FIXES END ========= */
+
+/* temporary code */
+.ampdashboard  .statuswidget .divspinner{
+	left: -15px;
+}
+.CPAnnouncement.cAnnouncement {
+    margin-bottom: 15px;
+}
+.widget.cStaticContent:hover {
+    border-color: #1589ee;
+}
+.cAMPQuickLinkWidgetDesign1 .quicklinkdesignbutton2 .design2 .template:hover .datalisting ul li a {
+    color: white;
+    border-color: #fff;
+}
+.cAMPQuickLinkWidgetDesign2 .quicklinkdesignbutton2 .design2 .template:hover .datalisting ul li a {
+    color: white;
+    border-color: #fff;
+}
+.cCenterPanel{
+    margin-top:0px !important;
+}
+.alert{
+	margin-bottom: 20px;
+    margin-top: 0;
+    padding: 5px 15px 5px 34px;
+    color: #675100;
+    border-width: 0;
+    border-left-width: 5px;
+    padding: 10px;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+        border-left: 5px solid;
+}
+.alert.alert-info{
+    border-color: #9cb4c5;
+    color: #305d8c;
+    background: #d6dde7;
+    border-left-width: 5px;
+    padding: 10px;
+}
+.alert.alert-success{
+    border-color: #8ac38b;
+    color: #356635;
+    background: #cde0c4;
+}
+.alert.alert-danger{
+    border-color: #953b39;
+    color: #fff;
+    background: #c26565;
+    text-shadow: none;
+}
+.alert.alert-warning{
+	border-color: #dfb56c;
+    color: #826430;
+    background: #efe1b3;
+}
+
+/*New Asset UI*/
+ .inbox-nav-bar {
+    margin: 0 0 30px;
+}
+ .inbox-views {
+    display: inline-block;
+    float: right;
+}
+ .folder-title > button {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+ .folder-title > b {
+    display: block;
+    text-align: center;
+    font-size:17px
+}
+
+ .folder-title {
+    position: relative;
+    margin-right: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+
+ .clearfix:after{
+  content: "";
+  display: table;
+  clear: both;
+}
+
+ .each-folder > .filter-label {
+    float: left;
+    margin-left: 20px;
+    display: inline-block;
+}
+ .each-folder > .filter-checkbox {
+    width: 20px;
+    position: absolute;
+    left: 0;
+}
+ .each-folder {
+    margin: 2px 0;
+    position: relative;
+}
+.text-trim {
+    width: 100%;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.slds-box {
+    margin-bottom: 10px;
+}
+
+.slds-box .thumb-img-sm {
+    max-width: 100px;
+    max-height: 100px;
+}
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+/*End New Asset UI*/
+/*Added changes of Asset UI*/
+
+/*Asset UI Changes End*/
+/*.tosModal .slds-modal__container{
+   max-width: 80rem;
+    width:100%;
+}
+.tosModal .slds-modal__container iframe{
+    height:100vh;
+}*/
+//modal large css
+.modal-independant .slds-modal.modal-xlg .slds-modal__container {
+    width: calc( 100% - 30px ) !important;
+    height: calc( 100vh - 25px ) !important;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.modal-independant .slds-modal.modal-xlg .modal-close {
+    top: 14px;
+    right: 10px;
+}
+
+.modal-independant .slds-modal.modal-xlg .asset-type-icon .slds-icon {
+    fill: #333 !important;
+}
+.slds-backdrop_open, .slds-backdrop--open {
+    background-color: #000;
+    opacity: 0.9;
+}
+
+.displaynone{
+    display:none !important;
+}
+
+.cursorpointer{
+    cursor:pointer;
+}
+.margin-top-20{
+    float:left;
+    width:100%;
+}
+.margin-top-20 iframe{
+    float:left;
+    width:100%;
+}
+.div-position{
+    float:left;
+    width:100%;
+}
+.div-position iframe{
+    float:left;
+    width:100%;
+}

@@ -1,0 +1,22 @@
+.THIS .slds-form-element__label.slds-no-flex {
+    display:none;
+}
+.THIS tbody tr{
+    line-height: 40px;
+}
+.THIS tbody tr:nth-child(odd){
+    background: #f9f9f9;
+}
+.THIS thead tr{
+    border-bottom: 2px solid #ddd;
+}
+.THIS thead tr th{
+    color: #5f5d5d;
+    padding:8px;
+}
+.THIS .inactive{
+    display:none;
+}
+.THIS .blue{
+    color:#25B1EF !important;
+}
